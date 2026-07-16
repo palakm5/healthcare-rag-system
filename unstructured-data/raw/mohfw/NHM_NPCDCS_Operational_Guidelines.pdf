@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="title" content="404 :: National Health Mission"/>
+	<meta name="keywords" content="Ministry of Health & Family Welfare-Government of India, Department, Health, Government, Govt, India, Delhi, Family, Welfare, Child, Mother, Disease, Heart, Eye, Ear, Blind"/>
+	<meta name="description" content="Ministry of Health & Family Welfare-Government of India"/>
+	<meta name="author" content="Ministry of Health & Family Welfare-Government of India"/>
+	<title>404 :: National Health Mission</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
+	<script type="applisalonion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<!-- Custom Theme files -->
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/custom.css" rel='stylesheet' type='text/css' />
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<!--/web-font-->
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<!--/script-->
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".scroll").click(function(event){
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+			});
+			$("table").addClass('table table-bordered');
+		});
+	</script>
+	<script src="js/toggle.js"></script>
+	<!--NIC Search-->
+<link rel="icon" type="image/ico" href="images/favicon.ico"/>
+<link rel="stylesheet" href="js/nic/jquery.ui.theme.css">
+<link rel="stylesheet" href="js/nic/jquery.ui.autocomplete.css">
+<script type="text/javascript" src="js/nic/jquery.ui.core.js"></script>
+<script type="text/javascript" src="js/nic/custom_result.js"></script>
+<script type="text/javascript" src="js/nic/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/nic/jquery.ui.autocomplete.js"></script>
+<script type="text/javascript" src="js/nic/jquery.ui.position.js"></script>
+<script  type="text/javascript" src="js/nic/auto.js"> </script>
+<!--
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  -->
+<script>
+	$(document).ready(function()
+	{
+		$('[data-toggle="tooltip"]').tooltip();   
+		$("#q").keyup(function()
+		{
+			if(event.keyCode==13)
+			{
+				modifySettings('q');
+			}
+		});
+		$("#searchbtn").click(function()
+		{
+			modifySettings('q');
+			//alert("clicked");
+		});
+	});
+	//<![CDATA[
+	settings = new Array();
+	settings["searchServer"] = "http://goisas.nic.in";
+	settings["textBoxId"] = "q";
+	settings["callBackFunction"]="callBack";
+	loadSuggestionControls(settings);
+	function callBack()
+	{
+		settings["q"]=document.getElementById('q').value;
+		settings["count"] = "10";
+		settings["site"] = "mohfw.nic.in";
+		loadResultControls(settings);
+	}
+	settings = new Array();
+	settings["searchServer"] = "http://goisas.nic.in";
+	settings["textBoxId"] = "q";
+	settings["q"]="";
+	settings["site"] = "mohfw.nic.in";
+	loadResultControls(settings);
+	function modifySettings(key1)
+	{
+		if(document.getElementById('q').value != null)
+		{
+			$('.article-post, .top_banner, .hide-for-search').hide();
+			$('#result_area').remove();
+			$('.main-header').after('<div class="search_full"><div class="container"><div class="row"><div id="result_area" class="col-md-12" align="left"></div></div></div></div>');
+			$("#result_area").show();
+			settings[key1]=document.getElementById('q').value;
+			settings["count"] = "10";
+			settings["site"] = "mohfw.nic.in";
+			loadResultControls(settings);
+		}
+
+	}
+</script>
+
+
+
+
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+		
+			$("#frm2p").validate({rules:{subject:{required:true},name:{required:true,specialChars:true},addr:{required:true,specialChars:true},mobile:{required:true,number:true,maxlength:12},email:{required:true,email:true},comments:{required:true,specialChars:true},days:{required:true,number:true},T3:{required:true}},messages:{subject:{required:"Please enter subject"},name:{required:"Please enter your name",specialChars:"Sorry, but the following characters\n\r\n\r@ ! $ % ^ & * # ( ) [ ] \\ { + } ` ~ = &gt; &lt; | \n\r\n\rare not allowed!\n"},addr:{required:"Please enter your address",specialChars:"Sorry, but the following characters\n\r\n\r@ ! $ % ^ & * # ( ) [ ] \\ { + } ` ~ = &gt; &lt; | \n\r\n\rare not allowed!\n"},mobile:{required:"Please enter your mobile number",number:"Please enter only number",maxlength:"Please enter max 12 number only"},email:{required:"Please enter your email",email:"Please enter valid email"},comments:{required:"Please enter your query detail",specialChars:"Sorry, but the following characters\n\r\n\r@ ! $ % ^ & * # ( ) [ ] \\ { + } ` ~ = &gt; &lt; | \n\r\n\rare not allowed!\n"},days:{required:"Please enter how many days",number:"Please enter days in numeric"},T3:{required:"Please enter security code"}}});
+			var mikExp=/[$\\,\'\\:\;\/\\.\\<\\>\\!\\@\\\#%\^\&\*\(\)\[\]\+\_\{\}\`\~\=\|]/;$.validator.addMethod("specialChars",function(e,t){var n=e;if(n.search(mikExp)!=-1){return false}return true},"Sorry, but the following characters\n\r\n\r@ ! $ % ^ & * # ( ) [ ] \\ { + } ` ~ = &gt; &lt; | \n\r\n\rare not allowed!\n")
+		});
+		function rdo_act1(id){
+				if(id=="1")
+					document.getElementById('repval').style.display="block";
+				else
+					document.getElementById('repval').style.display="none";
+					document.getElementById('days').value="";
+			}
+	</script>
+ </head>
+<body>
+	<!--start-home-->
+
+	<div class="main-header" id="house">
+		<!--header-top-->
+		<div class="header-strip">
+	<div class="container">
+		<div class="row top-up-head">
+		<div class="col-md-3">
+			<p class="location">
+				<a id="skip-1" class="scroll" href="#skip-nav">Skip Navigation</a>
+			</p>
+			
+			<p class="location screen-padding">
+				<a title="Sitemap" href="sitemap.php?lang=1">Sitemap</a>
+			</p>
+			<p class="location screen-padding">
+								<a class="mainlink resizefont" title="हिंदी" href="404.php?lang=2">हिंदी</a>
+							</p>
+		</div>
+	
+		<div class="col-md-5">
+			<!--<div class="input-group add-on">
+				<input title="Search" type="text" name="q" id="q" class="form-control searchtxttxt ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" />
+				<div class="input-group-btn">
+					<button class="btn btn-default searchbtnbtn" type="submit" name="Update" id="searchbtn"></button>
+				</div>
+			</div>-->
+			
+			<div class="search-container">
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="searchContent()"><i class="glyphicon glyphicon-search"></i></button> 
+    </div>
+
+    <div class="result-info" id="resultInfo"></div>
+
+    <div id="results"></div>
+
+</div> 
+		</div>
+		
+		<div class="col-md-2 social-icons">
+		  <div class="accessibility-toolbar">
+  
+    <button onclick="increaseFont()">A+</button>
+    <button onclick="decreaseFont()">A-</button>
+    <button onclick="toggleDarkMode()">🌙</button>
+    <button onclick="toggleContrast()">⚡</button>
+    <button onclick="resetAccessibility()">Reset</button>
+  </div>
+		</div>
+		<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+  <script>
+    let currentFontSize = 16;
+
+    function increaseFont() {
+      currentFontSize += 2;
+      document.body.style.fontSize = currentFontSize + "px";
+    }
+
+    function decreaseFont() {
+      currentFontSize -= 2;
+
+      if (currentFontSize < 12) {
+        currentFontSize = 12;
+      }
+
+      document.body.style.fontSize = currentFontSize + "px";
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+
+      // remove contrast if active
+      document.body.classList.remove("high-contrast");
+    }
+
+    function toggleContrast() {
+      document.body.classList.toggle("high-contrast");
+
+      // remove dark mode if active
+      document.body.classList.remove("dark-mode");
+    }
+
+    function resetAccessibility() {
+      currentFontSize = 16;
+
+      document.body.style.fontSize = "16px";
+      document.body.classList.remove("dark-mode");
+      document.body.classList.remove("high-contrast");
+    }
+  </script>
+<script>
+
+const websiteData = [
+
+{
+    title:"Home Page",
+    link:"nhm.gov.in",
+    content:"The National Health Policy, 2017 envisages- the attainment of the highest possible level of health and wellbeing for all at all ages, through a preventive and promotive health"
+},
+
+{
+    title:"About Us",
+    link:"https://nhm.gov.in/index4.php?lang=1&level=0&linkid=456&lid=685",
+    content:"We develop government healthcare portals, webinar systems, and educational platforms."
+},
+
+{
+    title:"Services",
+    link:"services.html",
+    content:"Our services include website development, webinar hosting, AI tools, and PHP projects."
+},
+
+{
+    title:"Contact Us",
+    link:"contact.html",
+    content:"Contact us for MCA final year projects, healthcare website development and software support."
+},
+
+{
+    title:"Medical Webinar",
+    link:"webinar.html",
+    content:"Join live medical webinars, online doctor training sessions and healthcare education programs."
+}
+
+]; 
+
+function highlightText(text, keyword){
+
+    let regex = new RegExp(keyword, "gi");
+
+    return text.replace(regex, function(match){
+        return "<mark>" + match + "</mark>";
+    });
+
+}
+
+function searchContent(){
+
+    let keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+
+    let resultsDiv = document.getElementById("results");
+
+    let resultInfo = document.getElementById("resultInfo");
+
+    resultsDiv.innerHTML = "";
+
+    if(keyword === ""){
+
+        resultInfo.innerHTML = "Please enter search keyword";
+        return;
+
+    }
+
+    let found = 0;
+
+    websiteData.forEach(function(page){
+
+        if(
+            page.title.toLowerCase().includes(keyword) ||
+            page.content.toLowerCase().includes(keyword)
+        ){
+
+            found++;
+
+            resultsDiv.innerHTML += `
+
+            <div class="result-item">
+
+                <h3>
+                    <a href="${page.link}">
+                        ${highlightText(page.title, keyword)}
+                    </a>
+                </h3>
+
+                <p>
+                    ${highlightText(page.content, keyword)}
+                </p>
+
+            </div>
+
+            `;
+
+        }
+
+    });
+
+    resultInfo.innerHTML = found + " result(s) found";
+
+    if(found === 0){
+
+        resultsDiv.innerHTML = `
+            <div class="no-result">
+                No matching result found
+            </div>
+        `;
+
+    }
+
+}
+
+document.getElementById("searchInput")
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        searchContent();
+    }
+
+});
+
+</script>		<!--//header-top-->
+
+		<!--header-middle-->
+		﻿<div class="header-middle">
+	<div class="container">
+		<div class="col-md-2 col-md-3 col-xs-3">
+			
+				<img src="/include/logo.png" alt="National Health mission logo" class="emblem-img">
+			
+		</div>
+		<div class="col-lg-9 col-md-6 col-xs-3">
+		<div class="header-top for-dynamic-css-header">
+    <nav class="navbar navbar-default">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div> 
+        
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+        <div class="top-menu">
+          <nav class="menu menu--francisco">
+
+
+            <ul class="nav navbar-nav menu__list ">
+                                                        <li class="menu__item"><a class="menu__link" href="https://nhm.gov.in/" title="Home (Alt + Shift + a)" target="_blank" accesskey="a">Home</a>
+                                                    </li>
+                                                  <li class="menu__item dropdown"><a title="Institutional Mechanism (Alt + Shift + b)" href="index4.php?lang=1&amp;level=0&amp;linkid=456&amp;lid=685" accesskey="b" class="menu__link">Institutional Mechanism</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Empowered Programme Committee" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1292&amp;lid=194" >Empowered Programme Committee</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Mission Steering Group" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1293&amp;lid=193" >Mission Steering Group</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="NHM Components (Alt + Shift + c)" href="index4.php?lang=1&amp;level=0&amp;linkid=353&amp;lid=444" accesskey="c" class="menu__link">NHM Components</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="RMNCAH+N" href="index1.php?lang=1&amp;level=1&amp;sublinkid=794&amp;lid=168" >RMNCAH+N</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Health Systems Strengthening" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1213&amp;lid=167" >Health Systems Strengthening</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Non Communicable Disease Control Programmes" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1041&amp;lid=614" >Non Communicable Disease Control Programmes</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Communicable Disease Control Programme" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1056&amp;lid=616" >Communicable Disease Control Programme</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Infrastructure Maintenance" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1040&amp;lid=345" >Infrastructure Maintenance</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="State Annual Plan (Alt + Shift + d)" href="index4.php?lang=1&amp;level=0&amp;linkid=449&amp;lid=53" accesskey="d" class="menu__link">State Annual Plan</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="State NHM PIPs & ROPs" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1377&amp;lid=744" >State NHM PIPs & ROPs</a></li>
+                                                                            <li class="dropdown-header" ><a  title="ECRP-II" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1376&amp;lid=742" >ECRP-II</a></li>
+                                                                            <li class="dropdown-header" ><a  title="XV- FC Grants for Health" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1442&amp;lid=793" >XV- FC Grants for Health</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Innovation Summit (Alt + Shift + e)" href="index4.php?lang=1&amp;level=0&amp;linkid=450&amp;lid=435" accesskey="e" class="menu__link">Innovation Summit</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="10th National Summit, Chandigarh" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1529&amp;lid=858" >10th National Summit, Chandigarh</a></li>
+                                                                            <li class="dropdown-header" ><a  title="9th National Summit- Puri, Odisha" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1487&amp;lid=838" >9th National Summit- Puri, Odisha</a></li>
+                                                                            <li class="dropdown-header" ><a  title="8th National Summit" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1505&amp;lid=843" >8th National Summit</a></li>
+                                                                            <li class="dropdown-header" ><a  title="7th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-New Delhi" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1370&amp;lid=739" >7th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-New Delhi</a></li>
+                                                                            <li class="dropdown-header" ><a  title="6th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-Gujarat" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1335&amp;lid=715" >6th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-Gujarat</a></li>
+                                                                            <li class="dropdown-header" ><a  title="5th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-Assam" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1151&amp;lid=588" >5th-National Summit on Good & Replicable Practices and Innovations in Public Healthcare Systems-Assam</a></li>
+                                                                            <li class="dropdown-header" ><a  title="4th National Summit on Good, Replicable Practices & Innovations in Public Healthcare Systems-Indore" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1150&amp;lid=647" >4th National Summit on Good, Replicable Practices & Innovations in Public Healthcare Systems-Indore</a></li>
+                                                                            <li class="dropdown-header" ><a  title="3rd National Summit on Good, Replicable Practices & Innovations in Public Healthcare Systems-Tirupati" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1149&amp;lid=646" >3rd National Summit on Good, Replicable Practices & Innovations in Public Healthcare Systems-Tirupati</a></li>
+                                                                            <li class="dropdown-header" ><a  title="2nd National Summit on Good,Replicable Practices & innovations in Public Healthcare Systems-Shimla" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1148&amp;lid=645" >2nd National Summit on Good,Replicable Practices & innovations in Public Healthcare Systems-Shimla</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Monitoring (Alt + Shift + f)" href="index4.php?lang=1&amp;level=0&amp;linkid=174&amp;lid=41" accesskey="f" class="menu__link">Monitoring</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Common Review Mission" href="index1.php?lang=1&amp;level=1&amp;sublinkid=795&amp;lid=195" >Common Review Mission</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Monitoring Reports" href="index1.php?lang=1&amp;level=1&amp;sublinkid=112&amp;lid=205" >Monitoring Reports</a></li>
+                                                                            <li class="dropdown-header" ><a  title="International Advisory Panel" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1236&amp;lid=203" >International Advisory Panel</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Joint Review Mission" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1237&amp;lid=201" >Joint Review Mission</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Communitisation (Alt + Shift + g)" href="index4.php?lang=1&amp;level=0&amp;linkid=37&amp;lid=42" accesskey="g" class="menu__link">Communitisation</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Community Action" href="index1.php?lang=1&amp;level=1&amp;sublinkid=148&amp;lid=224" >Community Action</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Village Health Sanitation & Nutrition Committee" href="index1.php?lang=1&amp;level=1&amp;sublinkid=149&amp;lid=225" >Village Health Sanitation & Nutrition Committee</a></li>
+                                                                            <li class="dropdown-header" ><a  title="About Accredited Social Health Activist (ASHA)" href="index1.php?lang=1&amp;level=1&amp;sublinkid=150&amp;lid=226" >About Accredited Social Health Activist (ASHA)</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Village Health Nutrition Day" href="index1.php?lang=1&amp;level=1&amp;sublinkid=152&amp;lid=228" >Village Health Nutrition Day</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Rogi Kalyan Samities" href="index1.php?lang=1&amp;level=1&amp;sublinkid=153&amp;lid=229" >Rogi Kalyan Samities</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Resources (Alt + Shift + h)" href="index4.php?lang=1&amp;level=0&amp;linkid=39&amp;lid=43" accesskey="h" class="menu__link">Resources</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Reports & Publications." href="index1.php?lang=1&amp;level=1&amp;sublinkid=1161&amp;lid=649" >Reports & Publications.</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Presentations" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1304&amp;lid=688" >Presentations</a></li>
+                                                                            <li class="dropdown-header" ><a  title="NHM Guidelines" href="index1.php?lang=1&amp;level=1&amp;sublinkid=197&amp;lid=136" >NHM Guidelines</a></li>
+                                                                          <li class="dropdown-header"><a href="https://hmis.mohfw.gov.in/#!/" title="Rural Health Statistics (RHS)" >Rural Health Statistics (RHS)</a></li>
+                                                                          <li class="dropdown-header" ><a  title="12th Five Year Plan & HLEG" href="index1.php?lang=1&amp;level=1&amp;sublinkid=191&amp;lid=267" >12th Five Year Plan & HLEG</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="OM & Orders (Alt + Shift + i)" href="index4.php?lang=1&amp;level=0&amp;linkid=416&amp;lid=549" accesskey="i" class="menu__link">OM & Orders</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="India COVID-19 ER&HSP Package" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1365&amp;lid=733" >India COVID-19 ER&HSP Package</a></li>
+                                                                            <li class="dropdown-header" ><a  title="COVID-19" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1339&amp;lid=720" >COVID-19</a></li>
+                                                                            <li class="dropdown-header" ><a  title="EPC/MSG/CRM" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1328&amp;lid=707" >EPC/MSG/CRM</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Health Systems Strengthening+" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1174&amp;lid=655" >Health Systems Strengthening+</a></li>
+                                                                            <li class="dropdown-header" ><a  title="State Annual Plan+" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1235&amp;lid=659" >State Annual Plan+</a></li>
+                                                                            <li class="dropdown-header" ><a  title="NCD" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1320&amp;lid=698" >NCD</a></li>
+                                                                            <li class="dropdown-header" ><a  title="NHM Finance - FMG" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1039&amp;lid=166" >NHM Finance - FMG</a></li>
+                                                                            <li class="dropdown-header" ><a  title="Innovation Summit+" href="index1.php?lang=1&amp;level=1&amp;sublinkid=798&amp;lid=553" >Innovation Summit+</a></li>
+                                                                            <li class="dropdown-header" ><a  title="RMNCH+A+" href="index1.php?lang=1&amp;level=1&amp;sublinkid=805&amp;lid=557" >RMNCH+A+</a></li>
+                                                                            <li class="dropdown-header" ><a  title="NUHM Orders/letters" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1159&amp;lid=161" >NUHM Orders/letters</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Media (Alt + Shift + j)" href="index4.php?lang=1&amp;level=0&amp;linkid=41&amp;lid=45" accesskey="j" class="menu__link">Media</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Newsletters" href="index1.php?lang=1&amp;level=1&amp;sublinkid=206&amp;lid=277" >Newsletters</a></li>
+                                                                          <li class="dropdown-header"><a href="photogallery.php" title="Photo Gallery" >Photo Gallery</a></li>
+                                                                          <li class="dropdown-header" ><a  title="Archives" href="index1.php?lang=1&amp;level=1&amp;sublinkid=1241&amp;lid=620" >Archives</a></li>
+                                                                </ul>
+                                                  </li>
+                                                  <li class="menu__item dropdown"><a title="Contact Us (Alt + Shift + k)" href="index4.php?lang=1&amp;level=0&amp;linkid=1&amp;lid=1" accesskey="k" class="menu__link">Contact Us</a>
+                                                    <ul class="dropdown-menu">
+                                                                  <li class="dropdown-header" ><a  title="Web Information Manager" href="index1.php?lang=1&amp;level=1&amp;sublinkid=203&amp;lid=23" >Web Information Manager</a></li>
+                                                                          <li class="dropdown-header"><a href="https://www.mohfw-dohfw.gov.in/connect/directory?page=1" title="MoHFW Officials List" >MoHFW Officials List</a></li>
+                                                                          <li class="dropdown-header" ><a  title="States/UTs Official" href="index1.php?lang=1&amp;level=1&amp;sublinkid=23&amp;lid=51" >States/UTs Official</a></li>
+                                                                </ul>
+                                                  </li>
+                                    </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="clearfix"></div>
+
+</div>
+</div>
+
+		<!--<div class="col-md-7 title-area">
+			<center>
+				<h1><span>राष्ट्रीय स्वास्थ्य मिशन</span></h1>
+				<h1><span style="letter-spacing:3px;margin-bottom: -40px;">National Health Mission</span></h1>
+			</center>
+		</div>-->
+			
+		
+		<div class="col-lg-1 col-md-3 col-xs-6">
+			<!--<div class="col-sm-4">
+				<center>
+					<div class="india-flag"><img src="images/logo/india_flag.jpg" alt="" width="60" height="44"></div>
+				</center>
+			</div>
+			<div class="col-sm-6">
+				<div class="emblem-img"><img src="images/logo/emblem_back.png" alt=""></div>
+			</div>-->
+			
+			<div class="home_logo_left "><img src="https://nhm.gov.in/images/logo/logo.jpg" alt=""></div>
+		</div>
+		<!--<div class="col-md-2">
+			<center>
+                <a href="https://www.mohfw.gov.in/"><img src="/images/coronavirus/coronavirus.gif" class="header-margin" width="100%" style="
+    margin-top: 1rem;"></a>
+			</center>
+		</div>-->
+	</div>
+</div>
+<div id="skip-nav"></div>  		<!--//header-middle-->
+
+		<!--menu-bar-nav-->
+		
+
+
+<!--<div class="hdhf" style="
+    display: flex;
+"><div class="sd" style="
+    width: 8%;
+    background-color: #003366;
+    color: #fff;
+    padding: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    /* height: 25px; */
+">What's New ?</div>
+    <div class="sdf" style="
+    width: 100%;
+    height: 25px;
+"><marquee width="100%" direction="left" height="" style="background: #c6c3a6;color: #ffffff;padding: 7px;font-size: 12px;font-weight: 600;transition: color 0.3s;/* margin-bottom: -7px; */">
+  <a href="https://nhm.gov.in/New-Update-2025-26/NFHS-6-factsheet.pdf" target="_blank"> National Family Health Survey (NFHS-6), 2023-24</a>&nbsp; &nbsp; | &nbsp; &nbsp; <a href="https://nhm.gov.in/New-Update-2025-26/NHA-2022-23-Report.pdf" target="_blank"> National Health Accounts Estimates for India 2022-23</a>
+    
+</marquee></div></div>
+  
+</marquee>-->
+
+          <div class="header-top generated-nav-background">
+        <div class="container">
+          <div class="breadcrumb"><a href="index.php">Home</a>
+            &nbsp;&raquo;&nbsp;<a href='' title='404'>404</a>   
+          </div>
+        </div>
+      </div>
+      		</div>   		<!--//menu-bar-nav-->
+	</div>
+	<!--//header-top-->
+	<!--/single-->
+	<div class="single">
+		<div class="container">
+			<div class="article-post w3l">
+				<script type='text/javascript'>window.location="index.php"</script>

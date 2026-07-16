@@ -1,0 +1,225 @@
+SOURCE: https://web.archive.org/web/2024/https://www.nhp.gov.in/disease/respiratory/lungs/tuberculosis
+TITLE: NHP_Tuberculosis
+SOURCE_TAG: nhp
+SCRAPED: 2026-06-01 09:45:47.341552
+
+MENU
+Home
+About NHP
+Organization Chart
+Quick Navigation
+Healthy Lifestyle
+Adolescent Health
+Women's Health
+Pregnancy
+Travel Health
+More
+Oral Health
+Symptoms one should not ignore
+Healthy Nutrition
+Healthy Diet
+Alcohol Use Disorder
+Disease/ Conditions Information
+Disease / Conditions : A-Z
+Drugs and Pharmaceuticals
+First Aid
+Interactive Tutorials
+Public Health Alerts
+Directory Services and Regulations
+Committees and Commissions
+Directory Services
+Health Policies
+Standards and Protocols
+Governance / Laws / Bills / Acts
+Redressal Mechanism
+Insurance Schemes
+Professional Enhancement
+Careers
+e-Learning
+Professional news
+Electronic Health Record Standards For India Helpdesk
+Professional Resources
+AYUSH
+Ayurveda
+Yoga
+Unani
+Siddha
+Homoeopathy
+Naturopathy
+Spirituality and Health
+Miscellaneous
+Disaster Management
+Health Programmes
+General Forum
+Professional Forum
+General News
+More
+Healthcare Innovations
+Millennium Development Goals (MDGs)
+Universal Health Coverage
+External Useful Links
+Useful Links
+State Health Websites
+m-Health
+Telemedicine
+Donations
+Emergency Helpline
+Health Widgets
+Notifications from Health Ministry
+Remote Medical Devices
+Feedback
+FAQ's
+Tenders
+Contact Us
+Healthy India
+Close Menu
+Home
+Disease A-Z
+T
+Tuberculosis
+Introduction
+Symptoms
+Causes
+Diagnosis
+Management
+Prevention
+Tuberculosis (TB) is an infectious disease caused by Mycobacterium tuberculosis. Tuberculosis commonly affects   the lungs, but can also affect other parts of the body. It  spreads from person to person through the air, when people who are infected with TB infection
+cough
+, sneeze or otherwise transmit respiratory fluids through the air.
+About one-quarter of the world’s population is estimated to be infected by TB bacteria but out of these only 5-15% of people will fall ill with active TB disease. The rest have TB infection with no illness and cannot transmit the disease. According to WHO, an estimated 9.9 million people fell ill with TB and 1.5 million people died globally in 2020, despite being a preventable and curable disease.
+India notified more than 2.4 million TB cases in 2019, it continues to have the largest share of the global TB burden. India’s National TB Elimination Programme (earlier known as Revised National TB Control Programme) is strengthened to meet the goal of ending the TB epidemic by 2025 from the country, five years ahead of the Sustainable Development Goals (SDG) for 2030. The National Strategic Plan for Tuberculosis Elimination 2017-2025 was developed to achieve the goal.
+References:
+https://www.who.int/health-topics/tuberculosis#tab=tab_1/
+https://tbcindia.gov.in/
+https://tbcindia.gov.in/showfile.php?lid=3543
+Tuberculosis most commonly affects the lungs. Common symptoms of active lung TB   are:
+A persistent cough of more than two weeks that brings up phlegm and blood at times
+Breathlessness, which is usually mild to begin with and gradually gets worse
+Lack of appetite and weight loss
+A high temperature of 38ºC (100.4ºF) or above
+Extreme tiredness or fatigue
+Night sweats
+Chest pains
+Less commonly TB infection  can   occure  in other organs of the body, as  :
+Lymph nodes  , bones and joints, digestive system, nervous system, bladder and reproductive system. This is known as extra pulmonary TB. Symptoms of extra pulmonary TB vary according to organ/system affected. Extra pulmonary TB is more common in people with a weakened immune system, such as those with
+HIV
+.
+Reference:
+www.nhs.uk
+The main cause of TB is Mycobacterium tuberculosis, a small, aerobics, non motile bacillus. TB spread when a person with an active TB infection in their lungs coughs or sneezes and someone else inhales the expelled droplets containing TB bacteria.
+Risks factors:
+The most common risk factor associated with TB is HIV and other conditions that impair the immune system.
+Other factors include:
+Tobacco use
+Malnutrition
+Alcoholism
+Reference:
+www.cdc.gov
+Symptomatic Diagnosis: Coughing for more than 2 weeks, loss of weight, loss of appetite, fever and night sweats, fatigue are common symptoms of tuberculosis. If someone has these symptoms, one should seek medical advice to check whether it is tuberculosis.
+Blood tests
+Sputum examination-
+Samples of mucous and phlegm are checked for the presence of bacteria.
+Chest X-ray:
+This uses radiation to create an image of lungs. In TB infection, there are changes in the structure of lungs, which of lungs, are visible on the X-ray.
+Drug susceptibility testing:
+It provides a definitive diagnosis of drug- resistant TB.
+CBNAAT (Cartridges Based Nucleic Acid Amplification Test):
+CBNAAT is used for early diagnosis of MDR-TB and TB in high risk population such as presumptive TB cases in PLHIV (people living with HIV), EP-TB (extra-pulmonary TB) and pediatric populations.  The CB NAAT machines have been placed at most of the districts in the country at headquarter or Medical College, ART Center or major Pediatric hospitals.
+For TB of extra pulmonary sites. Diagnosis includes:
+Computerized tomography (CT) scan
+: A series of X-rays of body is taken at slightly different angles and a computer puts the images together to create a detailed picture of the inside of body.
+Magnetic resonance imaging (MRI) scan
+: A magnetic field and radio waves are used to produce detailed images of the inside of body.
+Ultrasound scan
+: High-frequency sound waves create an image of part of the inside of the body.
+Urine tests
+Biopsy
+: A small tissue sample is taken from the affected site and tested for the presence of disease.
+References:
+www.tbdots.com
+www.nhs.uk
+Tuberculosis is completely curable.
+Initiation of appropriate anti-TB treatment wherever patients seek care (public or private health services) and sustaining all TB patients on complete treatment with patient friendly system and social support are important measures under RNTCP.
+All health care providers (both public and private providers), laboratories and chemists have to notify the TB cases to local government health authorities (according to Ministry of Health and Family Welfare, Government of India, Gazette notification, March 2018). Notification of cases is done  with the case-based web-based TB surveillance system called
+“NIKSHAY”
+(
+https://nikshay.gov.in
+).
+Free TB drugs are provided under the programme in the form of daily fixed dose combinations (FDCs) for all TB cases on the strategy of directly observed therapy (DOT).
+DOT is a specific strategy, to improve adherence by any person observing the patient taking medications in real time. The treatment observer does not need to be a health-care worker, but could be a friend, a relative or a lay person who works as a treatment supervisor or supporter. If treatment is incomplete, patients may not be cured and drug resistance may develop.
+Screening of all patients for rifampicin resistance (and for additional drugs wherever indicated) is done. For drug sensitive TB, daily fixed dose combinations (FDCs) of first-line anti-tuberculosis drugs in appropriate weight bands for all forms of TB and in all ages are recommended. Treatment includes two phases- intensive phase and continuation phase.
+For new TB cases
+, the treatment in intensive phase (IP) consists of four drugs FDCs- Isoniazid (INH), Rifampicin, Pyrazinamide and Ethambutol (HRZE) in daily doses (as per four weight band categories) for eight weeks and in continuation phase three drugs FDCs with Rifampicin, Isoniazid, and Ethambutol (HRE) are continued for 16 weeks.
+For previously treated cases of TB
+, the intensive phase is of 12 weeks, where injection streptomycin is given for eight weeks along with four drugs FDCs (INH, Rifampicin, Pyrazinamide and Ethambutol) in daily doses (as per weight bands) and after eight weeks streptomycin is stopped, the four drugs FDCs (INH, Rifampicin, Pyrazinamide and Ethambutol) are continued for another four weeks. In continuation phase FDCs containing Rifampicin, INH, and Ethambutol are given for another 20 weeks as daily doses.
+The continuation phase in both new and previously treated cases may be extended by 12-24 weeks in certain forms of TB like skeletal, disseminated TB based on clinical decision of the treating physician.
+Patients eligible for retreatment should be referred for a rapid molecular test or drug susceptibility testing to determine at least rifampicin resistance, and preferably also isoniazid resistance status. On the basis of the drug susceptibility profile, a standard first-line treatment regimen (2HRZE/4HR) can be repeated if no resistance is documented; and if rifampicin resistance is present, shorter regimen for MDR-TB (multi drug resistant TB) regimen should be prescribed according to WHO’s recent drug resistant TB treatment guidelines.
+RNTCP has introduced a new drug bedaquiline for MDR-TB under conditional access programme in 2016 across six sites, with a country wide scale up plan in 2017-2020.
+Nikshya poshak yozana:
+For encouraging good nutrition during treatment period financial incentive of Rs.500/- per month is provided as a nutritional support to each notified TB patient for duration for which the patient is on anti-TB treatment. Incentives are delivered through direct benefit transfer (DBT) scheme to bank accounts of beneficiary.
+Detailed information about TB management can be seen at:
+National Tuberculosis Elimination Programme
+National strategic plan for tuberculosis elimination 2017-2015
+Reference-
+https://tbcindia.gov.in/WriteReadData/NSP%20Draft%2020.02.2017%201.pdf
+With the objective to prevent emergence of TB in susceptible population various measures are indicated:
+a)
+Air borne infection control measures
+-TB infection control is a combination of measures aimed at minimizing the risk of TB transmission in community, hospitals and other settings. Various infection control measures are:
+Early diagnosis, and proper management of TB patients.
+Health education about cough etiquettes and proper disposal of sputum by patient. Cough etiquette means covering nose and mouth when coughing or sneezing. This can be done with a tissue, or if the person doesn’t have a tissue they can cough or sneeze into their upper sleeve or elbow, but they should not cough or sneeze into their hands. The tissue should then be safely disposed of.
+Houses should be adequately ventilated.
+Proper use of air borne infection control measures in health care facilities and other settings.
+B) Contact tracing
+-Since transmission can occur from index case to the contact any time (before diagnosis or during treatment) all contacts of TB patients must be evaluated. These groups include:
+All close contacts, especially household contacts
+In case of paediatric TB patients, reverse contact tracing for search of any active TB case in the household of the child must be undertaken.
+Particular attention will be paid to contacts with the highest susceptibility to TB infection
+C) Isoniazid preventive therapy-
+Preventive therapy is recommended to Children < 6 years of age, who are close contacts of a TB patient. These children should be evaluated for active TB by a medical officer/ pediatrician and after excluding active TB he/she should be given INH preventive therapy.
+In addition to above, INH preventive therapy will be considered in following situation: -
+For all HIV infected children who either had a known exposure to an infectious TB case or are Tuberculin skin test (TST) positive (>=5mm induration) but have no active TB disease.
+All TST positive children who are receiving immunosuppressive therapy (e.g. Children with nephrotic syndrome, acute leukemia, etc.).
+A child born to mother who was diagnosed to have TB in pregnancy will receive prophylaxis for 6 months, provided congenital TB has been ruled out. BCG vaccination can be given at birth even if INH preventive therapy is planned.
+Close contacts of index cases with proven DR-TB (drug resistant TB) will be monitored closely for signs and symptoms of active TB as isoniazid may not be prophylactic in these cases.
+D)
+BCG vaccination
+- It is provided at birth or as early as possible till one year of age. BCG vaccine has a protective effect against meningitis and disseminated TB in children.
+E)
+Addressing social determinants of TB like poverty, malnutrition, urbanization, indoor air pollution, etc. requires inter departmental/ ministerial coordinated activities.
+Reference:
+https://tbcindia.gov.in/WriteReadData/NSP%20Draft%2020.02.2017%201.pdf
+Related Pages
+Phlyctenular Keratoconjunctivitis
+Disabilities
+Leprosy
+Osteomyelitis
+Dacryoadenitis
+Yaws
+Chronic obstructive pulmonary disease (COPD)
+Preterm birth
+Major Works of Dr. Samuel Hahnemann on Homeopathy
+Rasayana
+Mission Indradhanush
+यात्रा स्वास्थ्य
+General Hygiene in Ayurveda (SVASTHAVṚTTA)
+Immunization
+Travel Health
+Professional News
+Bhuin Amla
+Filfil Moya
+Standards and Protocols
+Effects of Tobacco on Health
+CREATED / VALIDATED BY
+: NHP CC DC
+LAST UPDATED ON
+: Mar 25, 2022
+Discussion
+You would need to
+login
+or
+signup
+to start a Discussion
+Write your comments
+This question is for preventing automated spam submissions
+The content on this page has been supervised by the Nodal Officer, Project Director and Assistant Director (Medical) of Centre for Health Informatics. Relevant references are cited on each page.

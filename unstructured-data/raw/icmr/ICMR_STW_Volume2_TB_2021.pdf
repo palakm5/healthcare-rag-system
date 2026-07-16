@@ -1,0 +1,2309 @@
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    
+    <!-- Required meta tags -->
+
+    <title> Exception(404)  | Indian Council of Medical Research | Government of India</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="w3uh04gyzGtdRVYUcX-qp4n5nUMMpOZGXXqVGbJsZ08" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://www.icmr.gov.in/icmrobject/static/icmr/dist/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+     
+        
+            <meta name="title" content="Home | Indian Council of Medical Research">
+              
+          
+            <meta name="keywords" content="Indian Council of Medical Research, ICMR">
+          
+          
+            <meta name="description" content="issued by the Indian Council of Medical Research (ICMR).">
+         
+    
+
+    
+
+    
+    
+        <link type="text/css" rel="stylesheet" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/deploy/app.min.css?rel=2026031803"/>
+        <!-- <link type="text/css" rel="stylesheet" href="https://www.icmr.gov.in/icmrobject/static/icmr/dist/deploy/app.min.css?rel=2026031803" integrity="sha256-KztJILCmxlTTy5IqcDGeTEwiuy1yowsDSQKn5NV5iUg="/> -->
+   
+        
+     
+    <style>
+        /* Custom fallback CSS (initially not applied) */
+        /* .fallback-style {
+            color: #333
+        }
+        .fallback-style .owl-stage {
+            display: flex;
+        }
+        .fallback-style .mapSection.mTabView .map-section img {
+            width: 300px;
+        }
+        .fallback-style .loading {
+            width: 50px !important;
+            height: auto !important; 
+        }
+        .fallback-style .v-darkMode {
+            display: none !important
+        }
+        .fallback-style ul {
+            display: flex;
+        }
+        .fallback-style ul li {
+            list-style: none;
+        }
+        .fallback-style .top-action__list {
+            display: flex;
+        }
+        .fallback-style .top-action__list li a img {
+            width: 25px !important;
+            height: auto !important;  
+        }
+        .fallback-style .global-navs__items-label img {
+            width: 20px;  
+        }
+        .fallback-style .main-nav__navigation .responsive-icon img {
+            display: none; 
+        }
+        .fallback-style.global-navs__grid {
+            display: flex;;
+        }
+        .fallback-style .global-navs__grid .global-navs__list {
+            margin-left: 15px;
+        }
+        .fallback-style.keyWebsite .owl-item .cardView__content p .cardView.design3 img {
+            width: 40px !important;
+            height: auto !important;
+        }
+        .fallback-style .cardView__content {
+            background: rgba(255, 255, 255, 0.9);
+        } */
+    </style>
+    <style>
+   
+        .state_detail {
+            display: none;
+        }
+    
+        .state_detail.active {
+            display: block;
+        }
+        .highlight {
+            background-color: #e9870d;
+        }
+    </style>
+
+   
+
+    
+        <style>.linkIcon{
+ 	width: 18px;
+}
+.pp-text {
+	color: red;
+}
+.content-list-flex{
+    gap: 2rem;
+}
+.ls-srivijayapuram {
+top: 526px;
+    left: 455px;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-nagpur {
+    top: 344px;
+    left: 210px;
+}
+
+.footer__top-counter .counter .label {
+color:#FF7247;}
+
+.tabview__container .nav-tabs .nav-link.active {
+color: #014271;
+}
+
+.tabview__container .nav-tabs .nav-link.active:before, .tabview__container .nav-tabs .nav-link:hover:before {
+background: #8E2100;
+}
+
+.tabview__container-header .viewMore {
+color: #014271;
+}
+
+.theme__btn--orange {
+background-color: #A92700;
+}
+
+.orangeNew {
+background-color: #A92700 !important;
+}
+.fileIcon .u-image {
+width:25px;
+}
+
+
+.fileIconDetails {
+margin: 0px 10px ;}
+
+.brdColor {
+color:#0090F7 !important;
+}
+.newBtn{
+color: #fff !important;
+background-color: #f15929 !important;
+font-size: 13px !important;
+}
+.accordion-focus{
+      outline: 2px solid #005fcc; 
+    outline-offset: 2px;
+}
+
+.cusBlue {
+color:#FFFFFF !important;}
+
+.item22.orange span {
+color:#FFFFFF !important;
+}
+
+.lightBlue {
+color:#6DA8FF;}
+
+.cusiconView {
+
+    width: 50px !important;
+    height: 60px !important;
+    border-radius: 0 !important;
+}
+.u-focus{
+	outline: 2px solid #005fcc;
+    outline-offset: 2px;
+	border-radius: 5px;
+}
+.cus-text-secondary{
+  color: #4E90F1 !important;
+}
+.cus-hover-secondary:hover{
+  color: #D84315 !important;
+}
+.cus-theme__btn{
+  color: #B52A00 !important;
+}
+
+.cus-orange-h3 {
+color:#FF6B3A !important;
+}
+.cus-underline{
+  text-decoration: underline !important;
+}
+
+.cus-border{
+      border-bottom: 2px solid #F1BEAC !important;
+}
+.cus-linkColor{
+  color: #0A5AD3 !important;
+}
+
+.cus-pdficon{
+  width: 20px !important;
+  height: 20px !important;
+}
+.cus-label{
+  margin-left: 5px;
+}
+.cus-linkChange{
+  justify-content: flex-start !important;
+  gap: 5px !important;
+  width: fit-content !important;
+}
+.cus-linkChange .title{
+  color: #000 !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+	font-size: 14px !important;
+}
+
+.adminView__sidebar-item a {
+color:#22356c;}
+
+.ispl_wrapper__container_btn {
+       background-color: #A92700 !important;
+}
+
+a:focus {
+    outline: 2px solid #005fcc; 
+    outline-offset: 2px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  
+  .homeSpecific .cardView:before {
+    background: linear-gradient(0deg, #000 20%, rgba(255, 255, 255, 0) 100%);
+}
+
+
+.brdColor {
+ color: #74B5FF !important;
+}
+
+.timelineView .timeline-slide .timelineText {
+    background: #BB401A !important;
+}
+
+.tableView tbody td a:hover {
+    color: #BD2C00 !important;
+}
+
+.accordionView .card .card-header button:focus-visible {
+  border: 2px solid red;
+}
+
+.accordionView .card:focus-visible {
+  border: 2px solid red;
+}
+
+.cus-hover-secondary:hover {
+    color: #A92F0A !important;
+}
+
+.accordionView .card .card-header .btn.collapsed:focus-visible {
+  border: 2px solid red;
+}
+
+.formView .form-control::placeholder {
+color:#545F67 !important;}
+
+.keyText {
+    border-bottom: 2px solid white !important;}
+	
+	.breadcrumb .breadcrumb-item {
+    color: #44ABF5 !important;
+}
+
+.custext-white {
+color: white !important;
+}
+
+.newTestClass {color: red !important;}
+
+.cuscontent {
+    margin-left: 15px !important;
+    color: #2154e9 !important;
+    font-size: 14px !important;
+	white-space: nowrap !important;
+}
+
+.mr20 {
+margin-right: 20px !important;
+}
+
+.mr10 {
+margin-right: 10px !important;
+}
+.test{
+color:red;
+}
+
+.global-navs-xs.design1 .global-navs__list.dropdown .global-navs__grid {
+    flex-direction: column !important;
+}
+
+.footer__menu {
+    display: flex;
+    flex-direction: column !important;
+}
+
+
+.counters .counters__item img {
+  width: auto !important;
+}
+
+.main-nav__menu .top-action.logoView .top-action__list .top-action__item .top-action__link .u-img {
+width: auto !important;
+}
+
+.accordionView ul {
+flex-direction: column !important;
+}
+
+.maxwd25 {
+    max-width: 25px !important;
+}
+
+.downloadBtn {
+background: white;
+    border: 1px solid #bcbdc0;
+    border-radius: 24px;
+    padding: 10px;
+	color: black;
+	}
+	
+	.maxwidth {
+	 max-width: 150px;
+    padding: 5px;
+	}
+	
+	.accordionNew {
+    display: flex;
+    border-bottom: 1px solid var(--trinetry);
+    margin-bottom: 20px;
+	max-height: 80px;
+}
+
+
+.linkViewV2 {
+    background: white;
+    border: 1px solid #bcbdc0;
+    display: flex;
+    padding: 10px;
+    width: auto;
+    max-height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.downloadImg {
+width:22px
+}
+
+.accordionNew .linkView {
+    width: auto !important;
+    border: none !important;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+	}
+	
+	
+	 .lineStructure {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+	.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner {
+		margin-left: -40px;
+	}
+    .lineStructure.col5V .lineStructure__container-item:nth-child(3)::before {
+        left: 0px;
+    }
+	.lineStructure.col5V .lineStructure__container-item:nth-child(3)::after {
+		/* content: &#x27;&#x27;; */
+		height: 1px;
+		width: 353px;
+		background: #000000;
+		display: block;
+		position: absolute;
+		top: 53px;
+		left: 0px;
+	}
+	.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner  {
+		margin-top: 70px;
+	}
+	.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner-container-item {
+		background: #41D235;
+	}
+	.lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner-container-item, .lineStructure.col5V .lineStructure__container-item:nth-child(5) .lineStructure__inner-container-item, .lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner-head, .lineStructure.col5V .lineStructure__container-item:nth-child(5) .lineStructure__inner-head {
+		background: #EA0002;
+	}
+    .lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner  {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner-container {
+        padding-left: 0px;
+        position: relative;
+        z-index: 9;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner .lineStructure__inner-head   {
+        margin-left: 0px;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner .lineStructure__inner-head {
+       margin-left: 0px;
+       right: -75px;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner .lineStructure__inner-container {
+        padding-left: 0px; 
+        padding-right: 20px;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(4) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(5) .lineStructure__inner-container {
+        padding-left: 0px;
+        padding-right: 20px;
+    }
+    .lineStructure.col5V .lineStructure__container-item:nth-child(5) .lineStructure__inner .lineStructure__inner-container-item:before, .lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner .lineStructure__inner-container-item:before {
+        left: auto;
+        right: -20px;
+    }
+    .lineStructure .lineStructure__title {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0; 
+        padding: 12px 35px;
+        white-space: normal;
+    }
+    .lineStructure .withFloat {
+        position: relative;
+    }
+    .lineStructure .floatItem {
+        position: absolute;
+        left: 90%;
+        bottom: -10px; 
+        background: #666;
+        color: #fff;
+        border: 1px solid #000;
+        border-radius: 4px;
+        padding: 2px 6px;
+        font-size: 10px;
+		min-width: 51px;
+    }
+    .lineStructure .lineStructure__header {
+        text-align: center; 
+    }
+    .lineStructure .lineStructure__header .lineStructure__header-block {
+        background: #000000;
+        color: #fff;
+        text-align: center;
+        display: inline-flex;
+    }
+    .lineStructure .lineStructure__header .lineStructure__header-block:before {
+        /* content: &#x27;&#x27;; */
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        width: 1px;
+        height: 35px;
+        background: #000000;
+    }
+    .lineStructure .lineStructure__container {
+        display: flex;
+        justify-content: space-between; 
+    }
+    .lineStructure .lineStructure__container {
+        margin-top: 35px;
+        border-top: 1px solid #000;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item {
+        /* margin: 0 auto; */
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:before {
+        /* content: &#x27;&#x27;; */
+        position: absolute;
+        top: 0px;
+        /* left: 50%; */
+        transform: translateX(-50%);
+        display: block;
+        width: 1px;
+        height: 100%;
+        background: #000000;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:first-child:before {
+        left: 0;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:last-child:before {
+        right: 0;
+        left: auto
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:last-child {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:last-child .lineStructure__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .lineStructure .lineStructure__container .lineStructure__container-item:last-child .lineStructure__inner .lineStructure__inner-head {
+        margin-right: -75px; 
+    }
+    .lineStructure .lineStructure__inner {
+         
+    }
+    .lineStructure .lineStructure__inner .lineStructure__inner-head {
+         display: inline-flex;
+         background: #0a7cbe;
+         color: #fff;
+         border: 1px solid #000; 
+         margin-top: 35px;
+         text-align: center;
+         padding: 0px 15px;
+         width: 120px;
+         margin-left: -75px;
+    }
+    .lineStructure .lineStructure__inner .lineStructure__inner-title {
+         font-size: 12px;
+         width: 100%;
+    }
+    .lineStructure .lineStructure__inner .lineStructure__inner-container {
+        padding-left: 20px;
+        margin-top: 50px;
+    }
+    .lineStructure .lineStructure__inner .lineStructure__inner-container .lineStructure__inner-container-item {
+        background: #0a7cbe;
+        color: #ffffff;
+        font-weight: 700;
+        border: 1px solid #000;
+        border-radius: 0px;
+        padding: 6px 10px;
+        font-size: 12px;
+        margin-bottom: 10px;
+        max-width: 120px;
+        position: relative;
+    }
+	.lineStructure .lineStructure__inner .lineStructure__inner-container .lineStructure__inner-container-item.highlighted {
+		background: #41D235;
+	}
+    .lineStructure .lineStructure__inner .lineStructure__inner-container .lineStructure__inner-container-item::before {
+        /* content: &#x27;&#x27;; */
+        position: absolute;
+        top: 50%;
+        left: -20px; 
+        display: block;
+        width: 20px;
+        height: 1px;
+        background: #000000;
+    }
+	@media screen and (max-width: 1299px) {
+		.lineStructure .lineStructure__container {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.lineStructure .lineStructure__container .lineStructure__container-item:before {
+			display: none;
+		}
+		.lineStructure .lineStructure__inner .lineStructure__inner-container {
+			margin: 0;
+			padding: 20px 0 0 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.lineStructure .lineStructure__inner .lineStructure__inner-head {
+			margin: 0;
+		}
+		.lineStructure .lineStructure__container .lineStructure__container-item {
+			margin-top: 40px;
+			text-align: center;
+		}
+		.lineStructure .lineStructure__inner .lineStructure__inner-container .lineStructure__inner-container-item::before {
+			display: none;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner {
+			margin-top: 0px;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(3)::after {
+			display: none;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner {
+			margin-left: 0px;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(4), .lineStructure .lineStructure__container .lineStructure__container-item:last-child {
+			align-items: center;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner .lineStructure__inner-head {
+			right: 0px;
+		}
+		.lineStructure.col5V .lineStructure__container-item:nth-child(4) .lineStructure__inner .lineStructure__inner-container {
+			padding-right: 0px;
+		}
+		.lineStructure .lineStructure__container .lineStructure__container-item:last-child .lineStructure__inner .lineStructure__inner-head {
+			margin-right: 0px;
+		}
+	}
+	
+	
+
+
+
+.mapSection.mTabView .map-section .nav .nav-item.ls-jodhpur {
+top: 225px !important;
+left: 60px !important;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-ahmedabad {
+top: 304px !important;
+left: 58px !important;
+}
+
+.mapSection.mTabView .map-section .nav .nav-item.ls-pune {
+top: 395px !important;
+left: 120px !important;
+}
+
+.mapSection.mTabView .map-section .nav .nav-item.ls-bhopal {
+top: 283px !important;
+left: 160px !important;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-jabalpur {
+top: 300px !important;
+left: 210px !important;
+}
+
+.mapSection.mTabView .map-section .nav .nav-item.ls-hyderabad {
+top: 433px !important;
+left: 200px !important;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-bhubaneswar {
+top: 350px !important;
+left: 310px !important;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-kolkata {
+top: 305px !important;
+left: 380px !important;
+}
+
+
+.mapSection.mTabView .map-section .nav .nav-item.ls-noida {
+top: 180px!important;
+left: 173px!important;
+}
+.mapSection.mTabView .map-section .nav .nav-item.ls-delhi {
+top: 168px!important;
+left: 160px!important;
+}
+
+.ls-srivijayapuram {
+top: 560px !important;
+left: 450px !important;
+}
+
+@supports (display: grid) {
+  .grid-item.main.bannee45 {
+    display: grid;
+  }
+
+  .grid-item.main.bannee45 .items {
+    overflow-y: scroll;
+  }
+}
+
+.textCapital {
+text-transform: capitalize !important;
+}
+
+.ytp-large-play-button-red-bg .ytp-large-play-button-bg {
+    fill: var(--yt-spec-static-brand-red, #a92700) !important;
+    fill-opacity: 1;
+}
+
+/* Overlay */
+.redirectModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Hidden state */
+.redirectModal[hidden] {
+  display: none;
+}
+
+/* Modal box */
+.redirectModal__content {
+  background: #ffffff;
+  padding: 24px;
+  max-width: 480px;
+  width: 90%;
+  border-radius: 6px;
+}
+
+/* Button wrapper */
+.redirectModal__actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Base button */
+.btn {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+/* Proceed button */
+.btn-proceed {
+  background-color: #A92700;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-proceed:hover,
+.btn-proceed:focus {
+  background-color: #813822;
+  color: white !important;
+  outline: none;
+}
+
+/* Cancel button */
+.btn-cancel {
+  background-color: #545454;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover,
+.btn-cancel:focus {
+  background-color: #363636;
+  color: white !important;
+  outline: none;
+}
+
+
+.flexCenterColumn {
+    cursor: pointer !Important;
+    display: flex !Important;
+    align-items: center !Important;
+    justify-content: center !Important;
+    flex-direction: column !Important;
+}
+
+.flexCenter {
+  display: flex !Important;
+    align-items: center !Important;
+    justify-content: center !Important;
+}
+
+.mxWidth50 {
+  max-width: 50px !Important;
+}
+
+
+.lineStructure .floatItem {
+    font-size: 12px !important;
+}
+
+.lineStructure.col5V .lineStructure__container-item:nth-child(3) .lineStructure__inner-container-item {
+    background: #095C02 !important;
+}
+
+.lineStructure .lineStructure__inner .lineStructure__inner-container .lineStructure__inner-container-item.highlighted {
+    background: #095C02 !important;
+}
+
+.item22 .year h3 {
+    font-size: var(--fs-35) !important;
+    background: #952601 !important;
+    border-radius: 5px !important;
+    margin: 0 10px !important;
+}
+
+.textJustify{
+    text-align: justify !important;
+}
+
+.cardView__content .heading {
+    background: black;
+}
+
+.keyWebsite .cardView.design3 {
+    height: auto;
+    min-height: auto !important;
+}
+
+.cardUrl {
+    background: black;
+    display: inline-block;
+    padding: 0px 10px;
+    border-radius: 8px;
+}
+.mx45 {
+max-width: 450px !important;
+}
+
+.keyWebsite .cardView.design3 {
+    height: auto;
+    min-height: auto !important;
+}
+
+.js-captcha-refresh{
+    color: #0042A3 !important;
+}
+
+/* Scrollable timeline container */
+.historyScroll .items {
+  display: flex !important;
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Visible focus (important for GIGW / WCAG) */
+.historyScroll .items:focus {
+  outline: 3px solid #005fcc !important;
+  outline-offset: 4px !important;
+}
+
+/* Optional: hide scrollbar but keep accessibility */
+.historyScroll .items::-webkit-scrollbar {
+  height: 6px !important;
+}
+
+.test {
+background-color: red;}</style>
+    
+
+    
+
+    
+
+    
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.icmr.gov.in"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Circulars",
+            "item": "https://www.icmr.gov.in/circulars"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Employment Opportunity",
+            "item": "https://www.icmr.gov.in/employment-opportunities"
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Results",
+            "item": "https://www.icmr.gov.in/career-results"
+        },
+        {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Press Release",
+            "item": "https://www.icmr.gov.in/press-releases"
+        },
+        {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Tender",
+            "item": "https://www.icmr.gov.in/tenders"
+        }]
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Indian Council of Medical Research | Government of India",
+          "url": "https://www.icmr.gov.in/",
+          "logo": "https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg",
+          "sameAs": [
+            "https://www.facebook.com/ICMROrganisation",
+            "https://twitter.com/ICMRDELHI",
+            "https://www.linkedin.com/company/icmrorganization",
+            "https://www.youtube.com/c/icmrorganisation",
+            "https://www.instagram.com/icmrorganisation"
+          ],
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+91-11-26588895",
+            "contactType": "Contact Directory",
+            "areaServed": "IN", 
+            "availableLanguage": "English"
+          }],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "V. Ramalingaswami Bhawan, P.O. Box No. 4911",
+            "addressLocality": "Ansari Nagar",
+            "addressRegion": "New Delhi",
+            "postalCode": "110029",
+            "addressCountry": "IN"
+          },
+          "founder": " Government of India",
+          "foundingDate": "1911-10-15",
+          "employee": {
+            "@type": "Person",
+            "name": "Mr. Harcourt Butler"
+          }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Indian Council of Medical Research | Government of India",
+          "url": "https://www.icmr.gov.in/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://https://www.icmr.gov.in/search?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "description": "The Indian Council of Medical Research (ICMR), New Delhi, is the apex body in India for the formulation, coordination and promotion of biomedical research. Established in 1911, it is one of the oldest medical research bodies in the world.
+        
+        .",
+          "inLanguage": "en",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Indian Council of Medical Research | Government of India",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg"
+            }
+          }
+        }
+    </script>
+        
+</head>
+
+<body class="innerHeader homeVideo" id="mainBodyWrapper" id="content22">
+    
+    <!-- <button onclick="removeCSS()" style="position: fixed; z-index: 9999999999;">Remove Main CSS</button> -->
+    <div class="page-loader">
+        <div class="spinner"></div>
+      </div>
+      
+    <!-- Inject Google Tag Manager Code -->
+    
+
+    
+<div class="announcment" id="announcementBlock">
+  <div class="announcment__heading">
+    Announcements
+    <div class="controls d-flex">
+      <button id="backward" aria-label="Previous">
+        ⮜
+        <!-- <i class="fa fa-angle-left" aria-hidden="true"></i> -->
+      </button>
+      <button id="toggleBtn" type="button" class="marquee-toggle" aria-label="Toggle announcements scroll" title="Toggle announcements scroll">
+        ⏸
+      </button>
+      <button id="forward" aria-label="Next">
+      ⮞  
+      <!-- <i class="fa fa-angle-right" aria-hidden="true"></i> -->
+      </button>
+    </div>
+  </div>
+  <div class="announcment__content">
+    <div class="news-ticker" role="region" aria-label="Latest News">
+      <div class="news-ticker__content">
+        
+      <a
+        href="https://www.icmr.gov.in/icmrobject/uploads/Call/1779701900_eoi_2jk25052026.pdf"
+        class="announcment__item"
+        aria-label="Inviting Expression of Interest (EOI) on “Prevention and Screening of Oral, Breast, Cervical and Gastrointestinal Cancers in Jammu and Kashmir” Last Date: June 25, 2026, 17:00 hrs"
+        target="_blank"
+      >
+        Inviting Expression of Interest (EOI) on “Prevention and Screening of Oral, Breast, Cervical and Gastrointestinal Cancers in Jammu and Kashmir” Last Date: June 25, 2026, 17:00 hrs 
+      </a>
+      
+      <a
+        href="https://www.icmr.gov.in/icmrobject/uploads/Call/1779275756_eoi_1jk_20052026.pdf"
+        class="announcment__item"
+        aria-label="Inviting Expression of Interest (EOI) for Participation in “Breast Cancer study to Improve Survival in the UT of Jammu &amp; Kashmir” Last Date: June 19, 2026, 17:00 hrs"
+        target="_blank"
+      >
+        Inviting Expression of Interest (EOI) for Participation in “Breast Cancer study to Improve Survival in the UT of Jammu &amp; Kashmir” Last Date: June 19, 2026, 17:00 hrs 
+      </a>
+      
+      <a
+        href="https://www.gacd.org/funding/current-call-for-applications/draft-sectors-call "
+        class="announcment__item"
+        aria-label="11th GACD call  on Multisectoral Approaches for NCDs Last Date: June 17, 2026"
+        target="_blank"
+      >
+        11th GACD call  on Multisectoral Approaches for NCDs Last Date: June 17, 2026 
+      </a>
+      
+      <a
+        href="https://www.icmr.gov.in/icmrobject/uploads/Documents/1777270497_1776842672_call_shortterm_longterm.pdf"
+        class="announcment__item"
+        aria-label="Call for Proposals for Long Term &amp; Short Term Abroad under HRD Schemes for the Financial Year 2026–27 (Last Date: June 30, 2026)"
+        target="_blank"
+      >
+        Call for Proposals for Long Term &amp; Short Term Abroad under HRD Schemes for the Financial Year 2026–27 (Last Date: June 30, 2026) (PDF File Size - 55.47 KB)
+      </a>
+      
+      <a
+        href="https://www.icmr.gov.in/icmrobject/uploads/Call/1776768718_advertisement_callforproposalhrdscheme2026-27.pdf"
+        class="announcment__item"
+        aria-label="Advertisement for Call for Proposal HRD Scheme 2026-27. (R.12019/07/2024-HR) (Last Date of Submission: May 30, 2026, 1700 Hours)"
+        target="_blank"
+      >
+        Advertisement for Call for Proposal HRD Scheme 2026-27. (R.12019/07/2024-HR) (Last Date of Submission: May 30, 2026, 1700 Hours) (PDF File Size - 117.83 KB)
+      </a>
+      
+      <a
+        href="https://www.icmr.gov.in/icmrobject/uploads/WhatsNew/1753860443_saransh20metabrochure.pdf"
+        class="announcment__item"
+        aria-label="Workshop on Systematic Review and Networking Support in Health- Saransh 2.0. at ICMR-NIRT, Chennai (Date: September 1, 2025- March 31, 2026)"
+        target="_blank"
+      >
+        Workshop on Systematic Review and Networking Support in Health- Saransh 2.0. at ICMR-NIRT, Chennai (Date: September 1, 2025- March 31, 2026) (PDF File Size - 853.01 KB)
+      </a>
+      
+      </div>
+    </div> 
+  </div>
+</div>
+
+
+       
+<div class="main-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-nav__container">
+          <a href="/" class="main-nav__logo">
+            <img
+              src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+              data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg"
+              alt="ICMR - Indian Council of Medical Research logo"
+              class="img-fluid u-img main-nav__logo-stick h-darkMode lazy"
+            />
+            <img
+              src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+              data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo_plain.svg"
+              alt="ICMR - Indian Council of Medical Research logo"
+              class="img-fluid u-img main-nav__logo-stick v-darkMode lazy"
+            />
+          </a>
+          <div class="main-nav__menu">
+            <div class="top-action logoView">
+              <a
+                href="#main-content"
+                class="skip-link"
+                id="skip-link"
+                style="font-size: 12px; margin: 20px"
+                >Skip to main content</a
+              >
+              
+<ul class="top-action__list ">
+  
+  <li class="top-action__item">
+    <a href="https://dhr.gov.in/       " target="_blank" aria-label="Visit Ministry of Health and Family Welfare website" class="top-action__link">
+      <img data-src="https://www.icmr.gov.in/icmrobject/uploads/Documents/1759225909_health-ministry-logo.jpg" src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+        alt="Visit Ministry of Health and Family Welfare website"
+        class="img-fluid u-img lazy">
+    </a>
+  </li>
+  
+  <li class="top-action__item">
+    <a href="" target="_blank" aria-label="Beti Bachao Beti Padhao Scheme" class="top-action__link">
+      <img data-src="https://www.icmr.gov.in/icmrobject/custom_data/1711697592_bbbp.png" src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+        alt="Beti Bachao Beti Padhao schemes logo"
+        class="img-fluid u-img lazy">
+    </a>
+  </li>
+  
+  <li class="top-action__item">
+    <a href="" target="_blank" aria-label="Swachh Bharat Mission" class="top-action__link">
+      <img data-src="https://www.icmr.gov.in/icmrobject/uploads/Documents/1727110769_1727076466_swach-bharat.png" src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+        alt="Swachh Bharat Mission Logo"
+        class="img-fluid u-img lazy">
+    </a>
+  </li>
+  
+</ul>
+
+              <ul class="top-action__list" id="topAction">
+                <li class="top-action__item">
+                  <button
+                    class="modal-trigger top-action__link"
+                    id="openSearchBtn"
+                    data-modal-id="SearchBar"
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-controls="SearchBar"
+                    aria-expanded="false"
+                    aria-label="Open Website Search Option"
+                    data-bs-toggle="modal"
+                    data-bs-target="#SearchBar"
+                  >
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search.svg"
+                      alt="search icon"
+                      class="img-fluid u-img h-darkMode lazy"
+                    />
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search-plain.svg"
+                      alt="search icon"
+                      class="img-fluid u-img v-darkMode lazy"
+                    />
+                  </button>
+                  <!-- <a href="javascript:;"  >
+                      <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search.svg" alt="search icon" class="img-fluid u-img h-darkMode lazy">
+                      <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search-plain.svg" alt="search icon" class="img-fluid u-img v-darkMode lazy">
+                    </a> -->
+                </li>
+                <li class="top-action__item">
+                  <button
+                    class="modal-trigger top-action__link"
+                    data-modal-id="AccessibilityOptions"
+                    type="button"
+                    id="OpenAccessibilityOptions"
+                    aria-haspopup="dialog"
+                    aria-controls="AccessibilityOptions"
+                    aria-label="Open Screen Reader Option"
+                    data-bs-toggle="modal"
+                    aria-expanded="false"
+                    data-bs-target="#AccessibilityOptions"
+                  >
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/person.svg"
+                      alt="Accessibility icon"
+                      class="img-fluid u-img h-darkMode lazy"
+                    />
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/person-plain.svg"
+                      alt="Accessibility icon"
+                      class="img-fluid u-img v-darkMode lazy"
+                    />
+                  </button>
+                </li>
+                <li class="top-action__item additionalActions">
+                  <!-- Main Font Size Options Toggle Button -->
+                  <button
+                    type="button"
+                    aria-label="Open Font Size Options"
+                    class="top-action__link js-showFontAction"
+                  >
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/font-size.svg"
+                      alt="Font size icon"
+                      class="img-fluid u-img h-darkMode lazy"
+                    />
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/font-size-plain.svg"
+                      alt="Font size icon"
+                      class="img-fluid u-img v-darkMode lazy"
+                    />
+                  </button>
+
+                  <!-- Font Size Options -->
+                  <div
+                    class="font__actions js-fontActionContainer"
+                    role="group"
+                    aria-label="Font Size Controls"
+                  >
+                    <button
+                      type="button"
+                      aria-label="Decrease Font Size"
+                      class="font__actions-link jsDecreaseFont"
+                      aria-pressed="false"
+                    >
+                      A-
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Reset Font Size to Default"
+                      class="font__actions-link jsBaseFont"
+                      aria-pressed="true"
+                    >
+                      A
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Increase Font Size"
+                      class="font__actions-link jsIncreaseFont"
+                      aria-pressed="false"
+                    >
+                      A+
+                    </button>
+                  </div>
+
+                  <!-- Close Button -->
+                  <button
+                    type="button"
+                    class="font-close js-hideFontAction"
+                    aria-label="Close Font Size Options"
+                  >
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/close.svg"
+                      class="img-fluid h-darkMode lazy"
+                      alt="Close icon"
+                    />
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/close-plain.svg"
+                      class="img-fluid v-darkMode lazy"
+                      alt="Close icon"
+                    />
+                  </button>
+                </li>
+                <!-- <li class="top-action__item">
+                    <a href="javascript:;" class="top-action__link">
+                      <img data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/language.svg" alt="language icon" class="img-fluid u-img">
+                    </a>
+                  </li> -->
+                <li class="top-action__item">
+                  <div class="top-action__link">
+                    <button
+                      type="button"
+                      id="themeToggleBtn"
+                      class="switch dayNight"
+                      aria-pressed="false"
+                      aria-label="Switch between Light and Dark Mode"
+                      tabindex="0"
+                    >
+                      <span class="visually-hidden"
+                        >Switch between Light and Dark Mode</span
+                      >
+                      <span class="switch-toggle" aria-hidden="true"></span>
+                      <span></span>
+                    </button>
+                    <form>
+                    <label class="switch dayNight" for="themeSwitch" style="display: none;">Light & Dark Mode</label>
+                    <!-- Moved input OUTSIDE the button -->
+                    <input
+                      type="checkbox"
+                      class="darkModeCheck"
+                      id="themeSwitch"
+                      tabindex="-1"
+                      hidden
+                    />
+                    </form>
+                  </div>
+                </li>
+                <li class="top-action__item menuIcon">
+                  <a
+                    href="javascript:;"
+                    class="top-action__link hamburger-icon menu-button js-responsiveMenu"
+                  >
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/menu.svg"
+                      alt="Menu icon"
+                      class="img-fluid u-img h-darkMode lazy"
+                    />
+                    <img
+                      src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                      data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/menu-plain.svg"
+                      alt="Menu icon"
+                      class="img-fluid u-img v-darkMode lazy"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <nav
+              aria-label="Main menu"
+              class="main-nav__navigation js-navContainer global-navs global-navs-xs design1"
+            >
+              <a
+                href="javascript:;"
+                role="button"
+                tabindex="0"
+                aria-expanded="false"
+                class="responsive-icon js-responsiveIcon"
+              >
+                <img
+                  src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                  data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/close.svg"
+                  class="img-fluid h-darkMode lazy"
+                  alt="Close icon "
+                />
+                <img
+                  src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                  data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/close-plain.svg"
+                  class="img-fluid v-darkMode lazy"
+                  alt="Close icon"
+                />
+              </a>
+              <ul class="global-navs__grid js-navContainerHeight">
+                <li class="global-navs__list dropdown">
+                  <a
+                    class="global-navs__items js-parentDropdown"
+                    aria-label="Home"
+                    tabindex="0"
+                    aria-expanded="false"
+                    href="/"
+                  >
+                    <span class="global-navs__items-label">
+                      <img
+                        src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                        data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/home.svg"
+                        class="img-fluid h-darkMode lazy"
+                        alt="Home Icon"
+                      />
+                      <img
+                        src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg"
+                        data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/home-plain.svg"
+                        class="img-fluid v-darkMode lazy"
+                        alt="Home Icon"
+                      />
+                    </span>
+                  </a>
+                </li>
+
+                <li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">About ICMR</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/homepage" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Homepage</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/vision-mission-mandate" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Vision, Mission & Mandate</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/organogram" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Organogram</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/history" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">History</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/institutes" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">INSTITUTES</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/meet-the-ministers" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Ministers</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/icmr-leadership" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ICMR Leadership</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/scientists" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Scientists</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/former-director-generals" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Former Director Generals</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/internal-committees" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Internal Committees</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/achievements" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Achievements</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/icmr-collaborating-centre-of-excellence-icmr-ccoe" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ICMR Collaborating Centre of Excellence (ICMR-CCoE)</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/contact-directory" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Contact Directory</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/archives-adjunct-faculty" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Archives Adjunct Faculty</span></a></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">WHAT WE DO</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/overview-of-what-we-do" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Overview of What We Do</span></a></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">INTERNATIONAL COLLABORATIONS</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/international-collaboration-of-icmr" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">International Collaboration of ICMR</span></a></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">HMSC</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/health-ministry-s-screening-committee-hmsc" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Guidance</span></a></li><li class="global-navs__list "><a class="global-navs__items NewLink" target ='_blank' href="https://hmsc.dhr.gov.in/" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Online Submission of International Collaborative Projects/HMSC</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/list-of-approved-projects" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">HMSC Approved Projects/An Overview</span></a></li></ul></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/transfer-of-human-biological-material" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Transfer of Human Biological Material</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/india-africa-health-sciences-platform-iahsp" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">IAHSP</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/international-fellowships" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">International Fellowships</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/list-of-international-scientists-visited-icmr-headquarters-divisions" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Consolidated List Of International Scientists Visited ICMR Hqrs/Divisons</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/an-overview-of-international-collaborative-health-research-projects-approved-by-health-ministry-s-screening-committee" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">An Overview Of International Collaborative Health Research Projects Approved By Health Ministry</span></a></li></ul></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">EVENTS/TRAININGS</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/courses-trainings" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Courses/Trainings</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/workshops-conferences-seminars" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Workshops/Conferences/Seminars</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/events" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Events</span></a></li></ul></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/research" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">RESEARCH</span></a></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">GOVERNMENT INITIATIVES</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/india-international-science-festival-iisf-2020" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">India International Science Festival (IISF) 2020</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/technology-for-collaboration" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Technology For Collaboration</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/gandhi-health" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Gandhi & Health</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/swachh-bharat" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Swachh Bharat</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/skill-india" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Skill India</span></a></li></ul></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Memorandums of Understanding</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/national-mous" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">National</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/international-mous" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">International</span></a></li></ul></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">GRANTS & FUNDING</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/grants-funding-overview" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Grants & Funding Overview</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/intramural-grants" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Intramural grants</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/extramural-grants" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Extramural grants</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/national-health-research-programme" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">National Health Research Programme</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/fellowships" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Fellowships</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/research-support" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Research Support</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/call-for-proposals" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Call for Proposals</span></a></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">RESOURCES</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/icmr-research-support-portals" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ICMR Research Support Portals</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/policy-briefs" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">POLICY BRIEFS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/icmr-newsletter" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ICMR Newsletter</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/guidelines" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">GUIDELINES</span></a></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">PUBLICATIONS</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/downloadable-books" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Downloadable Books</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/priced-publications" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Priced Publications</span></a></li><li class="global-navs__list "><a class="global-navs__items NewLink" target ='_blank' href="https://ijmr.org.in/" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">IJMR</span></a></li></ul></li><li class="global-navs__list dropdown childNavList"><a class="global-navs__items "  href="javascript:void(0);" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Archive</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img" aria-hidden="true"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/icmr-bulletin" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ICMR Bulletin</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/hindi-publication-icmr-patrika" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Hindi Publication ICMR Patrika</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/mera-india-newsletter" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">MERA-India Newsletter</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/library-bulletin" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Library Bulletin</span></a></li></ul></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/reports" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">REPORTS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/portals" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">PORTALS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/tenders" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">TENDERS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/annual-accounts" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ANNUAL ACCOUNTS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/annual-reports" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ANNUAL REPORTS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/rti-corner" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">RTI CORNER</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/standard-treatment-workflows-stws" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Standard Treatment Workflows</span></a></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">MEDIA</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/press-releases" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">PRESS RELEASES</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/gallery" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">GALLERY</span></a></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">CAREER</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/employment-opportunities" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">EMPLOYMENT OPPORTUNITIES</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/career-results" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">RESULTS</span></a></li><li class="global-navs__list "><a class="global-navs__items NewLink" target ='_blank' href="https://recruitment.icmr.org.in/" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Recruitment Portal</span></a></li></ul></li><li class="global-navs__list dropdown hoverEffect extraNav navItems"><a class="global-navs__items js-parentDropdown" href="javascript:void(0);" role="button" tabindex="0"><span class="global-navs__items-label">EMPLOYEE CENTRE</span><span class="global-navs__items-icon js-dropdownItem" aria-hidden="true"><span class="icon-img"></span></span><div class="menu-arrow"></div></a><ul class="global-navs__grid" ><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/general-forms" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">GENERAL FORMS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/circulars" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">CIRCULARS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/acrs-apars" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ACRS/APARS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/employee-links" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">Employee Links</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/information-rules-manuals" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">INFORMATION, RULES & MANUALS</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/assessment-of-icmr-scientists" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">ASSESSMENT OF ICMR SCIENTISTS</span></a></li><li class="global-navs__list "><a class="global-navs__items NewLink" target ='_blank' href="https://irras.icmr.org.in/index.php/login" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">IRRAS</span></a></li><li class="global-navs__list "><a class="global-navs__items NewLink" target ='_blank' href="https://www.icmr.gov.in/icmrobject/uploads/Documents/1728032222_icmr-bsnl_itfmsteam.pdf" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">CONTACT (IT-FMS)</span></a></li><li class="global-navs__list "><a class="global-navs__items "  href="https://www.icmr.gov.in/e-consortium" tabindex="0" aria-expanded="false" role="button"><span class="global-navs__items-label">E-CONSORTIUM</span></a></li></ul></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+    
+
+<!-- <div class="inner__header">
+    <div class="inner__header-content">
+       <div class="container">
+          <div class="row">
+             <div class="col-12">
+                <div class="inner__header-breadcrumb">
+                   <h1 class="page-title">Error</h1>
+                   <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                         <li class="breadcrumb-item active"><a href="/">Exception(404)</a></li>
+                      
+                      </ol>
+                   </nav>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div> -->
+<div class="inner__body">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+           
+          <div class="inner__body-content">
+            <div class="msgView withSpace">
+                 <div class="msgView__container">
+                    <div class="msgView__media">
+                        <img style="width:100%" src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/error_image/404.svg" alt="404 Error" class="img-fluid u-image lazy">
+                    </div>
+                    <h3 >#Not Found</h3>
+                    <p class="caption">Sorry, the page you're looking for doesn't exist.</p>
+                 </div>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+    
+
+    
+
+
+<button aria-label="Click to Scroll" title="Click to Scroll" class="arrow2 animated bounce2" id="scroll-icon"></button>
+<button id="backToTopBtn" aria-label="Back to Top" style="transition: transform 0.3s ease;" class="arrow2 animated bounce2 v2">
+  Back to Top
+</button>
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="footer__primary">
+            <div class="logo">
+              <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/footer-logo.svg" title="ICMR - Indian Council of Medical Research" alt="Indian Council of Medical Research Logo" class="img-fluid lazy">
+            </div>
+            <!-- <ul class="social">
+              <li class="social__item" aria-label="facebookIcon">
+                <a href="https://www.facebook.com/ICMROrganisation" target="_blank" class="social__link hyperLinkPolicy" id="FBSocialIcon">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/fb.svg" title="Facebook" alt="Facebook Icon" class="img-fluid lazy">
+                  <p class="sr-only">Facebook</p>
+                </a>
+              </li>
+              <li class="social__item" aria-label="TwitterIcon">
+                <a href="https://twitter.com/ICMRDELHI" class="social__link hyperLinkPolicy" target="_blank" id="TWSocialIcon">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/tw-new.svg"  title="Twitter" alt="Twitter Icon" class="img-fluid lazy">
+                  <p class="sr-only">Twitter</p>
+                </a>
+              </li>
+              <li class="social__item" aria-label="LinkedinIcon">
+                <a href="https://www.linkedin.com/company/icmrorganization" target="_blank" class="social__link hyperLinkPolicy" id="LKSocialIcon">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/in.svg" title="Linkedin" alt="Linkedin Icon" class="img-fluid lazy">
+                  <p class="sr-only">Linkedin</p>
+                </a>
+              </li>
+              <li class="social__item" aria-label="YoutubeIcon">
+                <a href="https://www.youtube.com/c/icmrorganisation" target="_blank" class="social__link hyperLinkPolicy" id="YTSocialIcon">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/yt.svg" title="Youtube" alt="Youtube Icon" class="img-fluid lazy">
+                  <p class="sr-only">Youtube</p>
+                </a>
+              </li>
+              <li class="social__item" aria-label="InstagramIcon">
+                <a href="https://www.instagram.com/icmrorganisation/" target="_blank" class="social__link hyperLinkPolicy" id="IGSocialIcon">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/main_logo.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/insta.svg" title="Instagram" alt="Instagram Icon" class="img-fluid lazy">
+                  <p class="sr-only">Instagram</p>
+                </a>
+              </li>
+            </ul> -->
+            <ul class="social">
+              <li aria-label="facebookIcon" class="social__item">
+                  <a class="social__link NewLink" rel="noopener noreferrer" tabindex="0" aria-label="Facebook Opens in a new tab" href="https://www.facebook.com/ICMROrganisation" id="FBSocialIcon"
+                      ><img alt="Facebook Icon" class="img-fluid lazy entered loaded"
+                          data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/fb.svg"
+                          src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/fb.svg" title="Facebook"
+                          data-ll-status="loaded">
+                      <p class="sr-only">Facebook</p>
+                  </a>
+              </li>
+              <li aria-label="TwitterIcon" class="social__item">
+                  <a class="social__link NewLink" rel="noopener noreferrer" tabindex="0" aria-label="Twitter Opens in a new tab" href="https://twitter.com/ICMRDELHI" id="TWSocialIcon"
+                      ><img alt="Twitter Icon" class="img-fluid lazy entered loaded"
+                          data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/tw-new.svg"
+                          src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/tw-new.svg" title="Twitter"
+                          data-ll-status="loaded">
+                      <p class="sr-only">Twitter</p>
+                  </a>
+              </li>
+              <li aria-label="LinkedinIcon" class="social__item">
+                  <a class="social__link NewLink" rel="noopener noreferrer" tabindex="0" aria-label="Linkedin Opens in a new tab" href="https://www.linkedin.com/company/icmrorganization"
+                      id="LKSocialIcon" ><img alt="Linkedin Icon" class="img-fluid lazy entered loaded"
+                          data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/in.svg"
+                          src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/in.svg" title="Linkedin"
+                          data-ll-status="loaded">
+                      <p class="sr-only">Linkedin</p>
+                  </a>
+              </li>
+              <li aria-label="YoutubeIcon" class="social__item">
+                  <a class="social__link NewLink" rel="noopener noreferrer" tabindex="0" aria-label="Youtube Opens in a new tab" href="https://www.youtube.com/c/icmrorganisation" id="YTSocialIcon"
+                      ><img alt="Youtube Icon" class="img-fluid lazy entered loaded"
+                          data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/yt.svg"
+                          src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/yt.svg" title="Youtube"
+                          data-ll-status="loaded">
+                      <p class="sr-only">Youtube</p>
+                  </a>
+              </li>
+              <li aria-label="InstagramIcon" class="social__item">
+                  <a class="social__link NewLink" rel="noopener noreferrer" tabindex="0" aria-label="Instagram Opens in a new tab" href="https://www.instagram.com/icmrorganisation/" id="IGSocialIcon"
+                      ><img alt="Instagram Icon" class="img-fluid lazy entered loaded"
+                          data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/insta.svg"
+                          src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/insta.svg" title="Instagram"
+                          data-ll-status="loaded">
+                      <p class="sr-only">Instagram</p>
+                  </a>
+              </li>
+          </ul>
+          </div>
+          <div class="footer__secoundry">
+            <div class="row">
+              <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="footer__head">
+                  Contact Us
+                </h2>
+                <div class="footer__content">
+                    
+                    
+                        <p>Name: Dr. Manjeet Singh Chalga</p><p>Designation: Scientist E (Informatics &amp; Data Centre), ICMR</p><p>V. Ramalingaswami Bhawan, P.O. Box No. 4911Ansari Nagar, New Delhi - 110029, India</p><p>Phone: 91-11-26588895 / 91-11-26588980</p><p>Fax: 91-11-26588662</p><p>Email: icmrhqds[at]sansad[dot]nic[dot]in</p>
+                                      
+                </div>
+              </div>
+
+              
+              <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+                <section aria-label="quick-links-heading">
+                 
+                <h2 class="footer__head" id="important-links-heading">Important Links</h2>  
+                <div class="footer__content">
+                    <ul class="footer__menu">
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/help" class="footer__link"  >
+                            Help
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/feedback" class="footer__link"  >
+                            Feedback
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://patentmitra.icmr.org.in/" class="footer__link"  >
+                            Patent Mitra
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/vision-mission-mandate" class="footer__link"  >
+                            Vision, Mission, Mandate
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/overview-of-what-we-do" class="footer__link"  >
+                            What We Do
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/press-releases" class="footer__link"  >
+                            Press Releases
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/employment-opportunities" class="footer__link"  >
+                            Employment Opportunities
+                          </a>
+                        </li>
+                      
+                        <li class="footer__item"> 
+                          <a href="https://www.icmr.gov.in/contact-directory" class="footer__link"  >
+                            Contact Directory
+                          </a>
+                        </li>
+                      
+                    </ul>
+                </div>
+                
+                </section>
+              </div>
+
+
+
+              
+              <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                <section aria-labelledby="quick-links-heading">
+                
+                 <h2 class="footer__head" id="quick-links-heading">Quick Links</h2>  
+                      <ul class="footer__menu">
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/vigilance" class="footer__link">
+                              Vigilance
+                            </a>
+                          </li>
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/rti-corner" class="footer__link">
+                              RTI
+                            </a>
+                          </li>
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/sitemap" class="footer__link">
+                              Sitemap
+                            </a>
+                          </li>
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/screen-reader-access" class="footer__link">
+                              Screen Reader
+                            </a>
+                          </li>
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/web-information-manager" class="footer__link">
+                              Web Information Manager
+                            </a>
+                          </li>
+                        
+                          <li class="footer__item">
+                            <a href="https://www.icmr.gov.in/icmrobject/uploads/Documents/1729074329_instructionsforpdfdownloading.pdf" class="footer__link">
+                              How to download pdf (Pdf File 300Kb)
+                            </a>
+                          </li>
+                        
+                      </ul> 
+                  </section>
+                
+              </div>
+              <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                <aside class="footer__map" aria-label="Map showing ICMR office location">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3504.045995532202!2d77.21248818252563!3d28.568381506685505!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce26595555555%3A0xd400dced33827675!2sIndian%20Council%20of%20Medical%20Research!5e0!3m2!1sen!2sus!4v1696790490012!5m2!1sen!2sus"
+                    class="w-100" 
+                    height="250" 
+                    title="Map showing location of ICMR headquarters" 
+                    aria-label="Embedded map showing ICMR headquarters location"
+                    style="border:0;" 
+                    loading="lazy"
+                    allowfullscreen="" 
+                    referrerpolicy="no-referrer-when-downgrade" 
+                    
+                  ></iframe>
+                  <!-- integrity="sha256-ITxw02JMEPMBO6Ogwc/uSHBrW7U2KJNrY4oh2DDvjVg=" 
+                    crossorigin="anonymous" -->
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="slider__main mb-5">
+            <div class="owl-carousel owl-theme impWebsite" role="region" aria-label="Important Portals Carousel">
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="my Gov  मेरी सरकार" href="https://www.mygov.in/"  title="my Gov  मेरी सरकार" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/my-gov.png" title="my Gov  मेरी सरकार" alt="My Gov Logo" class="img-fluid lazy">
+                </div>
+              </a>
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="Centralized Public Grievance Redress and Monitoring System (CPGRAMS)" href="https://pgportal.gov.in" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/cpgrams.png" title="Centralized Public Grievance Redress and Monitoring System (CPGRAMS)" alt="Centralized Public Grievance Redress and Monitoring System Logo" class="img-fluid lazy">
+                </div>
+              </a>
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="Department of Health Research" href="https://dhr.gov.in/" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/dhs.png" title="Department of Health Research" alt="Department of Health Research Logo" class="img-fluid lazy">
+                </div>
+              </a>
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="The National Portal of India" href="https://www.india.gov.in/" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/india-gov.png" title="The National Portal of India" alt="The National Portal of India Logo" class="img-fluid lazy">
+                </div>
+              </a>
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="PM INDIA" href="https://www.pmindia.gov.in/en/" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/pm-india.png" title="PM INDIA" alt="PM INDIA Logo" class="img-fluid lazy">
+                </div>
+              </a>
+              <a class="cardView design3 NewLink" tabindex="0" aria-label="India AI Impact Summit 2026" href="https://impact.indiaai.gov.in" >
+                <div class="cardView__content">
+                  <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/logos/impact-india-ai.png" title="India AI Impact Summit 2026" alt="India AI Impact Summit 2026 Logo" class="img-fluid lazy">
+                </div>
+              </a>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__trinetry">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="footer__top">
+
+              
+              
+                <ul class="footer__top-list">
+                  
+                    <li class="footer__top-item">
+                      <a class="footer__top-link" href="https://www.icmr.gov.in/terms-conditions">Term &amp; Conditions</a>
+                    </li>
+                  
+                    <li class="footer__top-item">
+                      <a class="footer__top-link" href="https://www.icmr.gov.in/privacy-policy">Privacy Policy</a>
+                    </li>
+                  
+                    <li class="footer__top-item">
+                      <a class="footer__top-link" href="https://www.icmr.gov.in/website-policies">Website Policies</a>
+                    </li>
+                  
+                </ul>
+              
+              
+              <div class="footer__top-counter">
+                
+                <div class="counter">
+                  <div class="label">Visitors:</div>
+                  <div class="value">32328229</div>
+                </div>
+              </div>
+            </div>
+            <div class="footer__bottom">
+              <div class="info">Copyright © 2023 | All Rights Reserved by ICMR.</div>
+              
+              
+              <div class="footer__bottom-list">
+                
+                
+                  <a class="footer__bottom-link" href="https://www.icmr.gov.in/disclaimer">Disclaimer</a>
+                
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Search Model -->
+  <div class="modal searchModel" id="SearchBar" role="dialog"
+    aria-modal="true"
+    aria-labelledby="searchDialogTitle"
+    aria-describedby="searchDialogDesc"
+    aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h2 class="modal-title" id="searchDialogTitle">Website Search</h2> 
+        <button type="button" class="btn-close modal-close" aria-label="Close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" id="searchDialogDesc">
+        <div class="search-container" style="margin-top:25px;margin-bottom:25px">
+            <form action="/search">
+              <label id="searchLabel" for="searchName" class="sr-only">You can enter keywords to search through the content of the ICMR website</label>
+              <input id="searchName" required type="text" class="searchInput" autocomplete="on" placeholder="Search.." name="search" aria-labelledby="searchLabel">
+              <button type="submit" aria-label="Search" title="Search">
+                <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search.svg" title="Search" alt="Search Icon" aria-label="Search" class="img-fluid u-img  h-darkMode lazy">
+                <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/placeholder/place_image.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/search-plain.svg"title="Search" alt="Search Icon"  aria-label="Search" class="img-fluid u-img  v-darkMode lazy">
+              </button>
+            </form>
+        </div>
+        </div>
+
+    </div>
+    </div>
+</div>
+<div class="modal searchModel" id="AccessibilityOptions" role="dialog" 
+  aria-modal="true" 
+  aria-labelledby="accessibilityDialogTitle" 
+  aria-describedby="accessibilityDialogDesc" 
+  aria-hidden="true">
+  
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title" id="accessibilityDialogTitle">Accessibility Options</h2> 
+        <button type="button" class="btn-close modal-close" aria-label="Close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" id="accessibilityDialogDesc">
+         <div class="accOptions">
+            <button class="accOptions__item" aria-label="Enable Screen Reader Mode" id="screenReaderBtn" aria-pressed="false" type="button">
+              <span class="icon-view">
+                <img src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/screen-reader.svg" data-src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/images/svg/screen-reader.svg" alt="Accessibility icon" class="img-fluid u-icon lazy">
+              </span>
+              <span class="text-view">Screen Reader</span> 
+            </button>
+            <span class="switchAo">
+                <input type="checkbox" id="audioSwitch" />
+                <label for="audioSwitch">.</label>
+              </span>
+            <!-- <a href="javascript:;" class="accOptions__item js-Cursor">
+              <span class="icon-view">
+                <img data-src="dist/images/svg/cursor.svg" alt="Cursor Icon" class="img-fluid u-icon">
+              </span>
+              <span class="text-view">Cursor</span> 
+            </a>
+            <a href="javascript:;" class="accOptions__item js-HLinks">
+              <span class="icon-view">
+                <img data-src="dist/images/svg/link.svg" alt="Highlight Links Icon" class="img-fluid u-icon">
+              </span>
+              <span class="text-view">Highlight Links</span> 
+            </a> -->
+         </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Search Model End-->
+ <div class="redirectModal" id="externalRedirectModal" role="dialog" aria-modal="true" aria-labelledby="redirectTitle" aria-describedby="redirectDesc" hidden="">
+    <div class="redirectModal__content">
+        <h2 id="redirectTitle">
+            Leaving this website
+        </h2>
+        <p id="redirectDesc">
+            You are being redirected to an external website. This site is not governed by this portal.
+        </p>
+        <div class="redirectModal__actions">
+            <button class="btn btn-proceed" type="button">
+                            Proceed
+                        </button> <button class="btn btn-cancel" type="button">
+                            Cancel
+                        </button>
+        </div>
+    </div>
+</div>
+
+    
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+<script src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/deploy/app.min.js?rel=2026031803" ></script>
+  
+  <!-- <script src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/deploy/app.min.js?rel=2026031803" integrity="sha256-nsKGVV9tW/EjWxzg46tmcEHr31k/fchpcyf3zo8XImc=" crossorigin="anonymous"></script> -->
+  <!-- <script src="https://www.icmr.gov.in/icmrobject/static/icmr/dist/js-vendors/c-nav.js"></script> -->
+
+    
+</script>
+
+ <script nonce="XKGJKYzf9MNmy5RRTffV5w==">
+    new IsplTranslator("all", 'ispl_wrapper', { "en": "English", "hi": "Hindi" });
+</script>
+
+    <div id="js-translationData" style="display:none;"></div>
+    
+        <script nonce="XKGJKYzf9MNmy5RRTffV5w==">setTimeout(function(){
+$(".js-external").on("click", function() {
+  var elem = $(this);
+  var url = elem.data('link');
+  if(typeof url === "undefined" || url == "") {
+    return;
+  }
+  var res = confirm("This link will take you to an external web sitea");
+  if(res){
+    window.open(url, 'newwindow', 'width=700, height=500');
+  }
+  });
+  },100);
+  
+  
+  $(document).ready(function () {
+  $(".chzn-select").chosen();
+
+  $(".chosen-container").each(function () {
+    const selectId = $(this).prev("select").attr("id");
+
+    $(this)
+      .find(".chosen-search input")
+      .attr({
+        "aria-label": "Search options",
+        "aria-labelledby": selectId
+      });
+  });
+});
+
+var FOCUSABLE = 'a, button, input, select, textarea, [tabindex]';
+
+function fixOwlAriaHidden() {
+  var carousels = document.querySelectorAll('.owl-carousel');
+
+  for (var i = 0; i < carousels.length; i++) {
+    var items = carousels[i].querySelectorAll('.owl-item');
+
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+      var isActive = item.className.indexOf('active') !== -1;
+
+      // Correct aria-hidden
+      item.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+      var focusables = item.querySelectorAll(FOCUSABLE);
+
+      for (var k = 0; k < focusables.length; k++) {
+        var el = focusables[k];
+
+        if (isActive) {
+          if (el.getAttribute('tabindex') === '-1') {
+            el.removeAttribute('tabindex');
+          }
+        } else {
+          el.setAttribute('tabindex', '-1');
+        }
+      }
+    }
+  }
+}
+
+/* Run after page load */
+window.onload = function () {
+  fixOwlAriaHidden();
+};
+
+/* Re-run after Owl carousel updates */
+document.addEventListener('initialized.owl.carousel', fixOwlAriaHidden);
+document.addEventListener('changed.owl.carousel', fixOwlAriaHidden);
+document.addEventListener('translated.owl.carousel', fixOwlAriaHidden);
+
+function fixStatsOwlAria() {
+  var items = document.getElementsByClassName('owl-item');
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var isActive = item.className.indexOf('active') !== -1;
+
+    // Fix aria-hidden on slides
+    item.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+    // Fix stats container
+    var stats = item.getElementsByClassName('statistics__container-conts');
+    if (stats.length > 0) {
+      stats[0].setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      stats[0].removeAttribute('tabindex');
+    }
+  }
+}
+
+/* Run with delay (CMS-safe, no event listeners) */
+setTimeout(fixStatsOwlAria, 1000);
+setInterval(fixStatsOwlAria, 2000);
+
+function fixLatestPublicationsAria() {
+  var containers = document.getElementsByClassName('latestPublication');
+
+  for (var i = 0; i < containers.length; i++) {
+    var items = containers[i].getElementsByClassName('owl-item');
+
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+      var isHidden = item.getAttribute('aria-hidden') === 'true';
+
+      var links = item.getElementsByTagName('a');
+
+      for (var k = 0; k < links.length; k++) {
+        if (isHidden) {
+          links[k].setAttribute('tabindex', '-1');
+        } else {
+          links[k].removeAttribute('tabindex');
+        }
+      }
+    }
+  }
+}
+
+/* CMS-safe execution */
+setTimeout(fixLatestPublicationsAria, 1000);
+setInterval(fixLatestPublicationsAria, 2000);
+
+function fixLatestPublicationFocus() {
+  var section = document.getElementsByClassName('latestPublication');
+  if (!section.length) return;
+
+  var items = section[0].getElementsByClassName('owl-item');
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var hidden = item.getAttribute('aria-hidden') === 'true';
+
+    var links = item.getElementsByTagName('a');
+
+    for (var j = 0; j < links.length; j++) {
+      if (hidden) {
+        links[j].setAttribute('tabindex', '-1');
+      } else {
+        links[j].removeAttribute('tabindex');
+      }
+    }
+  }
+}
+
+/* CMS-safe execution loop */
+setTimeout(fixLatestPublicationFocus, 800);
+setInterval(fixLatestPublicationFocus, 1500);
+
+(function () {
+  let externalUrl = "";
+
+  const modal = document.getElementById("externalRedirectModal");
+  const proceedBtn = modal.querySelector(".btn-proceed");
+  const cancelBtn = modal.querySelector(".btn-cancel");
+
+  // Intercept only links with class NewLink
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest("a.NewLink");
+    if (!link) return;
+
+    e.preventDefault();
+
+    externalUrl = link.href;
+    openModal();
+  });
+
+  function openModal() {
+    modal.removeAttribute("hidden");
+    proceedBtn.focus();
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.setAttribute("hidden", "");
+    document.body.style.overflow = "";
+    externalUrl = "";
+  }
+
+  proceedBtn.addEventListener("click", function () {
+    if (externalUrl) {
+      window.open(
+        externalUrl,
+        "ExternalWindow",
+        "width=1024,height=700,resizable=yes,scrollbars=yes,noopener,noreferrer"
+      );
+    }
+    closeModal();
+  });
+
+  cancelBtn.addEventListener("click", closeModal);
+
+  // ESC key support (WCAG)
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.hasAttribute("hidden")) {
+      closeModal();
+    }
+  });
+})();
+
+function fixPhotoGalleryAriaHidden() {
+  var gallery = document.querySelector('div[aria-label="Photo Gallery Carousel"]');
+  if (!gallery) return;
+
+  var items = gallery.getElementsByClassName('owl-item');
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var isHidden = item.getAttribute('aria-hidden') === 'true';
+
+    var links = item.getElementsByTagName('a');
+
+    for (var j = 0; j < links.length; j++) {
+      if (isHidden) {
+        links[j].setAttribute('tabindex', '-1');
+      } else {
+        links[j].removeAttribute('tabindex');
+      }
+    }
+  }
+}
+
+/* CMS-safe execution (no events) */
+setTimeout(fixPhotoGalleryAriaHidden, 800);
+setInterval(fixPhotoGalleryAriaHidden, 1500);
+
+
+(function () {
+  function injectValidatorFixes() {
+    var css = `
+    
+    /* Fix fancybox safe-area validation issues */
+    .fancybox-navigation .fancybox-button--arrow_left{
+        left:0 !important;
+    }
+
+    .fancybox-navigation .fancybox-button--arrow_right{
+        right:0 !important;
+    }
+
+    .fancybox-caption{
+        padding:44px 25px !important;
+        padding-left:44px !important;
+        padding-right:44px !important;
+    }
+
+    /* Fix incorrect font-size declaration */
+    .tableView table .descView__link .value.size{
+        font-style: italic !important;
+        font-size: inherit !important;
+    }
+
+    /* Fix invalid display property */
+    .mrLeft250{
+        display:flex !important;
+    }
+
+    /* Prevent browser specific pseudo errors */
+    :root{
+        --safe-area-left:0px;
+        --safe-area-right:0px;
+        --safe-area-top:0px;
+        --safe-area-bottom:0px;
+    }
+
+    `;
+
+    var style = document.createElement("style");
+    style.type = "text/css";
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectValidatorFixes);
+  } else {
+    injectValidatorFixes();
+  }
+})();
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  for (const sheet of document.styleSheets) {
+    let rules;
+
+    try {
+      rules = sheet.cssRules;
+    } catch (e) {
+      continue; // skip cross-origin
+    }
+
+    if (!rules) continue;
+
+    for (let i = rules.length - 1; i >= 0; i--) {
+      const rule = rules[i];
+
+      if (
+        rule.selectorText &&
+        (
+          rule.selectorText.includes("window-inactive") ||
+          rule.selectorText.includes(":root:")
+        )
+      ) {
+        sheet.deleteRule(i);
+      }
+    }
+  }
+});
+
+
+
+(function () {
+  "use strict";
+
+  function removeWindowInactiveRules() {
+    var sheets = document.styleSheets;
+    for (var i = 0; i < sheets.length; i++) {
+      var rules;
+      try {
+        rules = sheets[i].cssRules || sheets[i].rules;
+      } catch (e) {
+        continue;
+      }
+      if (!rules) continue;
+      for (var j = rules.length - 1; j >= 0; j--) {
+        var rule = rules[j];
+        if (
+          rule.selectorText &&
+          rule.selectorText.indexOf(":window-inactive") !== -1
+        ) {
+          try {
+            sheets[i].deleteRule(j);
+          } catch (e) {
+            // Fallback for older IE/Edge
+            if (sheets[i].removeRule) sheets[i].removeRule(j);
+          }
+        }
+      }
+    }
+  }
+
+  function fixBsGradientCustomProperty() {
+    var style = document.createElement("style");
+    style.id = "icmr-css-patch-gradient";
+    style.textContent =
+      ":root { --bs-gradient: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0)); }";
+    document.head.appendChild(style);
+  }
+
+  function applyPatches() {
+    removeWindowInactiveRules();
+    fixBsGradientCustomProperty();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyPatches);
+  } else {
+    applyPatches();
+  }
+})(); </script>
+    
+     
+    <!-- Accessible Bootstrap Modal -->
+<div class="modal fade" id="langAlertModal" role="dialog" tabindex="-1" aria-labelledby="langAlertTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="langAlertTitle">Notice</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="langAlertMessage">
+        Select Language First
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="resetModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Filters Reset</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your search filters have been reset successfully.
+      </div>
+    </div>
+  </div>
+</div>
+
+</body> 
+
+</html>
