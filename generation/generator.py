@@ -3,6 +3,10 @@ RAG generator.
 
 Takes a query, retrieves relevant chunks, builds a prompt, and calls an LLM.
 Returns the answer with source citations.
+
+Supports an optional pipeline config dict (see config/pipeline_config.py)
+that controls hybrid search, reranking, metadata filtering, and a
+relevance-threshold quality gate before generation.
 """
 
 import logging
@@ -27,6 +31,10 @@ class Generator:
         # Dry-run mode (returns prompt + sources without calling an LLM)
         generator = Generator()
         result = generator.generate("...")
+
+        # With pipeline config (advanced features)
+        from config.pipeline_config import RAG_PLUS_PLUS_CONFIG
+        result = generator.generate("...", config=RAG_PLUS_PLUS_CONFIG)
     """
 
     def __init__(self, llm_client: Optional[Callable] = None):
@@ -41,12 +49,17 @@ class Generator:
         self._retriever = Retriever()
         self._llm_client = llm_client
 
-    def generate(self, query: str) -> Dict:
+    def generate(self, query: str, config: Optional[Dict] = None) -> Dict:
         """
         Generate an answer to the query.
 
         Args:
             query: The user's question.
+            config: Optional pipeline config dict (e.g. STANDARD_RAG_CONFIG
+                    or RAG_PLUS_PLUS_CONFIG). When provided, controls
+                    hybrid search, reranking, metadata filtering, and the
+                    relevance-threshold gate. When None, uses default
+                    retrieval behavior (dense-only, no rerank, no threshold).
 
         Returns:
             dict with keys:
@@ -54,9 +67,28 @@ class Generator:
                 - "sources": list[dict] — the retrieved chunks used
                 - "llm_used": bool — whether an LLM was actually called
                 - "llm_metadata": dict — additional LLM metadata (if applicable)
+                - "fallback_triggered": bool — True if threshold gate blocked
+                  generation (only present when relevance_threshold is on)
+                - "threshold_top_score": float — top-1 score (only when
+                  fallback triggered)
+                - "threshold_decision": str — "insufficient_evidence" (only
+                  when fallback triggered)
+                - "threshold_score_gap": float — score gap (only when
+                  fallback triggered)
+                - "threshold_used": float — threshold value applied (only
+                  when fallback triggered)
         """
         # ── Step 1: Retrieve chunks ────────────────────────────────────
-        chunks = self._retriever.retrieve(query)
+        if config:
+            chunks = self._retriever.retrieve(
+                query,
+                use_hybrid=config.get("use_hybrid", False),
+                use_rerank=config.get("use_rerank", False),
+                metadata_filters=config.get("metadata_filters"),
+            )
+        else:
+            chunks = self._retriever.retrieve(query)
+
         if not chunks:
             return {
                 "answer": "No relevant information found in the knowledge base.",
@@ -65,10 +97,32 @@ class Generator:
                 "llm_metadata": {},
             }
 
-        # ── Step 2: Build prompt ───────────────────────────────────────
+        # ── Step 2: Relevance threshold check (pre-generation gate) ───────
+        if config and config.get("relevance_threshold", False):
+            from retrieval.threshold.relevance_threshold import (
+                RelevanceThresholdChecker,
+            )
+            from retrieval.threshold.fallback import build_fallback_response
+
+            threshold_value = config.get(
+                "relevance_threshold_value", 0.3
+            )
+            checker = RelevanceThresholdChecker()
+            threshold_result = checker.check(chunks, threshold=threshold_value)
+
+            if threshold_result["decision"] == "insufficient_evidence":
+                return build_fallback_response(
+                    query=query,
+                    top_score=threshold_result["top_score"],
+                    decision=threshold_result["decision"],
+                    score_gap=threshold_result["score_gap_top1_vs_avg_top5"],
+                    threshold_used=threshold_result["threshold_used"],
+                )
+
+        # ── Step 3: Build prompt ──────────────────────────────────────────
         prompt = build_prompt(query, chunks)
 
-        # ── Step 3: Call LLM or return prompt (dry-run) ────────────────
+        # ── Step 4: Call LLM or return prompt (dry-run) ───────────────────
         if self._llm_client:
             try:
                 answer = self._llm_client.generate(prompt)
@@ -79,6 +133,53 @@ class Generator:
 
                 logger.info(f"Generated answer for query: '{query[:80]}...'")
 
+                # ── Step 5: Faithfulness check (post-generation) ──────────
+                if config and config.get("faithfulness_check", False):
+                    from generation.faithfullness_check.verifier import (
+                        FaithfulnessVerifier,
+                        build_faithfulness_fallback_response,
+                    )
+
+                    verifier = FaithfulnessVerifier()
+                    verdict = verifier.verify(answer, chunks)
+
+                    # Log the full verdict for evaluation / spot-checking
+                    logger.info(
+                        "Faithfulness verdict: overall_faithful=%s | "
+                        "verified=%s | claims=%d",
+                        verdict.get("overall_faithful"),
+                        verdict.get("verified"),
+                        len(verdict.get("claims", [])),
+                    )
+                    for claim in verdict.get("claims", []):
+                        logger.info(
+                            "  Claim: '%s' | supported=%s | chunk=%s",
+                            claim.get("claim", "")[:120],
+                            claim.get("supported"),
+                            claim.get("source_chunk_id"),
+                        )
+
+                    if not verdict.get("overall_faithful", False):
+                        logger.warning(
+                            "Faithfulness check FAILED for query: '%s...'",
+                            query[:80],
+                        )
+                        return build_faithfulness_fallback_response(
+                            answer=answer,
+                            chunks=chunks,
+                            verdict=verdict,
+                        )
+
+                    # Passed — return with verdict attached for traceability
+                    return {
+                        "answer": answer,
+                        "sources": chunks,
+                        "llm_used": True,
+                        "llm_metadata": llm_metadata,
+                        "faithfulness_verdict": verdict,
+                    }
+
+                # ── No faithfulness check — return as-is ──────────────────
                 return {
                     "answer": answer,
                     "sources": chunks,

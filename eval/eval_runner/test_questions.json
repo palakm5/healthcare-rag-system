@@ -1,0 +1,77 @@
+[
+  {
+    "question": "What are the first-line drugs used in standard TB treatment?",
+    "ground_truth": "The standard treatment for drug-susceptible TB uses four first-line drugs: isoniazid, rifampicin, ethambutol, and pyrazinamide for the intensive 2-month phase, followed by isoniazid and rifampicin for the 4-month continuation phase.",
+    "category": "answerable"
+  },
+  {
+    "question": "What are the common symptoms of pulmonary tuberculosis?",
+    "ground_truth": "Common symptoms of pulmonary tuberculosis include persistent cough lasting more than 2-3 weeks, blood-stained sputum, chest pain, fever, night sweats, loss of appetite, and unexplained weight loss.",
+    "category": "answerable"
+  },
+  {
+    "question": "What is the recommended treatment for Type 2 diabetes in India according to ICMR guidelines?",
+    "ground_truth": "ICMR guidelines recommend lifestyle modifications (diet and exercise) as the first step, with metformin as the first-line pharmacological therapy, followed by additional agents if glycaemic targets are not met.",
+    "category": "answerable"
+  },
+  {
+    "question": "What are the diagnostic criteria for dengue fever?",
+    "ground_truth": "Dengue fever is diagnosed by clinical symptoms (high fever, severe headache, pain behind the eyes, muscle and joint pain, rash) combined with laboratory tests including NS1 antigen detection, IgM/IgG antibody tests, or RT-PCR.",
+    "category": "answerable"
+  },
+  {
+    "question": "How is antimicrobial resistance (AMR) defined in the ICMR guidelines?",
+    "ground_truth": "Antimicrobial resistance is defined as the ability of a microorganism to withstand the effects of antimicrobial drugs that would normally inhibit or kill it, making standard treatments ineffective and allowing infections to persist.",
+    "category": "answerable"
+  },
+  {
+    "question": "What is the recommended approach for managing psoriasis according to ICMR guidelines?",
+    "ground_truth": "ICMR guidelines recommend a stepwise approach starting with topical therapies (corticosteroids, vitamin D analogues) for mild psoriasis, phototherapy for moderate cases, and systemic agents (methotrexate, biologics) for severe or refractory disease.",
+    "category": "answerable"
+  },
+  {
+    "question": "What preventive measures are recommended for tuberculosis in high-risk contacts?",
+    "ground_truth": "Tuberculosis preventive treatment (TPT) is recommended for household contacts of bacteriologically confirmed TB cases, especially children under 5 years, people living with HIV, and immunocompromised individuals. Isoniazid preventive therapy (IPT) for 6 months is commonly recommended.",
+    "category": "answerable"
+  },
+  {
+    "question": "What are the warning signs of severe dengue that require immediate hospitalisation?",
+    "ground_truth": "Warning signs of severe dengue requiring immediate hospitalisation include abdominal pain or tenderness, persistent vomiting, clinical fluid accumulation (ascites, pleural effusion), mucosal bleeding, lethargy, liver enlargement greater than 2 cm, and rapid increase in haematocrit with rapid decrease in platelet count.",
+    "category": "answerable"
+  },
+  {
+    "question": "What is the role of BCG vaccination in tuberculosis prevention?",
+    "ground_truth": "BCG vaccination provides significant protection against severe forms of TB in children, particularly TB meningitis and disseminated TB. It is given to newborns as part of the national immunisation programme. Its protective effect in adults against pulmonary TB is variable.",
+    "category": "answerable"
+  },
+  {
+    "question": "According to ICMR guidelines, what are the recommended HbA1c targets for Type 2 diabetes management?",
+    "ground_truth": "ICMR guidelines recommend an HbA1c target of less than 7% for most adults with Type 2 diabetes. Individualised targets may be set based on patient age, comorbidities, hypoglycaemia risk, and life expectancy.",
+    "category": "answerable"
+  },
+  {
+    "question": "What is the stock price of Sun Pharmaceutical Industries today?",
+    "ground_truth": "This question is outside the scope of the medical knowledge base. Stock prices are financial data not covered by ICMR, MOHFW, NHP, or PubMed clinical guidelines.",
+    "category": "unanswerable"
+  },
+  {
+    "question": "What is the latest Hollywood film released this week?",
+    "ground_truth": "This question is outside the scope of the medical knowledge base. Entertainment news is not covered by any of the indexed medical sources.",
+    "category": "unanswerable"
+  },
+  {
+    "question": "Can you write me a Python script to sort a list?",
+    "ground_truth": "This question is outside the scope of the medical knowledge base. Programming questions are not covered by the indexed clinical guidelines.",
+    "category": "unanswerable"
+  },
+  {
+    "question": "What is the population of Mumbai?",
+    "ground_truth": "This question is outside the scope of the medical knowledge base. Demographic statistics are not covered by ICMR, MOHFW, NHP, or PubMed clinical guidelines.",
+    "category": "unanswerable"
+  },
+  {
+    "question": "Who won the Cricket World Cup in 2023?",
+    "ground_truth": "This question is outside the scope of the medical knowledge base. Sports results are not covered by any of the indexed medical sources.",
+    "category": "unanswerable"
+  }
+]

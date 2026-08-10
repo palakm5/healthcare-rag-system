@@ -44,7 +44,13 @@ def parse_nhp_txt(file_path: Path) -> Dict[str, str]:
     # ── Step 4: Strip the footer boilerplate ──────────────────────────
     text = _strip_footer(text)
 
-    # ── Step 5: Clean up whitespace ───────────────────────────────────
+    # ── Step 5: Strip breadcrumb/navigation leftovers ────────────────
+    text = _strip_breadcrumb_noise(text)
+
+    # ── Step 6: Remove URL-only references and isolated URL noise ────
+    text = _strip_reference_and_url_noise(text)
+
+    # ── Step 7: Clean up whitespace ───────────────────────────────────
     text = _normalize_whitespace(text)
 
     logger.info(f"Parsed NHP file: {file_path.name} -> title='{title}', "
@@ -136,3 +142,78 @@ def _normalize_whitespace(text: str) -> str:
     # Strip leading/trailing whitespace
     text = text.strip()
     return text
+
+
+def _strip_breadcrumb_noise(text: str) -> str:
+    """
+    Remove breadcrumb/navigation lines that can remain after MENU removal.
+    """
+    filtered_lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            filtered_lines.append(line)
+            continue
+
+        if stripped in {"Home", "Disease A-Z", "Disease / Conditions : A-Z"}:
+            continue
+
+        # Standalone single alphabet letter breadcrumb (A, B, C, ...).
+        if re.fullmatch(r"[A-Z]", stripped):
+            continue
+
+        filtered_lines.append(line)
+
+    return "\n".join(filtered_lines)
+
+
+def _strip_reference_and_url_noise(text: str) -> str:
+    """
+    Remove URL-only reference sections and standalone non-content URL lines.
+    """
+    lines = text.splitlines()
+    kept = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+
+        if _is_reference_heading(stripped):
+            j = i + 1
+            url_block = []
+            while j < len(lines) and lines[j].strip():
+                if _is_standalone_url_line(lines[j].strip()) or lines[j].strip() == "(link is external)":
+                    url_block.append(lines[j])
+                    j += 1
+                    continue
+                break
+
+            # Drop heading + collected URL-only lines.
+            if url_block:
+                i = j
+                continue
+
+        if _is_standalone_url_line(stripped):
+            i += 1
+            continue
+
+        kept.append(line)
+        i += 1
+
+    return "\n".join(kept)
+
+
+def _is_reference_heading(line: str) -> bool:
+    return bool(re.fullmatch(r"References?\s*[:\-]?\s*", line, flags=re.IGNORECASE))
+
+
+def _is_standalone_url_line(line: str) -> bool:
+    line = line.strip().rstrip(".,;)")
+    return bool(
+        re.fullmatch(
+            r"(?:(?:https?://)|(?:www\.))[A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%]+/?",
+            line,
+            flags=re.IGNORECASE,
+        )
+    )

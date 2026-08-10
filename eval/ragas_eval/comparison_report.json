@@ -1,0 +1,31 @@
+{
+  "evaluator_model": "meta/llama-3.1-70b-instruct",
+  "sample_size": null,
+  "note": "RAGAS metrics computed on full dataset.",
+  "datasets": {
+    "standard_rag": {
+      "total_records": 3,
+      "ragas_records_evaluated": 3,
+      "scores": {
+        "faithfulness": 0.0,
+        "context_precision": 0.3333,
+        "context_recall": 0.3333,
+        "answer_relevancy": 0.3333,
+        "correct_refusal_rate": "N/A -- no fallback mechanism",
+        "faithfulness_check_pass_rate": "N/A -- no fallback mechanism"
+      }
+    },
+    "rag_plus_plus": {
+      "total_records": 3,
+      "ragas_records_evaluated": 3,
+      "scores": {
+        "faithfulness": 0.3333,
+        "context_precision": 0.6667,
+        "context_recall": 0.6667,
+        "answer_relevancy": 0.6667,
+        "correct_refusal_rate": "33.33%",
+        "faithfulness_check_pass_rate": "0.0%"
+      }
+    }
+  }
+}

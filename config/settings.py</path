@@ -54,8 +54,8 @@ class Settings:
     NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
     NVIDIA_API_KEY = None
     EMBEDDING_DIM = 4096
-    
-    EMBEDDING_BATCH_SIZE = 16
+
+    EMBEDDING_BATCH_SIZE = 16  # smaller batch for larger 4096-dim model
     # ── ChromaDB ───────────────────────────────────────────────────────
     CHROMA_NHP_COLLECTION: str = "nhp_collection"
     CHROMA_PUBMED_COLLECTION: str = "pubmed_collection"

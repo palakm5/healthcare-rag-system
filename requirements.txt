@@ -10,5 +10,3 @@ tiktoken>=0.13.0
 unstructured[pdf]>=0.18.0
 pypdf>=6.0.0
 sentence-transformers
-requests
-openai
