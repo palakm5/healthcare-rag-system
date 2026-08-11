@@ -1,0 +1,1763 @@
+{
+  "admission": {
+    "columns": [
+      {
+        "name": "admissionid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "admissiondate",
+        "type": "date",
+        "nullable": "YES"
+      },
+      {
+        "name": "dischargedate",
+        "type": "date",
+        "nullable": "YES"
+      },
+      {
+        "name": "admissiontype",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "monthyear",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "lengthofstaydays",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "iculengthofstaydays",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "ruralurban",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "outcome",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "admissionid": "1",
+        "patientkey": "1",
+        "admissiondate": "2017-04-01",
+        "dischargedate": "2017-04-03",
+        "admissiontype": "E",
+        "monthyear": "Apr-17",
+        "lengthofstaydays": "3",
+        "iculengthofstaydays": "2",
+        "ruralurban": "R",
+        "outcome": "DISCHARGE"
+      },
+      {
+        "admissionid": "2",
+        "patientkey": "2",
+        "admissiondate": "2017-04-01",
+        "dischargedate": "2017-04-05",
+        "admissiontype": "E",
+        "monthyear": "Apr-17",
+        "lengthofstaydays": "5",
+        "iculengthofstaydays": "2",
+        "ruralurban": "R",
+        "outcome": "DISCHARGE"
+      }
+    ]
+  },
+  "ayurkoshcompound": {
+    "columns": [
+      {
+        "name": "compoundid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "compoundid": "1",
+        "name": " अग्नि मंथमूलकल्क्क"
+      },
+      {
+        "compoundid": "2",
+        "name": " अजमोदादीचूर्ण"
+      }
+    ]
+  },
+  "ayurkoshcompounddisease": {
+    "columns": [
+      {
+        "name": "compoundid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "diseaseid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "compoundid": "156",
+        "diseaseid": "68"
+      },
+      {
+        "compoundid": "362",
+        "diseaseid": "66"
+      }
+    ]
+  },
+  "ayurkoshcompoundlakshan": {
+    "columns": [
+      {
+        "name": "compoundid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "lakshanid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "compoundid": "156",
+        "lakshanid": "1840"
+      },
+      {
+        "compoundid": "163",
+        "lakshanid": "51"
+      }
+    ]
+  },
+  "ayurkoshdisease": {
+    "columns": [
+      {
+        "name": "diseaseid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "diseaseid": "1",
+        "name": "अपस्मार "
+      },
+      {
+        "diseaseid": "2",
+        "name": "अम्लपित्त "
+      }
+    ]
+  },
+  "ayurkoshdiseaselakshan": {
+    "columns": [
+      {
+        "name": "diseaseid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "lakshanid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "reference",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "diseaseid": "48",
+        "lakshanid": "509",
+        "reference": "भै.र.14/34"
+      },
+      {
+        "diseaseid": "48",
+        "lakshanid": "809",
+        "reference": "भै.र.14/3536"
+      }
+    ]
+  },
+  "ayurkoshdiseaseremedy": {
+    "columns": [
+      {
+        "name": "diseaseid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "remedyid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "reference",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "diseaseid": "48",
+        "remedyid": "1125",
+        "reference": "भै.र.14/34"
+      },
+      {
+        "diseaseid": "48",
+        "remedyid": "4378",
+        "reference": "भै.र.14/34"
+      }
+    ]
+  },
+  "ayurkoshgroup": {
+    "columns": [
+      {
+        "name": "groupid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "groupid": "1",
+        "name": " अंगमर्द प्रशमन"
+      },
+      {
+        "groupid": "2",
+        "name": " अज्जनादी"
+      }
+    ]
+  },
+  "ayurkoshherb": {
+    "columns": [
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "latinname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "family",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "ayurkoshherbid": "1",
+        "name": " अंकोड",
+        "latinname": null,
+        "family": null,
+        "herbid": null
+      },
+      {
+        "ayurkoshherbid": "2",
+        "name": " अंगुलीपत्र",
+        "latinname": null,
+        "family": null,
+        "herbid": null
+      }
+    ]
+  },
+  "ayurkoshherbalternate": {
+    "columns": [
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "alternateayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "ayurkoshherbid": "1684",
+        "alternateayurkoshherbid": "1307"
+      },
+      {
+        "ayurkoshherbid": "1684",
+        "alternateayurkoshherbid": "2259"
+      }
+    ]
+  },
+  "ayurkoshherbcompound": {
+    "columns": [
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "compoundid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "ayurkoshherbid": "1476",
+        "compoundid": "192"
+      },
+      {
+        "ayurkoshherbid": "1930",
+        "compoundid": "415"
+      }
+    ]
+  },
+  "ayurkoshherbgroup": {
+    "columns": [
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "groupid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "ayurkoshherbid": "1684",
+        "groupid": "194"
+      },
+      {
+        "ayurkoshherbid": "1684",
+        "groupid": "210"
+      }
+    ]
+  },
+  "ayurkoshherbquality": {
+    "columns": [
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "qualityid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "ayurkoshherbid": "1684",
+        "qualityid": "45"
+      },
+      {
+        "ayurkoshherbid": "1684",
+        "qualityid": "41"
+      }
+    ]
+  },
+  "ayurkoshlakshan": {
+    "columns": [
+      {
+        "name": "lakshanid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "lakshanid": "1",
+        "name": "अग्नि दीपन"
+      },
+      {
+        "lakshanid": "2",
+        "name": "अग्नि विषम"
+      }
+    ]
+  },
+  "ayurkoshlakshanprakritidhatu": {
+    "columns": [
+      {
+        "name": "rowid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "effectonparameter_1",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "effectonparameter_2",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "parameter",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "lakshan",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "reference",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "lakshaninenglish",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "rowid": "1",
+        "effectonparameter_1": null,
+        "effectonparameter_2": null,
+        "name": "वात",
+        "parameter": "दोष",
+        "lakshan": " रूक्षता ",
+        "reference": "च. सं. सूत्रस्थान 20/11",
+        "lakshaninenglish": "Dryness"
+      },
+      {
+        "rowid": "2",
+        "effectonparameter_1": null,
+        "effectonparameter_2": null,
+        "name": "वात",
+        "parameter": "दोष",
+        "lakshan": " लघुता ",
+        "reference": "च. सं. सूत्रस्थान 20/11",
+        "lakshaninenglish": "Lightness in body"
+      }
+    ]
+  },
+  "ayurkoshquality": {
+    "columns": [
+      {
+        "name": "qualityid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "qualityid": "1",
+        "name": " उष्ण"
+      },
+      {
+        "qualityid": "2",
+        "name": " उष्ण "
+      }
+    ]
+  },
+  "ayurkoshremedy": {
+    "columns": [
+      {
+        "name": "remedyid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "ayurkoshherbid",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "remedyid": "1",
+        "name": "अक्ष काष्ठ दहनार्थ",
+        "ayurkoshherbid": null
+      },
+      {
+        "remedyid": "2",
+        "name": "अक्ष क्वाथ द्रव्य",
+        "ayurkoshherbid": null
+      }
+    ]
+  },
+  "ayushformulation": {
+    "columns": [
+      {
+        "name": "formulationid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "system",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "category",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "referencetext",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "packsize",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "dose",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "precaution",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "preferreduse",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "formulationid": "1",
+        "system": "Ayurveda",
+        "category": "Asava Arista",
+        "name": "Abhayarishta",
+        "referencetext": "AFI",
+        "packsize": "200 ml",
+        "dose": "12-24 ml",
+        "precaution": "NS",
+        "preferreduse": "Both"
+      },
+      {
+        "formulationid": "2",
+        "system": "Ayurveda",
+        "category": "Asava Arista",
+        "name": "Amritarishta",
+        "referencetext": "AFI",
+        "packsize": "200 ml",
+        "dose": "12-24 ml",
+        "precaution": "NS",
+        "preferreduse": "Both"
+      }
+    ]
+  },
+  "cardiovascularprofile": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "chestpaintype",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "restingecg",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "exerciseangina",
+        "type": "boolean",
+        "nullable": "YES"
+      },
+      {
+        "name": "oldpeak",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "slope",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "nummajorvessels",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "classificationtarget",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "29139",
+        "chestpaintype": "2",
+        "restingecg": "1",
+        "exerciseangina": "false",
+        "oldpeak": "5.3000",
+        "slope": "3",
+        "nummajorvessels": "3",
+        "classificationtarget": "1"
+      },
+      {
+        "patientkey": "29140",
+        "chestpaintype": "0",
+        "restingecg": "1",
+        "exerciseangina": "false",
+        "oldpeak": "3.7000",
+        "slope": "1",
+        "nummajorvessels": "1",
+        "classificationtarget": "0"
+      }
+    ]
+  },
+  "classicalindication": {
+    "columns": [
+      {
+        "name": "classicalindicationid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "classicalindicationid": "1",
+        "name": "Abhishyanda"
+      },
+      {
+        "classicalindicationid": "2",
+        "name": "Adhmana"
+      }
+    ]
+  },
+  "comorbiditytype": {
+    "columns": [
+      {
+        "name": "comorbiditytypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "comorbiditytypeid": "1",
+        "name": "Diabetes Mellitus"
+      },
+      {
+        "comorbiditytypeid": "2",
+        "name": "Hypertension"
+      }
+    ]
+  },
+  "dataset": {
+    "columns": [
+      {
+        "name": "datasetid",
+        "type": "text",
+        "nullable": "NO"
+      },
+      {
+        "name": "datasetname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "sourceorg",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "domain",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "originalrowcount",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "originalcolcount",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "datasetid": "D1",
+        "datasetname": "Hero DMC Heart Institute Admissions",
+        "sourceorg": "Hero DMC Cardiology",
+        "domain": "Cardiology",
+        "originalrowcount": "15757",
+        "originalcolcount": "56"
+      },
+      {
+        "datasetid": "D3",
+        "datasetname": "PCOS Infertility",
+        "sourceorg": "Gynecology / Endocrinology",
+        "domain": "Reproductive Health",
+        "originalrowcount": "541",
+        "originalcolcount": "6"
+      }
+    ]
+  },
+  "diabetesprofile": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "diagnosistemp",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "diabetesstatus",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "diabetestarget",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "12786",
+        "diagnosistemp": null,
+        "diabetesstatus": "Diabetic",
+        "diabetestarget": "2"
+      },
+      {
+        "patientkey": "12787",
+        "diagnosistemp": null,
+        "diabetesstatus": "Non-Diabetic",
+        "diabetestarget": "0"
+      }
+    ]
+  },
+  "diagnosistype": {
+    "columns": [
+      {
+        "name": "diagnosistypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "category",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "diagnosistypeid": "1",
+        "name": "STABLE ANGINA",
+        "category": "Cardiac"
+      },
+      {
+        "diagnosistypeid": "2",
+        "name": "ACS",
+        "category": "Cardiac"
+      }
+    ]
+  },
+  "dosha": {
+    "columns": [
+      {
+        "name": "doshaid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "doshaid": "1",
+        "name": "Kapha"
+      },
+      {
+        "doshaid": "2",
+        "name": "Pitta"
+      }
+    ]
+  },
+  "formulationindication": {
+    "columns": [
+      {
+        "name": "formulationid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "classicalindicationid",
+        "type": "integer",
+        "nullable": "NO"
+      }
+    ],
+    "sample_rows": [
+      {
+        "formulationid": "1",
+        "classicalindicationid": "20"
+      },
+      {
+        "formulationid": "1",
+        "classicalindicationid": "3"
+      }
+    ]
+  },
+  "formulationpotency": {
+    "columns": [
+      {
+        "name": "formulationid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "potencyid",
+        "type": "integer",
+        "nullable": "NO"
+      }
+    ],
+    "sample_rows": [
+      {
+        "formulationid": "602",
+        "potencyid": "2"
+      },
+      {
+        "formulationid": "602",
+        "potencyid": "3"
+      }
+    ]
+  },
+  "herb": {
+    "columns": [
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "botanicalname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "family",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "englishname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "virya",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "vipaka",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "tridosha",
+        "type": "boolean",
+        "nullable": "YES"
+      },
+      {
+        "name": "preview",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "link",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbid": "1",
+        "name": "Tulsi",
+        "botanicalname": "Ocimum sanctum",
+        "family": "Lamiaceae",
+        "englishname": "Holy Basil",
+        "virya": "Ushna",
+        "vipaka": "Katu",
+        "tridosha": "false",
+        "preview": "Tulsi (Ocimum sanctum) is known as the 'Queen of Herbs' in Ayurveda. It boosts immunity, combats respiratory disorders, and has adaptogenic properties.",
+        "link": "https://www.amidhaayurveda.com/p/tulsi.html"
+      },
+      {
+        "herbid": "2",
+        "name": "Amla",
+        "botanicalname": "Emblica officinalis",
+        "family": "Euphorbiaceae",
+        "englishname": "Indian Gooseberry",
+        "virya": "Sheeta",
+        "vipaka": "Madhura",
+        "tridosha": "true",
+        "preview": "Amla (Emblica officinalis) is a potent source of Vitamin C. It rejuvenates tissues, improves digestion, eyesight, and balances all three doshas.",
+        "link": "https://www.amidhaayurveda.com/p/amla.html"
+      }
+    ]
+  },
+  "herbdoshaeffect": {
+    "columns": [
+      {
+        "name": "herbdoshaeffectid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "doshaid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "effect",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbdoshaeffectid": "1",
+        "herbid": "1",
+        "doshaid": "1",
+        "effect": "Pacify"
+      },
+      {
+        "herbdoshaeffectid": "2",
+        "herbid": "1",
+        "doshaid": "3",
+        "effect": "Pacify"
+      }
+    ]
+  },
+  "herbindication": {
+    "columns": [
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "classicalindicationid",
+        "type": "integer",
+        "nullable": "NO"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbid": "1",
+        "classicalindicationid": "74"
+      },
+      {
+        "herbid": "1",
+        "classicalindicationid": "157"
+      }
+    ]
+  },
+  "herbpartused": {
+    "columns": [
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "partusedid",
+        "type": "integer",
+        "nullable": "NO"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbid": "1",
+        "partusedid": "17"
+      },
+      {
+        "herbid": "1",
+        "partusedid": "27"
+      }
+    ]
+  },
+  "herbrasaguna": {
+    "columns": [
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "attributeid",
+        "type": "integer",
+        "nullable": "NO"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbid": "1",
+        "attributeid": "91"
+      },
+      {
+        "herbid": "1",
+        "attributeid": "94"
+      }
+    ]
+  },
+  "herbsynonym": {
+    "columns": [
+      {
+        "name": "herbsynonymid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "herbid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "synonym",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "herbsynonymid": "1",
+        "herbid": "1",
+        "synonym": "Surasa"
+      },
+      {
+        "herbsynonymid": "2",
+        "herbid": "1",
+        "synonym": "Apetarakshasi"
+      }
+    ]
+  },
+  "janaushadhi": {
+    "columns": [
+      {
+        "name": "srno",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "drugcode",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "genericname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "unitsize",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "mrp",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "groupname",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "srno": "1",
+        "drugcode": "1",
+        "genericname": "Aceclofenac 100mg and Paracetamol 325mg Tablets",
+        "unitsize": "10's",
+        "mrp": "9.38",
+        "groupname": "Analgesic/Antipyretic/Anti-Inflammatory"
+      },
+      {
+        "srno": "2",
+        "drugcode": "2",
+        "genericname": "Aceclofenac Tablets IP 100 mg",
+        "unitsize": "10's",
+        "mrp": "7.50",
+        "groupname": "Analgesic/Antipyretic/Anti-Inflammatory"
+      }
+    ]
+  },
+  "labresult": {
+    "columns": [
+      {
+        "name": "labresultid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "labtesttypeid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "resultvalue",
+        "type": "numeric",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "labresultid": "1",
+        "patientkey": "1",
+        "labtesttypeid": "3",
+        "resultvalue": "80.0000"
+      },
+      {
+        "labresultid": "2",
+        "patientkey": "2",
+        "labtesttypeid": "3",
+        "resultvalue": "112.0000"
+      }
+    ]
+  },
+  "labtesttype": {
+    "columns": [
+      {
+        "name": "labtesttypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "testname",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "unit",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "category",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "labtesttypeid": "1",
+        "testname": "Glucose-Fasting",
+        "unit": "mg/dL",
+        "category": "Chemistry"
+      },
+      {
+        "labtesttypeid": "2",
+        "testname": "Glucose-PostPrandial",
+        "unit": "mg/dL",
+        "category": "Chemistry"
+      }
+    ]
+  },
+  "liverprofile": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "selector",
+        "type": "integer",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "30536",
+        "selector": "1"
+      },
+      {
+        "patientkey": "30537",
+        "selector": "1"
+      }
+    ]
+  },
+  "medicinedetails": {
+    "columns": [
+      {
+        "name": "medicinedetailid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "medicinename",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "composition",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "uses",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "sideeffects",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "manufacturer",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "excellentreviewpct",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "averagereviewpct",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "poorreviewpct",
+        "type": "numeric",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "medicinedetailid": "1",
+        "medicinename": "Avastin 400mg Injection",
+        "composition": "Bevacizumab (400mg)",
+        "uses": "Cancer of colon and rectum Non-small cell lung cancer Kidney cancer Brain tumor Ovarian cancer Cervical cancer",
+        "sideeffects": "Rectal bleeding Taste change Headache Nosebleeds Back pain Dry skin High blood pressure Protein in urine Inflammation of the nose",
+        "manufacturer": "Roche Products India Pvt Ltd",
+        "excellentreviewpct": null,
+        "averagereviewpct": null,
+        "poorreviewpct": null
+      },
+      {
+        "medicinedetailid": "2",
+        "medicinename": "Augmentin 625 Duo Tablet",
+        "composition": "Amoxycillin  (500mg) +  Clavulanic Acid (125mg)",
+        "uses": "Treatment of Bacterial infections",
+        "sideeffects": "Vomiting Nausea Diarrhea Mucocutaneous candidiasis",
+        "manufacturer": "Glaxo SmithKline Pharmaceuticals Ltd",
+        "excellentreviewpct": null,
+        "averagereviewpct": null,
+        "poorreviewpct": null
+      }
+    ]
+  },
+  "partused": {
+    "columns": [
+      {
+        "name": "partusedid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "partusedid": "1",
+        "name": "Bhavana Taila"
+      },
+      {
+        "partusedid": "2",
+        "name": "Bija"
+      }
+    ]
+  },
+  "patient": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "datasetid",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "originalpatientid",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "age",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "gender",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "1",
+        "datasetid": "D1",
+        "originalpatientid": "234735",
+        "age": "81",
+        "gender": "M"
+      },
+      {
+        "patientkey": "2",
+        "datasetid": "D1",
+        "originalpatientid": "234696",
+        "age": "65",
+        "gender": "M"
+      }
+    ]
+  },
+  "patientcomorbidity": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "comorbiditytypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "presentflag",
+        "type": "boolean",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "1",
+        "comorbiditytypeid": "1",
+        "presentflag": "true"
+      },
+      {
+        "patientkey": "3",
+        "comorbiditytypeid": "1",
+        "presentflag": "true"
+      }
+    ]
+  },
+  "patientdiagnosis": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "diagnosistypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "presentflag",
+        "type": "boolean",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "17",
+        "diagnosistypeid": "1",
+        "presentflag": "true"
+      },
+      {
+        "patientkey": "24",
+        "diagnosistypeid": "1",
+        "presentflag": "true"
+      }
+    ]
+  },
+  "potency": {
+    "columns": [
+      {
+        "name": "potencyid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "potencyid": "1",
+        "name": "Ointment"
+      },
+      {
+        "potencyid": "2",
+        "name": "Mother Tincture"
+      }
+    ]
+  },
+  "rasagunaattribute": {
+    "columns": [
+      {
+        "name": "attributeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "attributetype",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "value",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "attributeid": "1",
+        "attributetype": "Guna",
+        "value": "Guru"
+      },
+      {
+        "attributeid": "2",
+        "attributetype": "Guna",
+        "value": "Laghu"
+      }
+    ]
+  },
+  "renalprofile": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "specificgravity",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "urinealbumin",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "urinesugar",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "rbcurine",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "puscell",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "puscellclumps",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "bacteria",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "appetiteflag",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "pedaledemaflag",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "classtarget",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "30139",
+        "specificgravity": "1.0200",
+        "urinealbumin": "1",
+        "urinesugar": "0",
+        "rbcurine": null,
+        "puscell": "normal",
+        "puscellclumps": "notpresent",
+        "bacteria": "notpresent",
+        "appetiteflag": "1",
+        "pedaledemaflag": "0",
+        "classtarget": "ckd"
+      },
+      {
+        "patientkey": "30140",
+        "specificgravity": "1.0200",
+        "urinealbumin": "4",
+        "urinesugar": "0",
+        "rbcurine": null,
+        "puscell": "normal",
+        "puscellclumps": "notpresent",
+        "bacteria": "notpresent",
+        "appetiteflag": "1",
+        "pedaledemaflag": "0",
+        "classtarget": "ckd"
+      }
+    ]
+  },
+  "reproductiveprofile": {
+    "columns": [
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "pcosflag",
+        "type": "boolean",
+        "nullable": "YES"
+      },
+      {
+        "name": "betahcg_i",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "betahcg_ii",
+        "type": "numeric",
+        "nullable": "YES"
+      },
+      {
+        "name": "amh",
+        "type": "numeric",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "patientkey": "12245",
+        "pcosflag": "false",
+        "betahcg_i": "1.9900",
+        "betahcg_ii": "1.9900",
+        "amh": "2.0700"
+      },
+      {
+        "patientkey": "12246",
+        "pcosflag": "false",
+        "betahcg_i": "60.8000",
+        "betahcg_ii": "1.9900",
+        "amh": "1.5300"
+      }
+    ]
+  },
+  "vitalsign": {
+    "columns": [
+      {
+        "name": "vitalsignid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "patientkey",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "vitalsigntypeid",
+        "type": "integer",
+        "nullable": "YES"
+      },
+      {
+        "name": "value",
+        "type": "numeric",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "vitalsignid": "1",
+        "patientkey": "12786",
+        "vitalsigntypeid": "1",
+        "value": "70.0000"
+      },
+      {
+        "vitalsignid": "2",
+        "patientkey": "12787",
+        "vitalsigntypeid": "1",
+        "value": "70.0000"
+      }
+    ]
+  },
+  "vitalsigntype": {
+    "columns": [
+      {
+        "name": "vitalsigntypeid",
+        "type": "integer",
+        "nullable": "NO"
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "nullable": "YES"
+      },
+      {
+        "name": "unit",
+        "type": "text",
+        "nullable": "YES"
+      }
+    ],
+    "sample_rows": [
+      {
+        "vitalsigntypeid": "1",
+        "name": "Systolic BP",
+        "unit": "mmHg"
+      },
+      {
+        "vitalsigntypeid": "2",
+        "name": "Pulse Rate",
+        "unit": "bpm"
+      }
+    ]
+  }
+}

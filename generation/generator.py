@@ -5,8 +5,12 @@ Takes a query, retrieves relevant chunks, builds a prompt, and calls an LLM.
 Returns the answer with source citations.
 
 Supports an optional pipeline config dict (see config/pipeline_config.py)
-that controls hybrid search, reranking, metadata filtering, and a
-relevance-threshold quality gate before generation.
+that controls hybrid search, reranking, metadata filtering, a
+relevance-threshold quality gate before generation, faithfulness check,
+and structured SQL database retrieval (additive alongside vector search).
+
+Structured retrieval is ADDITIVE -- it never replaces or modifies existing
+chunk retrieval, reranking, hybrid search, or faithfulness check logic.
 """
 
 import logging
@@ -48,6 +52,21 @@ class Generator:
         """
         self._retriever = Retriever()
         self._llm_client = llm_client
+        self._structured_lookup = None  # lazy-loaded when structured_data_enabled=True
+
+    def _get_structured_lookup(self):
+        """Lazy-load StructuredLookup to avoid import/connection cost when disabled."""
+        if self._structured_lookup is None:
+            try:
+                from retrieval.structured.structured_lookup import StructuredLookup
+                self._structured_lookup = StructuredLookup()
+            except Exception as e:
+                logger.warning(
+                    "Could not initialise StructuredLookup: %s. "
+                    "Structured retrieval disabled for this session.", e
+                )
+                self._structured_lookup = False  # sentinel: tried and failed
+        return self._structured_lookup if self._structured_lookup is not False else None
 
     def generate(self, query: str, config: Optional[Dict] = None) -> Dict:
         """
@@ -97,6 +116,23 @@ class Generator:
                 "llm_metadata": {},
             }
 
+        # ── Step 1b: Structured SQL retrieval (additive, alongside vector search)
+        structured_result = None
+        if config and config.get("structured_data_enabled", False):
+            sl = self._get_structured_lookup()
+            if sl is not None:
+                try:
+                    structured_result = sl.lookup(query)
+                    if structured_result.path != "no_match":
+                        logger.info(
+                            "Structured retrieval: path=%s, rows=%d, tables=%s",
+                            structured_result.path,
+                            structured_result.rows_returned,
+                            structured_result.matched_tables,
+                        )
+                except Exception as e:
+                    logger.warning("Structured lookup failed (non-fatal): %s", e)
+
         # ── Step 2: Relevance threshold check (pre-generation gate) ───────
         if config and config.get("relevance_threshold", False):
             from retrieval.threshold.relevance_threshold import (
@@ -120,7 +156,7 @@ class Generator:
                 )
 
         # ── Step 3: Build prompt ──────────────────────────────────────────
-        prompt = build_prompt(query, chunks)
+        prompt = build_prompt(query, chunks, structured_result=structured_result)
 
         # ── Step 4: Call LLM or return prompt (dry-run) ───────────────────
         if self._llm_client:
@@ -171,21 +207,39 @@ class Generator:
                         )
 
                     # Passed — return with verdict attached for traceability
-                    return {
+                    result = {
                         "answer": answer,
                         "sources": chunks,
                         "llm_used": True,
                         "llm_metadata": llm_metadata,
                         "faithfulness_verdict": verdict,
                     }
+                    if structured_result is not None:
+                        result["structured_result"] = {
+                            "path":          structured_result.path,
+                            "template_id":   structured_result.template_id,
+                            "tables":        structured_result.matched_tables,
+                            "rows_returned": structured_result.rows_returned,
+                            "provenance":    structured_result.provenance_label,
+                        }
+                    return result
 
                 # ── No faithfulness check — return as-is ──────────────────
-                return {
+                result = {
                     "answer": answer,
                     "sources": chunks,
                     "llm_used": True,
                     "llm_metadata": llm_metadata,
                 }
+                if structured_result is not None:
+                    result["structured_result"] = {
+                        "path":          structured_result.path,
+                        "template_id":   structured_result.template_id,
+                        "tables":        structured_result.matched_tables,
+                        "rows_returned": structured_result.rows_returned,
+                        "provenance":    structured_result.provenance_label,
+                    }
+                return result
 
             except Exception as e:
                 logger.error(f"LLM call failed: {e}")
