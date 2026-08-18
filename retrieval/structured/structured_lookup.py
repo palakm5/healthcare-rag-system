@@ -223,6 +223,11 @@ class EntityMatcher:
         # Medical system names -- too generic, indexed in ayushformulation.system
         # and would swamp real entity matches (e.g. "Abhishyanda")
         "ayurveda", "unani", "siddha", "homeopathy", "homoeopathy",
+        # Dosage-form / groupname tokens from janaushadhi that would beat
+        # real entity names (e.g. 'ayurvedic' beating 'tulsi').
+        "ayurvedic", "tablet", "tablets", "capsule", "capsules",
+        "injection", "injections", "syrup", "solution", "suspension",
+        "ointment", "cream", "drops", "powder", "test", "unit", "units",
     }
 
     def __init__(self, cache: EntityCache, fuzzy: bool = True):
@@ -374,7 +379,9 @@ class StructuredLookup:
                 if t not in all_tables:
                     all_tables.append(t)
         matched_tables = all_tables[:MAX_ENTITY_TABLES]
-        entity_value   = matches[0].matched_value
+
+        # Default entity value: best-scored match
+        entity_value = matches[0].matched_value
 
         # 2. Template path (priority)
         from retrieval.structured.query_templates import (
@@ -389,6 +396,28 @@ class StructuredLookup:
 
         if tmpl_result is not None:
             template_id, template = tmpl_result
+
+            # Pick the entity value from a match whose tables overlap with the
+            # template's target tables -- avoids running the wrong entity
+            # (e.g. 'ayurvedic' from janaushadhi) when a better match exists
+            # for the actual template table (e.g. 'tulsi' from herb).
+            template_entity_tables = set(template.entity_tables)
+            _COMPOUND_TABLES = {"janaushadhi", "medicinedetails"}
+            for m in matches:
+                if set(m.tables) & template_entity_tables:
+                    # For compound-name tables the cache stores the full drug
+                    # string (e.g. "Aceclofenac 100mg and Paracetamol 325mg
+                    # Tablets") as matched_value. The LIKE template wraps the
+                    # value in % wildcards, but using the full compound name
+                    # returns only that exact drug instead of all drugs
+                    # containing the ingredient. Use the original_token
+                    # (e.g. "Paracetamol") so the LIKE search is broader.
+                    if set(m.tables) & _COMPOUND_TABLES:
+                        entity_value = m.original_token
+                    else:
+                        entity_value = m.matched_value
+                    break
+
             logger.info("Using template '%s' for entity '%s'.", template_id, entity_value)
             try:
                 conn = self._get_conn()

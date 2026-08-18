@@ -8,12 +8,11 @@ factual claim in the answer is supported by the source chunks.
 The verifier returns structured JSON. If any claim is unsupported, the
 answer is considered unfaithful and a fallback response is returned instead.
 
-Verifier LLM choice: NVIDIA API (NVIDIAClient) by default.
-Rationale: The verifier task is narrow (structured claim-checking) and
-NVIDIA's hosted mistralai/mistral-nemotron is a strong instruction-follower
-for JSON output — more reliable for structured responses than a small 4B
-local model. It also avoids local GPU contention with the generation model.
-The verifier client is injectable so it can be swapped to Ollama if needed.
+Verifier LLM choice: local Ollama (OllamaClient) using qwen3:8b.
+Rationale: The verifier task is narrow (structured claim-checking).
+Qwen3:8b runs locally on Ollama with strong JSON instruction-following,
+requires no API key, and avoids external rate limits entirely.
+The verifier client is injectable so it can be swapped if needed.
 """
 
 import json
@@ -197,7 +196,7 @@ class FaithfulnessVerifier:
     whether each factual claim is supported.
 
     Usage:
-        verifier = FaithfulnessVerifier()  # defaults to NVIDIA client
+        verifier = FaithfulnessVerifier()  # uses OllamaClient(qwen3:8b) by default
         verdict = verifier.verify(answer, chunks)
 
         # Or inject a different client:
@@ -212,9 +211,7 @@ class FaithfulnessVerifier:
         Args:
             verifier_client: Optional callable with a generate(prompt) -> str
                              interface. If None, lazily constructs an
-                             NVIDIAClient (requires NVIDIA_API_KEY env var).
-                             Pass None for dry-run/test mode (verify() will
-                             return an unverified fallback).
+                             OllamaClient targeting qwen3:8b.
         """
         self._verifier_client = verifier_client
         self._verifier_client_initialized = verifier_client is not None
@@ -229,30 +226,30 @@ class FaithfulnessVerifier:
         if self._verifier_client_initialized:
             return self._verifier_client
 
-        # Try NVIDIA first (cheaper/faster for this narrow task)
+        # Primary: qwen3:8b via local Ollama (no API key, no rate limits)
         try:
-            from generation.llm.llm_client import NVIDIAClient
-            self._verifier_client = NVIDIAClient()
+            from generation.llm.ollama_client import OllamaClient
+            self._verifier_client = OllamaClient(model="qwen3:8b")
             self._verifier_client_initialized = True
-            logger.info("Faithfulness verifier using NVIDIA API client.")
+            logger.info("Faithfulness verifier using OllamaClient (qwen3:8b).")
             return self._verifier_client
         except Exception as e:
             logger.warning(
-                "Could not initialize NVIDIA verifier client: %s. "
-                "Trying Ollama fallback...",
+                "Could not initialise OllamaClient (qwen3:8b): %s. "
+                "Trying mistral:7b fallback...",
                 e,
             )
 
-        # Fall back to Ollama
+        # Fallback: mistral:7b (also local)
         try:
             from generation.llm.ollama_client import OllamaClient
-            self._verifier_client = OllamaClient()
+            self._verifier_client = OllamaClient(model="mistral:7b")
             self._verifier_client_initialized = True
-            logger.info("Faithfulness verifier using Ollama client.")
+            logger.info("Faithfulness verifier using OllamaClient (mistral:7b fallback).")
             return self._verifier_client
         except Exception as e:
             logger.error(
-                "Could not initialize any verifier client: %s. "
+                "Could not initialise any local verifier client: %s. "
                 "Faithfulness check will treat all answers as unverified.",
                 e,
             )

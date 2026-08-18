@@ -5,25 +5,28 @@ RAGAS Evaluation Script -- Healthcare RAG System
 
 Loads pre-logged pipeline results (standard RAG and RAG++) from disk,
 converts them into RAGAS EvaluationDataset format, runs four RAGAS metrics
-via an NVIDIA-hosted evaluator LLM, computes custom metrics from logged
+via a pluggable evaluator backend, computes custom metrics from logged
 fields, and writes a final comparison table + JSON report.
 
 Model-role separation (strictly enforced -- do NOT collapse these):
-  - Test-question / ground-truth generation : NVIDIA API (separate script)
-  - Answer generation (evaluated system)    : Mistral via Ollama (run_pipeline.py)
-  - Faithfulness verifier in pipeline       : NVIDIA API -- mistralai/mistral-nemotron
-  - RAGAS evaluator (this script)           : NVIDIA API -- see EVALUATOR_MODEL below
+  - Test-question / ground-truth generation : separate script
+  - Answer generation (evaluated system)    : MedGemma via Ollama (run_pipeline.py)
+  - Faithfulness verifier in pipeline       : qwen3:8b via Ollama
+  - RAGAS evaluator (this script)           : pluggable -- see --evaluator flag
 
 Usage:
-    # Run on all records:
-    python -m eval.ragas_eval.run_ragas
+    # Local Ollama backend (default -- no API key needed):
+    python -m eval.ragas_eval.run_ragas --sample 5
 
-    # Validate on a small sample first (recommended before committing to full run):
-    python -m eval.ragas_eval.run_ragas --sample 10
+    # NVIDIA NIM backend:
+    python -m eval.ragas_eval.run_ragas --evaluator nvidia --delay 15 --sample 5
+
+    # Skip RAGAS metrics, only compute custom metrics:
+    python -m eval.ragas_eval.run_ragas --skip-ragas
 
     # Explicitly specify result files if paths differ:
-    python -m eval.ragas_eval.run_ragas \
-        --standard-results path/to/standard_rag_results.json \
+    python -m eval.ragas_eval.run_ragas \\
+        --standard-results path/to/standard_rag_results.json \\
         --rag-plus-results  path/to/rag_plus_plus_results.json
 """
 
@@ -33,6 +36,7 @@ import json
 import logging
 import os
 import random
+import re as _re
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -41,24 +45,17 @@ from typing import Any, Dict, List, Optional
 from dotenv import load_dotenv
 
 # ==============================================================================
-# CONFIG -- change these one-liners if a model is deprecated; nothing else
-# in this file needs touching.
+# CONFIG
 # ==============================================================================
-
-# RAGAS evaluator model (NVIDIA API).
-# MUST be a different model family from the faithfulness-verifier model
-# (mistralai/mistral-nemotron) used elsewhere in this project.
-# Current choice: Meta Llama-3.1 70B Instruct (hosted on NVIDIA NIM).
-# One-line swap: replace the string below with any other model available
-# at https://build.nvidia.com/explore/discover when this one is deprecated.
-EVALUATOR_MODEL: str = "meta/llama-3.1-70b-instruct"
-
-NVIDIA_BASE_URL: str = "https://integrate.api.nvidia.com/v1"
+# Evaluator backend settings live in their respective modules:
+#   eval/ragas_eval/evaluators/ollama_evaluator.py  (default)
+#   eval/ragas_eval/evaluators/nvidia_evaluator.py
+# Select the backend at runtime with --evaluator ollama|nvidia.
 
 # -- Paths ---------------------------------------------------------------------
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+_PROJECT_ROOT       = Path(__file__).resolve().parent.parent.parent
 _LOGGED_RESULTS_DIR = _PROJECT_ROOT / "eval" / "eval_runner" / "logged_results"
-_REPORT_PATH = Path(__file__).resolve().parent / "comparison_report.json"
+_REPORT_PATH        = Path(__file__).resolve().parent / "comparison_report.json"
 
 DEFAULT_STANDARD_RESULTS: Path = _LOGGED_RESULTS_DIR / "standard_rag_results.json"
 DEFAULT_RAG_PLUS_RESULTS: Path = _LOGGED_RESULTS_DIR / "rag_plus_plus_results.json"
@@ -150,6 +147,37 @@ def maybe_sample(records: List[Dict], n: Optional[int], label: str) -> List[Dict
 # 2. RAGAS dataset construction
 # ==============================================================================
 
+def _clean_answer(text: str) -> str:
+    """
+    Strip thinking-token artifacts injected by Ollama models before RAGAS sees them.
+
+    Some Ollama models (e.g. qwen3, mistral) occasionally prepend internal
+    reasoning tokens to their output:
+        <unused94>thought 1. Analyze...\\n\\nActual answer here.
+        <think>...reasoning...</think>\\n\\nActual answer here.
+
+    These corrupt RAGAS metrics because the 'answer' seen by the evaluator
+    contains internal chain-of-thought text instead of the final response.
+
+    Strategy:
+        1. Strip <think>...</think> blocks entirely.
+        2. Strip any leading <unusedN>... token up to the first blank line.
+        3. Strip any remaining <...> tags from the start of the string.
+        4. Strip surrounding whitespace.
+    """
+    # Remove <think>...</think> blocks (possibly multiline)
+    text = _re.sub(r"<think>.*?</think>", "", text, flags=_re.DOTALL)
+
+    # Remove <unusedN>... prefix up to first blank line
+    text = _re.sub(r"^<unused\d+>\s*thought.*?\n\n", "", text,
+                   flags=_re.DOTALL | _re.IGNORECASE)
+
+    # Remove any remaining leading XML-style tags at the very start
+    text = _re.sub(r"^\s*<[^>]+>\s*", "", text)
+
+    return text.strip()
+
+
 def build_ragas_dataset(records: List[Dict], label: str):
     """
     Convert logged pipeline results to a RAGAS EvaluationDataset.
@@ -175,11 +203,12 @@ def build_ragas_dataset(records: List[Dict], label: str):
 
     samples = []
     skipped = 0
+    cleaned = 0
 
     for i, rec in enumerate(records):
-        q = rec.get("question", "").strip()
-        gt = rec.get("ground_truth", "").strip()
-        ans = rec.get("answer", "").strip()
+        q   = rec.get("question", "").strip()
+        gt  = rec.get("ground_truth", "").strip()
+        ans = _clean_answer(rec.get("answer", "").strip())
         raw_contexts = rec.get("contexts", [])
 
         # Normalise contexts -- RAGAS needs List[str]
@@ -200,10 +229,13 @@ def build_ragas_dataset(records: List[Dict], label: str):
             continue
 
         if not contexts:
-            logger.warning(
-                "[%s] Record %d has no contexts -- including with empty context list.",
-                label, i
+            logger.info(
+                "[%s] Record %d has no contexts (unanswerable question).", label, i
             )
+
+        orig = rec.get("answer", "").strip()
+        if orig != ans:
+            cleaned += 1
 
         samples.append(
             SingleTurnSample(
@@ -216,95 +248,53 @@ def build_ragas_dataset(records: List[Dict], label: str):
 
     if skipped:
         logger.warning("[%s] Skipped %d malformed records.", label, skipped)
+    if cleaned:
+        logger.info(
+            "[%s] Stripped thinking-token prefixes from %d/%d answers.",
+            label, cleaned, len(samples) + skipped,
+        )
 
     logger.info("[%s] Built RAGAS dataset with %d samples.", label, len(samples))
     return EvaluationDataset(samples=samples)
 
 
 # ==============================================================================
-# 3. NVIDIA evaluator LLM wrapper
+# 3. Evaluator backend dispatcher
 # ==============================================================================
 
-def build_evaluator_llm():
+def load_evaluator_backend(name: str):
     """
-    Construct the RAGAS evaluator LLM using the NVIDIA API.
+    Import and return the evaluator backend module by name.
 
-    RAGAS v0.2+ expects the LLM to be wrapped in a LangchainLLMWrapper.
-    We use ChatOpenAI (OpenAI-compatible) pointed at the NVIDIA NIM endpoint.
+    Each backend module exposes:
+        build_llm(delay_seconds=...)  -> LangchainLLMWrapper
+        build_embeddings()            -> LangchainEmbeddingsWrapper | None
+        build_run_config()            -> ragas.run_config.RunConfig
+        BACKEND_NAME                  -> str  ("ollama" | "nvidia")
+        BACKEND_DESCRIPTION           -> str  (human-readable label for reports)
 
-    Model: EVALUATOR_MODEL (defined at the top of this file).
-    This must remain distinct from mistralai/mistral-nemotron used elsewhere.
+    Args:
+        name: "ollama" or "nvidia"
 
     Returns:
-        ragas.llms.LangchainLLMWrapper
+        The backend module.
 
     Raises:
-        RuntimeError: if NVIDIA_API_KEY is not set.
-        ImportError:  if ragas or langchain-openai are not installed.
+        ValueError: if name is not a known backend.
     """
-    api_key = os.getenv("NVIDIA_API_KEY")
-    if not api_key:
-        raise RuntimeError(
-            "NVIDIA_API_KEY environment variable is not set.\n"
-            "Add it to your .env file or export it before running."
+    if name == "ollama":
+        from eval.ragas_eval.evaluators import ollama_evaluator as backend  # type: ignore
+    elif name == "nvidia":
+        from eval.ragas_eval.evaluators import nvidia_evaluator as backend  # type: ignore
+    elif name == "openrouter":
+        from eval.ragas_eval.evaluators import openrouter_evaluator as backend  # type: ignore
+    else:
+        raise ValueError(
+            f"Unknown evaluator backend: '{name}'. "
+            "Choose 'ollama', 'nvidia', or 'openrouter'."
         )
-
-    try:
-        from langchain_openai import ChatOpenAI        # type: ignore
-        from ragas.llms import LangchainLLMWrapper     # type: ignore
-    except ImportError as exc:
-        raise ImportError(
-            "Missing dependencies. Install with:\n"
-            "  pip install ragas langchain-openai"
-        ) from exc
-
-    logger.info(
-        "Initialising NVIDIA evaluator LLM: %s (via %s)",
-        EVALUATOR_MODEL,
-        NVIDIA_BASE_URL,
-    )
-
-    langchain_llm = ChatOpenAI(
-        model=EVALUATOR_MODEL,
-        openai_api_key=api_key,
-        openai_api_base=NVIDIA_BASE_URL,
-        temperature=0.0,
-        max_tokens=1024,
-        max_retries=1,
-    )
-
-    return LangchainLLMWrapper(langchain_llm)
-
-
-def build_evaluator_embeddings():
-    """
-    Construct the RAGAS embeddings wrapper for answer_relevancy.
-
-    Reuses the NVIDIA NIM endpoint with nv-embed-v1 (already used for
-    ingestion in this project), so no additional API key is needed.
-
-    Returns:
-        ragas.embeddings.LangchainEmbeddingsWrapper
-    """
-    api_key = os.getenv("NVIDIA_API_KEY")
-
-    try:
-        from langchain_openai import OpenAIEmbeddings             # type: ignore
-        from ragas.embeddings import LangchainEmbeddingsWrapper   # type: ignore
-    except ImportError as exc:
-        raise ImportError(
-            "Missing dependencies. Install with:\n"
-            "  pip install ragas langchain-openai"
-        ) from exc
-
-    embeddings = OpenAIEmbeddings(
-        model="nvidia/nv-embed-v1",
-        openai_api_key=api_key,
-        openai_api_base=NVIDIA_BASE_URL,
-        check_embedding_ctx_length=False,
-    )
-
-    return LangchainEmbeddingsWrapper(embeddings)
+    logger.info("Evaluator backend loaded: %s", backend.BACKEND_DESCRIPTION)
+    return backend
 
 
 # ==============================================================================
@@ -316,6 +306,7 @@ def run_ragas_evaluation(
     evaluator_llm,
     evaluator_embeddings,
     label: str,
+    run_config=None,
 ) -> Dict[str, Any]:
     """
     Run RAGAS metrics on the given EvaluationDataset.
@@ -336,6 +327,7 @@ def run_ragas_evaluation(
         evaluator_llm:        LangchainLLMWrapper
         evaluator_embeddings: LangchainEmbeddingsWrapper
         label:                Dataset label for logging.
+        run_config:           ragas.run_config.RunConfig (backend-specific).
 
     Returns:
         Dict mapping metric name to float score, or error string on failure.
@@ -352,18 +344,27 @@ def run_ragas_evaluation(
         Faithfulness(llm=evaluator_llm),
         ContextPrecision(llm=evaluator_llm),
         ContextRecall(llm=evaluator_llm),
-        AnswerRelevancy(llm=evaluator_llm, embeddings=evaluator_embeddings),
     ]
+
+    # answer_relevancy needs an embeddings model; skip gracefully if unavailable
+    if evaluator_embeddings is not None:
+        metrics.append(AnswerRelevancy(llm=evaluator_llm, embeddings=evaluator_embeddings))
+        logger.info("[%s] answer_relevancy enabled (embeddings available).", label)
+    else:
+        logger.warning(
+            "[%s] answer_relevancy SKIPPED -- no embeddings wrapper available. "
+            "Use --evaluator nvidia to enable it (nvidia/nv-embed-v1).",
+            label,
+        )
 
     logger.info("[%s] Starting RAGAS evaluation (%d metrics)...", label, len(metrics))
 
     try:
-        result = evaluate(dataset=dataset, metrics=metrics)
+        result = evaluate(dataset=dataset, metrics=metrics, run_config=run_config)
     except Exception as exc:
         logger.error(
-            "[%s] RAGAS evaluation failed: %s\n"
-            "  Check: NVIDIA API key, rate limits, model availability at %s.",
-            label, exc, NVIDIA_BASE_URL,
+            "[%s] RAGAS evaluation failed: %s",
+            label, exc,
         )
         error_str = f"ERROR: {exc}"
         return {
@@ -387,21 +388,24 @@ def run_ragas_evaluation(
 
     for metric_name, col in metric_col_map.items():
         if col not in df.columns:
-            scores[metric_name] = "ERROR: column missing from RAGAS output"
-            logger.error(
-                "[%s] Metric column '%s' not found. Available: %s",
-                label, col, list(df.columns),
-            )
+            if metric_name == "answer_relevancy" and evaluator_embeddings is None:
+                scores[metric_name] = "SKIPPED -- no embeddings available (set NVIDIA_API_KEY)"
+                logger.info("[%s] answer_relevancy: skipped (no embeddings).", label)
+            else:
+                scores[metric_name] = "ERROR: column missing from RAGAS output"
+                logger.error(
+                    "[%s] Metric column '%s' not found. Available: %s",
+                    label, col, list(df.columns),
+                )
             continue
 
-        series = df[col]
+        series    = df[col]
         nan_count = int(series.isna().sum())
 
         if nan_count > 0:
             logger.warning(
-                "[%s] %s: %d/%d records returned NaN (NVIDIA API failure or "
-                "malformed response). Excluded from mean. "
-                "Review RAGAS log output above for per-record details.",
+                "[%s] %s: %d/%d records returned NaN (model or API failure, "
+                "or malformed response). Excluded from mean.",
                 label, metric_name, nan_count, len(series),
             )
 
@@ -432,22 +436,22 @@ def compute_custom_metrics(
     Compute custom metrics from logged extra fields without calling any LLM.
 
     correct_refusal_rate:
-        Percentage of records where category == "unanswerable" AND
-        fallback_triggered == True.
-        Measures whether the RAG++ fallback activates correctly on
-        out-of-scope questions.
-        Returns the _NA sentinel for standard RAG (no fallback mechanism).
+        Percentage of non-answerable records (category != "answerable") where
+        fallback_triggered == True. Measures whether the RAG++ relevance-threshold
+        gate correctly fires on out-of-scope or hard questions.
+        Returns N/A for standard RAG (no fallback mechanism).
+        Returns N/A when the test set contains no non-answerable records.
 
     faithfulness_check_pass_rate:
-        Percentage of records where faithfulness_check_passed == True.
-        Returns the _NA sentinel for standard RAG (no faithfulness check).
+        Percentage of records where faithfulness_check_failed == False AND the
+        faithfulness check actually ran (faithfulness_verdict is not None).
+        Returns N/A for standard RAG (no faithfulness check).
+        Returns N/A when faithfulness_check is disabled in the pipeline config
+        (all records have faithfulness_verdict == None).
 
     Args:
         records:      Full list of result dicts (always the full set, not sampled).
         has_fallback: True for RAG++, False for standard RAG.
-
-    Returns:
-        Dict with keys: correct_refusal_rate, faithfulness_check_pass_rate.
     """
     if not has_fallback:
         return {
@@ -458,33 +462,58 @@ def compute_custom_metrics(
     total = len(records)
     if total == 0:
         return {
-            "correct_refusal_rate":         "0.00%",
-            "faithfulness_check_pass_rate": "0.00%",
+            "correct_refusal_rate":         _NA,
+            "faithfulness_check_pass_rate": _NA,
         }
 
-    unanswerable_and_fallback = sum(
-        1 for r in records
-        if str(r.get("category", "")).lower() == "unanswerable"
-        and r.get("fallback_triggered") is True
-    )
-    correct_refusal_rate = round(unanswerable_and_fallback / total * 100, 2)
+    # ── correct_refusal_rate ─────────────────────────────────────────────────
+    # Count records that are NOT plain "answerable" (covers "unanswerable",
+    # "complex_answerable", etc.) — i.e. questions where a fallback SHOULD fire.
+    non_answerable = [
+        r for r in records
+        if str(r.get("category", "")).lower() != "answerable"
+    ]
+    if not non_answerable:
+        # No non-answerable questions in this test set — metric is meaningless
+        correct_refusal_str = "N/A -- no non-answerable questions in test set"
+        log_crr = "N/A (no non-answerable questions)"
+    else:
+        triggered = sum(
+            1 for r in non_answerable
+            if r.get("fallback_triggered") is True
+        )
+        rate = round(triggered / len(non_answerable) * 100, 2)
+        correct_refusal_str = f"{rate}% ({triggered}/{len(non_answerable)})"
+        log_crr = correct_refusal_str
 
-    fc_passed = sum(
-        1 for r in records
-        if r.get("faithfulness_check_passed") is True
-    )
-    faithfulness_check_pass_rate = round(fc_passed / total * 100, 2)
+    # ── faithfulness_check_pass_rate ─────────────────────────────────────────
+    # Read faithfulness_check_failed (written by pipeline) and invert.
+    # Exclude records where the check was disabled (faithfulness_verdict is None).
+    checked = [
+        r for r in records
+        if r.get("faithfulness_verdict") is not None
+    ]
+    if not checked:
+        # faithfulness_check is disabled — metric is meaningless
+        fc_str  = "N/A -- faithfulness_check disabled in pipeline config"
+        log_fcp = "N/A (disabled)"
+    else:
+        fc_passed = sum(
+            1 for r in checked
+            if r.get("faithfulness_check_failed") is False
+        )
+        rate = round(fc_passed / len(checked) * 100, 2)
+        fc_str  = f"{rate}% ({fc_passed}/{len(checked)} checked)"
+        log_fcp = fc_str
 
     logger.info(
-        "Custom metrics -- correct_refusal_rate: %.2f%% (%d/%d)  "
-        "faithfulness_check_pass_rate: %.2f%% (%d/%d)",
-        correct_refusal_rate, unanswerable_and_fallback, total,
-        faithfulness_check_pass_rate, fc_passed, total,
+        "Custom metrics -- correct_refusal_rate: %s  faithfulness_check_pass_rate: %s",
+        log_crr, log_fcp,
     )
 
     return {
-        "correct_refusal_rate":         f"{correct_refusal_rate}%",
-        "faithfulness_check_pass_rate": f"{faithfulness_check_pass_rate}%",
+        "correct_refusal_rate":         correct_refusal_str,
+        "faithfulness_check_pass_rate": fc_str,
     }
 
 
@@ -500,17 +529,17 @@ def _fmt(value: Any) -> str:
 
 
 def print_comparison_table(
-    standard_scores: Dict, rag_plus_scores: Dict
+    standard_scores: Dict,
+    rag_plus_scores: Dict,
+    evaluator_label: str = "unknown",
 ) -> None:
     """
     Print a clean side-by-side comparison table to stdout.
 
-    Rows:    metric names
-    Columns: standard_rag | rag_plus_plus
-
     Args:
         standard_scores: Merged RAGAS + custom scores for standard RAG.
         rag_plus_scores: Merged RAGAS + custom scores for RAG++.
+        evaluator_label: Human-readable evaluator description for the header.
     """
     all_metrics = list(dict.fromkeys(
         list(standard_scores.keys()) + list(rag_plus_scores.keys())
@@ -522,7 +551,7 @@ def print_comparison_table(
 
     print(f"\n{'=' * width}")
     print(f"  RAGAS EVALUATION -- MEDICAL RAG COMPARISON REPORT")
-    print(f"  Evaluator model : {EVALUATOR_MODEL}")
+    print(f"  Evaluator : {evaluator_label}")
     print(f"{'=' * width}")
     print(f"  {'Metric':<{col_m}}  {'standard_rag':<{col_v}}  {'rag_plus_plus':<{col_v}}")
     print(f"  {'-' * col_m}  {'-' * col_v}  {'-' * col_v}")
@@ -542,21 +571,26 @@ def save_report(
     rag_plus_n: int,
     sampled_n: Optional[int],
     output_path: Path,
+    evaluator_name: str = "unknown",
+    evaluator_description: str = "unknown",
 ) -> None:
     """
     Save the comparison report as structured JSON.
 
     Args:
-        standard_scores: Merged scores dict for standard RAG.
-        rag_plus_scores: Merged scores dict for RAG++.
-        standard_n:      Total records in standard RAG dataset.
-        rag_plus_n:      Total records in RAG++ dataset.
-        sampled_n:       --sample N value (None = all records used).
-        output_path:     File path to write the JSON report to.
+        standard_scores:       Merged scores dict for standard RAG.
+        rag_plus_scores:       Merged scores dict for RAG++.
+        standard_n:            Total records in standard RAG dataset.
+        rag_plus_n:            Total records in RAG++ dataset.
+        sampled_n:             --sample N value (None = all records used).
+        output_path:           File path to write the JSON report to.
+        evaluator_name:        Short backend name ("ollama" | "nvidia").
+        evaluator_description: Human-readable label.
     """
     report = {
-        "evaluator_model": EVALUATOR_MODEL,
-        "sample_size": sampled_n,
+        "evaluator_used":        evaluator_name,
+        "evaluator_description": evaluator_description,
+        "sample_size":           sampled_n,
         "note": (
             f"RAGAS metrics computed on sample of {sampled_n} records per dataset."
             if sampled_n
@@ -564,14 +598,14 @@ def save_report(
         ),
         "datasets": {
             "standard_rag": {
-                "total_records": standard_n,
+                "total_records":          standard_n,
                 "ragas_records_evaluated": min(sampled_n or standard_n, standard_n),
-                "scores": standard_scores,
+                "scores":                 standard_scores,
             },
             "rag_plus_plus": {
-                "total_records": rag_plus_n,
+                "total_records":          rag_plus_n,
                 "ragas_records_evaluated": min(sampled_n or rag_plus_n, rag_plus_n),
-                "scores": rag_plus_scores,
+                "scores":                 rag_plus_scores,
             },
         },
     }
@@ -593,10 +627,33 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "RAGAS evaluation for the Healthcare RAG system.\n"
-            "Loads pre-logged pipeline results, evaluates via NVIDIA API,\n"
-            "computes custom metrics, and saves a comparison report."
+            "Loads pre-logged pipeline results, evaluates via a pluggable\n"
+            "backend (ollama or nvidia), computes custom metrics, and saves\n"
+            "a comparison report."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--evaluator",
+        choices=["ollama", "nvidia", "openrouter"],
+        default="ollama",
+        help=(
+            "Evaluator backend to use. "
+            "'ollama' (default): local qwen3:8b via Ollama -- no API key needed. "
+            "'nvidia': NVIDIA NIM API -- requires NVIDIA_API_KEY in .env. "
+            "'openrouter': OpenRouter API -- requires OPENROUTER_API_KEY in .env."
+        ),
+    )
+    parser.add_argument(
+        "--delay",
+        type=float,
+        default=15.0,
+        metavar="SECONDS",
+        help=(
+            "Minimum seconds between consecutive NVIDIA API calls "
+            "(only used when --evaluator nvidia). Default: 15.0. "
+            "Set to 0 to disable throttling (paid tier)."
+        ),
     )
     parser.add_argument(
         "--sample",
@@ -695,20 +752,39 @@ def main() -> None:
         }
         ragas_standard = dict(_skipped)
         ragas_rag_plus  = dict(_skipped)
+        evaluator_name  = "skipped"
+        evaluator_desc  = "SKIPPED (--skip-ragas)"
     else:
-        logger.info("Building NVIDIA evaluator LLM (%s)...", EVALUATOR_MODEL)
+        # Load the chosen backend module
         try:
-            evaluator_llm        = build_evaluator_llm()
-            evaluator_embeddings = build_evaluator_embeddings()
+            backend = load_evaluator_backend(args.evaluator)
+        except (ValueError, ImportError) as exc:
+            logger.error("Failed to load evaluator backend: %s", exc)
+            sys.exit(1)
+
+        logger.info("Building evaluator: %s ...", backend.BACKEND_DESCRIPTION)
+        try:
+            import inspect
+            if "delay_seconds" in inspect.signature(backend.build_llm).parameters:
+                evaluator_llm = backend.build_llm(delay_seconds=args.delay)
+            else:
+                evaluator_llm = backend.build_llm()
+            evaluator_embeddings = backend.build_embeddings()
+            run_config           = backend.build_run_config()
         except (RuntimeError, ImportError) as exc:
             logger.error("Failed to initialise evaluator: %s", exc)
             sys.exit(1)
 
+        evaluator_name = backend.BACKEND_NAME
+        evaluator_desc = backend.BACKEND_DESCRIPTION
+
         ragas_standard = run_ragas_evaluation(
-            standard_dataset, evaluator_llm, evaluator_embeddings, "standard_rag"
+            standard_dataset, evaluator_llm, evaluator_embeddings,
+            "standard_rag", run_config=run_config,
         )
         ragas_rag_plus = run_ragas_evaluation(
-            rag_plus_dataset, evaluator_llm, evaluator_embeddings, "rag_plus_plus"
+            rag_plus_dataset, evaluator_llm, evaluator_embeddings,
+            "rag_plus_plus", run_config=run_config,
         )
 
     # ---- 5. Custom metrics (always on FULL dataset) -------------------------
@@ -721,7 +797,10 @@ def main() -> None:
     rag_plus_scores  = {**ragas_rag_plus,  **custom_rag_plus}
 
     # ---- 7. Output ----------------------------------------------------------
-    print_comparison_table(standard_scores, rag_plus_scores)
+    print_comparison_table(
+        standard_scores, rag_plus_scores,
+        evaluator_label=evaluator_desc,
+    )
 
     save_report(
         standard_scores=standard_scores,
@@ -730,9 +809,11 @@ def main() -> None:
         rag_plus_n=len(rag_plus_records),
         sampled_n=args.sample,
         output_path=args.output,
+        evaluator_name=evaluator_name,
+        evaluator_description=evaluator_desc,
     )
 
-    logger.info("Evaluation complete.")
+    logger.info("Evaluation complete. Evaluator used: %s", evaluator_desc)
 
 
 if __name__ == "__main__":

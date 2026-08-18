@@ -47,14 +47,13 @@ class Settings:
         # Example: "Dengue_Clinical_Management_Guidelines_2023.pdf": [0, 1, 2],
     })
 
-    # ── Embedding ─────────────────────────────────────────
-
+    # ── Embedding (still uses NVIDIA hosted API for nv-embed-v1) ─────────
     EMBEDDING_PROVIDER = "nvidia"
     EMBEDDING_MODEL_NAME = "nvidia/nv-embed-v1"
     NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
     NVIDIA_API_KEY = None
     EMBEDDING_DIM = 4096
-    
+
     EMBEDDING_BATCH_SIZE = 16
     # ── ChromaDB ───────────────────────────────────────────────────────
     CHROMA_NHP_COLLECTION: str = "nhp_collection"
@@ -72,6 +71,12 @@ class Settings:
     OPENAI_API_KEY: Optional[str] = None
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     GROQ_API_KEY: Optional[str] = None
+
+    # ── OpenRouter (faithfulness verifier + RAGAS evaluator) ───────────
+    # LLM calls (faithfulness check, RAGAS eval) use OpenRouter.
+    # Browse free models: https://openrouter.ai/models?q=:free
+    OPENROUTER_API_KEY: Optional[str] = None
+    OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
 
     # ── Logging ────────────────────────────────────────────────────────
     LOG_LEVEL: str = "INFO"

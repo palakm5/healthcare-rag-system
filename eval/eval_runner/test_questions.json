@@ -50,28 +50,40 @@
     "category": "answerable"
   },
   {
-    "question": "What is the stock price of Sun Pharmaceutical Industries today?",
-    "ground_truth": "This question is outside the scope of the medical knowledge base. Stock prices are financial data not covered by ICMR, MOHFW, NHP, or PubMed clinical guidelines.",
-    "category": "unanswerable"
+    "question": "What is the Jan Aushadhi price of Paracetamol 500mg tablets?",
+    "ground_truth": "According to the Jan Aushadhi catalogue, Paracetamol Tablets IP 500 mg (pack of 10) has an MRP of Rs 6.57. The combination product Ibuprofen 400mg and Paracetamol 325mg Tablets IP is available at Rs 7.50 for a pack of 10.",
+    "category": "answerable",
+    "source": "structured_db",
+    "table": "janaushadhi"
   },
   {
-    "question": "What is the latest Hollywood film released this week?",
-    "ground_truth": "This question is outside the scope of the medical knowledge base. Entertainment news is not covered by any of the indexed medical sources.",
-    "category": "unanswerable"
+    "question": "What are the Ayurvedic properties of Tulsi (Holy Basil) — specifically its Virya and Vipaka?",
+    "ground_truth": "According to the Ayurveda herb database, Tulsi (Ocimum sanctum), also known as Holy Basil, has Ushna (hot) Virya (potency) and Katu (pungent) Vipaka (post-digestive effect). It belongs to the Lamiaceae family.",
+    "category": "answerable",
+    "source": "structured_db",
+    "table": "herb"
   },
   {
-    "question": "Can you write me a Python script to sort a list?",
-    "ground_truth": "This question is outside the scope of the medical knowledge base. Programming questions are not covered by the indexed clinical guidelines.",
-    "category": "unanswerable"
+    "question": "What does the HbA1c lab test measure and what unit is it reported in?",
+    "ground_truth": "HbA1c (glycated haemoglobin) is a Chemistry category lab test that measures the percentage of haemoglobin molecules that have glucose attached, reflecting average blood glucose control over the preceding 2-3 months. It is reported as a percentage (%).",
+    "category": "answerable",
+    "source": "structured_db",
+    "table": "labtesttype"
   },
   {
-    "question": "What is the population of Mumbai?",
-    "ground_truth": "This question is outside the scope of the medical knowledge base. Demographic statistics are not covered by ICMR, MOHFW, NHP, or PubMed clinical guidelines.",
-    "category": "unanswerable"
+    "question": "For a patient newly diagnosed with pulmonary TB who is also HIV-positive, what modifications are needed to the standard DOTS regimen, and what are the drug-drug interactions between anti-TB drugs and antiretroviral therapy that clinicians must monitor?",
+    "ground_truth": "HIV-positive TB patients require co-treatment with antiretrovirals (ART) initiated within 2-8 weeks of starting anti-TB therapy regardless of CD4 count. The standard 2HRZE/4HR regimen is used but rifampicin induces CYP450 enzymes causing significant interactions: it reduces plasma levels of most protease inhibitors and some NNRTIs — efavirenz-based ART is preferred. Drug levels of ART must be monitored, and immune reconstitution inflammatory syndrome (IRIS) is a risk. Pyridoxine supplementation is recommended with isoniazid due to increased neuropathy risk in HIV patients.",
+    "category": "complex_answerable",
+    "requires_rewriting": true,
+    "source": "unstructured",
+    "documents": ["ICMR_STW_Volume2_TB_2021.pdf", "STW_Adult_Pulmonary_TB.pdf", "TB_Preventive_Treatment_Guidelines_2021.pdf"]
   },
   {
-    "question": "Who won the Cricket World Cup in 2023?",
-    "ground_truth": "This question is outside the scope of the medical knowledge base. Sports results are not covered by any of the indexed medical sources.",
-    "category": "unanswerable"
+    "question": "What are the ICMR recommended second-line treatment options for psoriasis patients who fail topical therapy, and how does methotrexate dosing differ from its use in other conditions?",
+    "ground_truth": "For psoriasis patients failing topical therapy, ICMR STW recommends phototherapy (NBUVB, PUVA) as the next step for moderate disease. Systemic agents include methotrexate (7.5-25 mg/week orally or IM, with folic acid supplementation), cyclosporine (2.5-5 mg/kg/day), and acitretin. Biologics (TNF-alpha inhibitors, IL-17 inhibitors) are reserved for severe refractory disease. Methotrexate dosing in psoriasis (weekly low-dose) differs markedly from its oncology use (high-dose pulsed regimens), and hepatotoxicity monitoring via liver biopsy or Fibroscan is required after cumulative doses exceeding 1-1.5g.",
+    "category": "complex_answerable",
+    "requires_rewriting": true,
+    "source": "unstructured",
+    "documents": ["STW_Psoriasis.pdf", "STW_Dermatology.pdf", "ICMR_STW_Volume3_2022.pdf"]
   }
 ]

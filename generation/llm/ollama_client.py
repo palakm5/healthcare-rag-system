@@ -1,24 +1,18 @@
 """
-Ollama LLM Client (MedGemma path)
+Ollama LLM Client
 
-Provides a simple interface for calling locally hosted LLMs
-through the Ollama API. The Ollama generation path is configured to
-use MedGemma (medgemma1.5:4b, falling back to medgemma:4b if the 1.5
-variant is unavailable or unstable).
+Provides a simple interface for calling locally hosted LLMs through
+the Ollama API. By default this client now targets `mistral:7b` if
+no explicit model is provided.
 
 Requirements:
     - Ollama installed
-    - ollama serve running
-    - MedGemma pulled locally:
-          ollama pull medgemma1.5:4b
-      (or the fallback: ollama pull medgemma:4b)
-
-      ⚠️  Do NOT use the -q4_0 quantized tag (e.g. medgemma1.5:4b-q4_0).
-          That variant has known overfitting issues and is intentionally
-          not supported by this client.
+    - `ollama serve` running
+    - The desired model pulled locally, e.g. `ollama pull mistral:7b`
 """
 
 import logging
+import re
 from typing import Optional
 
 import requests
@@ -26,44 +20,70 @@ import requests
 logger = logging.getLogger(__name__)
 
 
-# ── Model configuration ──────────────────────────────────────────────
-# Preferred MedGemma variant, with a fallback if 1.5 is unavailable.
-MEDGEMMA_MODEL_PREFERRED = "medgemma1.5:4b"
-MEDGEMMA_MODEL_FALLBACK = "medgemma:4b"
+def _strip_thinking_tokens(text: str) -> str:
+    """
+    Remove model-internal thinking tokens from a raw Ollama response.
 
-# Fixed, model-specific safety note. This is scoped to the Ollama/MedGemma
-# path only (lives here, not in the shared prompt builder) because it relates
-# to this model's intended use. It is separate from the broader safety
-# guardrail work planned for a later phase.
-MEDGEMMA_DISCLAIMER = (
-    "\n\nIMPORTANT: The output below is informational only and is not a "
-    "diagnostic statement. It is not a substitute for professional medical "
-    "consultation, diagnosis, or treatment. Always consult a qualified "
-    "healthcare professional for medical advice."
-)
+    Some Ollama models (mistral:7b, qwen3, mistral-nemo) emit internal
+    chain-of-thought blocks before the actual answer when thinking is not
+    suppressed at the API level.  Patterns handled:
+
+        <think>...</think>\\n\\nActual answer
+        <unused94>thought\\n1. ...\\n\\nActual answer
+        /think\\nActual answer
+
+    The function strips the preamble and returns only the final answer.
+    If stripping leaves nothing (the whole output was a thinking block),
+    the original text is returned unchanged so callers always get *something*.
+    """
+    original = text
+
+    # 1. Remove complete <think>...</think> blocks
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
+    # 2. Remove <unusedN>thought ... up to the first blank line
+    text = re.sub(
+        r"^<unused\d+>\s*thought\b.*?\n\n",
+        "",
+        text,
+        flags=re.DOTALL | re.IGNORECASE,
+    ).strip()
+
+    # 3. Remove leading /think token left by some models
+    text = re.sub(r"^/think\s*", "", text, flags=re.IGNORECASE).strip()
+
+    # 4. Safety: if we emptied the string, return the original
+    return text if text else original
+
+
+# ── Model configuration ──────────────────────────────────────────────
+DEFAULT_OLLAMA_MODEL = "mistral:7b"
+
+# No-op disclaimer by default; kept for backward compatibility with the
+# prompt-building flow. Set to a non-empty string if a model-specific
+# disclaimer is required.
+OLLAMA_DISCLAIMER = ""
 
 
 class OllamaClient:
     """
-    Client for locally hosted Ollama models (MedGemma path).
+    Client for locally hosted Ollama models.
 
-    By default this client targets MedGemma:
-        - medgemma1.5:4b  (preferred)
-        - medgemma:4b    (fallback if 1.5 is unavailable/unstable)
-
-    A startup sanity check verifies the chosen model is pulled and
-    available via Ollama before allowing generation calls. If the model
-    is not pulled locally, a clear error is raised with pull instructions.
+    By default this client targets `mistral:7b` unless a different model
+    is explicitly provided. A startup sanity check verifies the chosen
+    model is pulled and available via Ollama before allowing generation
+    calls. If the model is not pulled locally, a clear error is raised
+    with pull instructions.
 
     Example:
-        client = OllamaClient()  # auto-selects medgemma1.5:4b or fallback
+        client = OllamaClient()  # uses mistral:7b by default
 
         answer = client.generate(
             prompt="Explain tuberculosis."
         )
 
     To override the model explicitly:
-        client = OllamaClient(model="medgemma1.5:4b")
+        client = OllamaClient(model="mistral:7b")
     """
 
     BASE_URL = "http://localhost:11434/api/generate"
@@ -77,11 +97,11 @@ class OllamaClient:
         """
         Initialize the Ollama client and verify model availability.
 
-        Args:
-            model: Optional model override. If None, the client auto-selects
-                   medgemma1.5:4b, falling back to medgemma:4b if 1.5 is not
-                   pulled locally. If a model is explicitly provided, it must
-                   be pulled locally or a clear error is raised.
+         Args:
+             model: Optional model override. If None, the client uses
+                 the DEFAULT_OLLAMA_MODEL. If a model is explicitly
+                 provided, it must be pulled locally or a clear error
+                 is raised.
             timeout: Request timeout in seconds.
         """
         self.timeout = timeout
@@ -93,8 +113,9 @@ class OllamaClient:
             self.model = model
             self._verify_model_available(self.model)
         else:
-            # Auto-select: prefer medgemma1.5:4b, fall back to medgemma:4b.
-            self.model = self._resolve_medgemma_model()
+            # Default to the selected Ollama model
+            self.model = DEFAULT_OLLAMA_MODEL
+            self._verify_model_available(self.model)
 
         logger.info(
             "Initialized Ollama client with model: %s",
@@ -143,59 +164,17 @@ class OllamaClient:
         local_models = self._list_local_models()
 
         # Ollama may return names with or without a digest suffix; do a
-        # starts-with match to be robust (e.g. "medgemma1.5:4b" matches
-        # "medgemma1.5:4b" exactly).
+        # starts-with match to be robust (e.g. "mistral:7b" matches
+        # "mistral:7b" exactly).
         if model not in local_models:
             raise RuntimeError(
                 f"Model '{model}' is not pulled locally in Ollama. "
                 f"Available models: {local_models or 'none'}. "
-                f"Pull it with: ollama pull {model}\n"
-                "If medgemma1.5:4b is unavailable or unstable, use the "
-                f"fallback: ollama pull {MEDGEMMA_MODEL_FALLBACK}\n"
-                "⚠️  Do NOT use the -q4_0 quantized tag "
-                "(e.g. medgemma1.5:4b-q4_0) — that variant has known "
-                "overfitting issues and is not supported."
+                f"Pull it with: ollama pull {model}"
             )
 
-    def _resolve_medgemma_model(self) -> str:
-        """
-        Auto-select the MedGemma variant to use.
-
-        Prefers medgemma1.5:4b; falls back to medgemma:4b if 1.5 is not
-        pulled locally. Raises a clear error if neither is available.
-
-        Returns:
-            The model name string to use.
-
-        Raises:
-            RuntimeError: If neither MedGemma variant is pulled locally.
-        """
-        local_models = self._list_local_models()
-
-        if MEDGEMMA_MODEL_PREFERRED in local_models:
-            return MEDGEMMA_MODEL_PREFERRED
-
-        if MEDGEMMA_MODEL_FALLBACK in local_models:
-            logger.warning(
-                "%s is not pulled locally; falling back to %s. "
-                "Consider pulling the preferred variant: "
-                "ollama pull %s",
-                MEDGEMMA_MODEL_PREFERRED,
-                MEDGEMMA_MODEL_FALLBACK,
-                MEDGEMMA_MODEL_PREFERRED,
-            )
-            return MEDGEMMA_MODEL_FALLBACK
-
-        # Neither is available — clear, actionable error.
-        raise RuntimeError(
-            f"No MedGemma model found locally in Ollama. "
-            f"Available models: {local_models or 'none'}. "
-            f"Pull the preferred model with: ollama pull {MEDGEMMA_MODEL_PREFERRED}\n"
-            f"Or the fallback with: ollama pull {MEDGEMMA_MODEL_FALLBACK}\n"
-            "⚠️  Do NOT use the -q4_0 quantized tag "
-            "(e.g. medgemma1.5:4b-q4_0) — that variant has known "
-            "overfitting issues and is not supported."
-        )
+    # Note: legacy MedGemma auto-resolution is removed — the client now
+    # relies on an explicit model override or the DEFAULT_OLLAMA_MODEL.
 
     # ─────────────────────────────────────────────────────────────────
     # Public interface
@@ -210,22 +189,21 @@ class OllamaClient:
         image=None,  # Reserved for future multimodal use — currently ignored
     ) -> str:
         """
-        Generate a response using the local Ollama model (MedGemma).
+        Generate a response using the configured Ollama model.
 
-        The prompt is expected to be the full RAG prompt (retrieved chunks
+        The prompt is expected to be the full RAG prompt (retrieved contexts
         + system instruction + user query) as produced by the shared
-        build_prompt() function. A fixed MedGemma-specific disclaimer is
-        appended to the prompt here, scoped to this model's intended use.
+        `build_prompt()` function. Any model-specific disclaimer (empty by
+        default) is appended to the prompt here.
 
         Args:
             prompt: Prompt sent to the LLM (RAG prompt with context).
             temperature: Sampling temperature.
             max_tokens: Maximum output tokens.
             top_p: Top-p sampling.
-            image: Reserved for future multimodal image input (MedGemma
-                   supports image input, but this text-only path does not
-                   implement it yet). Passing a non-None value logs a
-                   warning and ignores it.
+            image: Reserved for future multimodal image input. Passing a
+                   non-None value logs a warning and ignores it for this
+                   text-only client.
 
         Returns:
             Generated text.
@@ -237,15 +215,14 @@ class OllamaClient:
                 "path. The image will be ignored."
             )
 
-        # Append the MedGemma-specific disclaimer to the prompt. This is
-        # scoped to this model only and lives here rather than in the
-        # shared prompt builder.
-        full_prompt = f"{prompt}{MEDGEMMA_DISCLAIMER}"
+        # Append any model-specific disclaimer (empty by default).
+        full_prompt = f"{prompt}{OLLAMA_DISCLAIMER}"
 
         payload = {
             "model": self.model,
             "prompt": full_prompt,
             "stream": False,
+            "think": False,           # suppress <think> tokens (qwen3, mistral-nemo)
             "options": {
                 "temperature": temperature,
                 "num_predict": max_tokens,
@@ -264,7 +241,7 @@ class OllamaClient:
 
             result = response.json()
 
-            return result["response"]
+            return _strip_thinking_tokens(result["response"])
 
         except requests.exceptions.RequestException as e:
             logger.exception("Failed to call Ollama API")

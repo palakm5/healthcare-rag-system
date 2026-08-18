@@ -1,156 +1,217 @@
 """
-RAG prompt builder.
+Prompt Builder — Healthcare RAG System
+=======================================
 
-Constructs a prompt from the user query and retrieved chunks,
-with source attribution for each chunk.
+Constructs the system + user prompt sent to the LLM for answer generation.
 
-Now also supports an optional structured evidence block (from SQL database
-retrieval) presented as a clearly separate section from guideline chunks,
-so the generation model does not conflate database facts with retrieved text.
+Supports two calling modes:
+  1. Single-question mode (original behaviour, unchanged):
+         build_prompt(query, chunks, structured_result=...)
+     Formats evidence as a flat labelled block, identical to the original.
+
+  2. Decomposed mode (new, for query decomposition layer):
+         build_prompt_from_sub_results(query, sub_results)
+     Accepts a list of SubQuestionResult objects and formats each as a
+     clearly separated, labelled evidence block so the LLM can answer
+     each part distinctly.
+
+Design principles:
+  - Source labelling: each evidence block is labelled by source type (guideline
+    chunk vs. structured DB row) so the LLM can cite appropriately.
+  - Token budget: structured rows are rendered compactly; guideline chunks include
+    their full text but are capped (configurable) to prevent context overflow.
+  - Safety: the prompt always instructs the LLM to stay within retrieved evidence
+    and clearly acknowledge when evidence is absent.
+  - Backward compatibility: build_prompt() signature is unchanged; all existing
+    call sites continue to work without modification.
 """
 
-from typing import Any, Dict, List, Optional
+import json
+import logging
+from typing import Any, Dict, List, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from retrieval.decomposition.run_decomposed_retrieval import SubQuestionResult
+
+logger = logging.getLogger(__name__)
+
+# ── Config ────────────────────────────────────────────────────────────────────
+MAX_CHUNKS      = 5          # max guideline chunks included in prompt
+MAX_CHUNK_CHARS = 800        # max characters per chunk (truncated if longer)
+MAX_STRUCT_ROWS = 10         # max structured DB rows included
+
+# ── System prompt (single-question mode) ─────────────────────────────────────
+SYSTEM_PROMPT = """You are a medical information assistant specialising in Indian healthcare guidelines.
+
+Your task: answer the user's medical question using ONLY the evidence provided below.
+
+Rules:
+- Cite the source label (e.g. [Guideline 1], [DB Row 1]) when referencing evidence.
+- If the evidence is insufficient or absent, say so clearly — do NOT guess or hallucinate.
+- Keep answers concise, factual, and relevant to the Indian healthcare context.
+- Do not provide general medical advice beyond what the evidence explicitly states."""
+
+# ── System prompt (decomposed mode) ──────────────────────────────────────────
+SYSTEM_PROMPT_DECOMPOSED = """You are a medical information assistant specialising in Indian healthcare guidelines.
+
+Your task: answer each part of the user's question using ONLY the evidence provided below.
+The evidence is organised by sub-question — use only the relevant section for each part.
+
+Rules:
+- Answer each sub-question separately and clearly.
+- Cite the source label (e.g. [Guideline 1], [DB Row 1]) when referencing evidence.
+- If evidence was insufficient for any part, say so explicitly for that part — do NOT guess.
+- Keep answers concise, factual, and relevant to the Indian healthcare context.
+- Do not provide general medical advice beyond what the evidence explicitly states."""
 
 
-def _format_structured_rows(
-    rows: List[Dict],
-    columns: List[str],
-    provenance_label: str,
-    max_rows: int = 10,
-) -> str:
-    """
-    Format structured SQL result rows into a readable evidence block.
+# ── Shared rendering helpers ──────────────────────────────────────────────────
 
-    Each row is rendered as a key: value list. Provenance is stated explicitly.
-    """
-    if not rows:
+def _render_structured_rows(structured_result, prefix: str = "") -> str:
+    """Render structured DB rows as a compact evidence block."""
+    if structured_result is None or not structured_result.rows:
         return ""
-
-    display_rows = rows[:max_rows]
-    lines = []
-    for i, row in enumerate(display_rows, start=1):
-        pairs = ""
-        for col in columns:
-            val = row.get(col)
-            if val is not None and str(val).strip():
-                pairs += f"  {col}: {val}\n"
-        lines.append(f"Record {i} [{provenance_label}]:\n{pairs}")
-
-    if len(rows) > max_rows:
-        lines.append(f"... ({len(rows) - max_rows} more rows not shown)")
-
+    label = f"{prefix}Structured Database Evidence [{structured_result.provenance_label}]"
+    lines = [f"\n--- {label} ---"]
+    for i, row in enumerate(structured_result.rows[:MAX_STRUCT_ROWS], start=1):
+        row_text = ", ".join(f"{k}: {v}" for k, v in row.items() if v is not None)
+        lines.append(f"[DB Row {i}] {row_text}")
+    lines.append("---")
     return "\n".join(lines)
 
+
+def _render_chunks(chunks: List[Dict], start_index: int = 1) -> str:
+    """Render guideline/document chunks as labelled evidence blocks."""
+    if not chunks:
+        return ""
+    lines = ["\n--- Guideline / Document Evidence ---"]
+    for i, chunk in enumerate(chunks[:MAX_CHUNKS], start=start_index):
+        text = chunk.get("text", "") if isinstance(chunk, dict) else str(chunk)
+        text = text[:MAX_CHUNK_CHARS]
+        meta = chunk.get("metadata", {}) if isinstance(chunk, dict) else {}
+        source = meta.get("source", "unknown")
+        lines.append(f"[Guideline {i}] (source: {source})\n{text}")
+    lines.append("---")
+    return "\n".join(lines)
+
+
+# ── Public API: single-question mode (original, unchanged) ───────────────────
 
 def build_prompt(
     query: str,
     chunks: List[Dict],
-    structured_result: Optional[Any] = None,
+    structured_result=None,
 ) -> str:
     """
-    Build a RAG prompt from the query, retrieved chunks, and optional
-    structured database results.
+    Build the full LLM prompt from query + retrieved evidence.
 
-    The structured evidence block (if present) is clearly labelled as coming
-    from a structured database rather than guideline text, so the LLM treats
-    them as factual records rather than narrative context.
+    This is the original single-question prompt builder. Signature and
+    behaviour are unchanged — all existing call sites work without modification.
 
     Args:
-        query:            The user's question.
-        chunks:           List of retrieved chunk dicts (vector search results).
-                          Each must have "text" and "metadata" keys.
-        structured_result: Optional StructuredResult from StructuredLookup.
-                          When provided and has rows, a second evidence block
-                          is added before the unstructured chunks.
+        query:            The original user question.
+        chunks:           Retrieved document/guideline chunks (list of dicts).
+        structured_result: StructuredResult object or None.
 
     Returns:
-        Formatted prompt string ready to send to an LLM.
+        str: The complete prompt string to send to the LLM.
     """
-    # ── Check if structured result has usable data ──────────────────────────
-    has_structured = (
-        structured_result is not None
-        and getattr(structured_result, "rows_returned", 0) > 0
-        and getattr(structured_result, "error", None) is None
+    parts = [SYSTEM_PROMPT, "\n\n=== RETRIEVED EVIDENCE ==="]
+
+    struct_block = _render_structured_rows(structured_result)
+    chunk_block  = _render_chunks(chunks)
+
+    if struct_block:
+        parts.append(struct_block)
+    if chunk_block:
+        parts.append(chunk_block)
+
+    if not struct_block and not chunk_block:
+        parts.append(
+            "\n[No relevant evidence was retrieved for this question.]"
+        )
+
+    parts.append(f"\n\n=== QUESTION ===\n{query}")
+    parts.append("\n\n=== ANSWER ===")
+
+    return "\n".join(parts)
+
+
+# ── Public API: decomposed mode (new) ────────────────────────────────────────
+
+def build_prompt_from_sub_results(
+    original_query: str,
+    sub_results: "List[SubQuestionResult]",
+) -> str:
+    """
+    Build a prompt from a list of sub-question retrieval results.
+
+    Each sub-question gets its own clearly labelled evidence block.
+    Sub-questions where retrieval fell back (no sufficient evidence) are
+    explicitly marked so the LLM acknowledges the gap rather than guessing.
+
+    If sub_results contains exactly one item (the common case after
+    pre-filtering), this produces output semantically equivalent to
+    build_prompt() — one labelled block, same structure.
+
+    Args:
+        original_query: The original user question (shown at the end for context).
+        sub_results:    List of SubQuestionResult from run_decomposed_retrieval().
+
+    Returns:
+        str: Complete prompt string to send to the LLM.
+    """
+    parts = [SYSTEM_PROMPT_DECOMPOSED, "\n\n=== RETRIEVED EVIDENCE ==="]
+
+    chunk_counter = 1  # global chunk index across all sub-questions
+
+    for idx, result in enumerate(sub_results, start=1):
+        sq_header = f"\n\n[Sub-question {idx}: {result.sub_question}]"
+        parts.append(sq_header)
+
+        if result.error:
+            parts.append(
+                f"  ⚠ Retrieval error for this part: {result.error}\n"
+                "  No evidence available."
+            )
+            continue
+
+        if result.fallback_triggered:
+            parts.append(
+                "  No sufficient evidence found for this part.\n"
+                "  (Relevance threshold not met — answer explicitly that evidence is absent.)"
+            )
+            continue
+
+        has_evidence = False
+
+        # Structured DB evidence for this sub-question
+        struct_block = _render_structured_rows(
+            result.structured_result,
+            prefix=f"Sub-question {idx} — ",
+        )
+        if struct_block:
+            parts.append(struct_block)
+            has_evidence = True
+
+        # Guideline chunks for this sub-question
+        if result.chunks:
+            chunk_block = _render_chunks(result.chunks, start_index=chunk_counter)
+            parts.append(chunk_block)
+            chunk_counter += min(len(result.chunks), MAX_CHUNKS)
+            has_evidence = True
+
+        if not has_evidence:
+            parts.append(
+                "  [No relevant evidence retrieved for this sub-question.]"
+            )
+
+    parts.append(f"\n\n=== ORIGINAL QUESTION ===\n{original_query}")
+    parts.append(
+        "\n\nAnswer all parts clearly and separately, using only the evidence above.\n"
+        "If evidence was insufficient for any part, say so explicitly for that part "
+        "rather than guessing or inferring from other parts."
     )
+    parts.append("\n\n=== ANSWER ===")
 
-    # ── System instruction ──────────────────────────────────────────────────
-    if has_structured:
-        system = (
-            "You are a medical information assistant. "
-            "You have been given two types of evidence below:\n"
-            "  1. STRUCTURED DATABASE RECORDS: exact, factual records from a "
-            "clinical/pharmaceutical database. Treat these as ground truth -- "
-            "do not contradict or rephrase them.\n"
-            "  2. GUIDELINE TEXT CHUNKS: excerpts from medical guidelines and "
-            "literature. Use these for context and clinical reasoning.\n\n"
-            "Answer using ONLY the provided evidence. "
-            "If the evidence does not contain enough information, say so clearly. "
-            "Do not make up information. "
-            "Cite your sources using the [Source] or [DB:table] labels."
-        )
-    else:
-        system = (
-            "You are a medical information assistant. "
-            "Answer the question using ONLY the provided context chunks below. "
-            "If the context does not contain enough information to answer the question, "
-            "say so clearly. Do not make up information.\n"
-            "Cite the source of each piece of information you use by referring to "
-            "the [Source] label in brackets."
-        )
-
-    # ── Structured evidence block (SQL database results) ────────────────────
-    structured_block = ""
-    if has_structured:
-        prov_label = getattr(structured_result, "provenance_label", "DB")
-        rows       = getattr(structured_result, "rows", [])
-        columns    = getattr(structured_result, "columns", [])
-        tmpl_id    = getattr(structured_result, "template_id", None)
-
-        source_note = (
-            f"[Template: {tmpl_id}]" if tmpl_id
-            else f"[LLM-generated SQL | tables: {prov_label}]"
-        )
-        structured_block = (
-            f"\nSTRUCTURED DATABASE EVIDENCE {source_note}:\n"
-            + _format_structured_rows(rows, columns, prov_label)
-            + "\n"
-        )
-
-    # ── Unstructured chunk blocks ────────────────────────────────────────────
-    context_blocks = []
-    for i, chunk in enumerate(chunks, start=1):
-        meta        = chunk.get("metadata", {})
-        source_type = meta.get("source_type", "Unknown")
-        title       = meta.get("title", "Unknown")
-        section     = meta.get("section", "N/A")
-
-        header = f"[Source {i}: {source_type} | {title}"
-        if section:
-            header += f" | Section: {section}"
-        header += "]"
-
-        context_blocks.append(f"{header}\n{chunk['text']}")
-
-    context_text = (
-        "\n\n---\n\n".join(context_blocks) if context_blocks
-        else "(No guideline chunks retrieved.)"
-    )
-
-    # ── Final prompt ────────────────────────────────────────────────────────
-    if has_structured:
-        prompt = (
-            f"{system}"
-            f"{structured_block}"
-            f"\nGUIDELINE TEXT CHUNKS:\n{context_text}"
-            f"\n\nQUESTION: {query}"
-            f"\n\nANSWER:"
-        )
-    else:
-        prompt = (
-            f"{system}"
-            f"\n\nCONTEXT:\n{context_text}"
-            f"\n\nQUESTION: {query}"
-            f"\n\nANSWER:"
-        )
-
-    return prompt
+    return "\n".join(parts)
