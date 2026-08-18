@@ -69,8 +69,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# -- Sentinel for metrics that don't apply to a dataset variant ----------------
+# Sentinel for metrics that don't apply to a dataset variant
 _NA = "N/A -- no fallback mechanism"
+
+# All selectable metric names (used for --metrics validation)
+ALL_RAGAS_METRICS   = ["faithfulness", "context_precision", "context_recall", "answer_relevancy"]
+ALL_CUSTOM_METRICS  = ["correct_refusal_rate", "faithfulness_check_pass_rate"]
+ALL_METRICS         = ALL_RAGAS_METRICS + ALL_CUSTOM_METRICS
 
 
 # ==============================================================================
@@ -307,31 +312,27 @@ def run_ragas_evaluation(
     evaluator_embeddings,
     label: str,
     run_config=None,
+    enabled_metrics: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """
     Run RAGAS metrics on the given EvaluationDataset.
 
-    Metrics computed:
-        faithfulness, context_precision, context_recall, answer_relevancy
-
-    Error handling strategy:
-        - Dataset-level failures (auth, connectivity) are caught and returned
-          as error strings so one broken dataset does not abort the other.
-        - Per-record API failures are surfaced by RAGAS as NaN values in the
-          result DataFrame. We log a warning per affected metric, exclude NaN
-          records from the aggregate mean, and note the exclusion count in
-          the output so the aggregate is never silently corrupted.
+    Only the metrics listed in `enabled_metrics` are built and sent to the
+    API. Omitting a metric entirely saves API calls and latency.
 
     Args:
         dataset:              ragas.EvaluationDataset
         evaluator_llm:        LangchainLLMWrapper
-        evaluator_embeddings: LangchainEmbeddingsWrapper
+        evaluator_embeddings: LangchainEmbeddingsWrapper or None
         label:                Dataset label for logging.
         run_config:           ragas.run_config.RunConfig (backend-specific).
+        enabled_metrics:      List of metric names to run. None = all.
 
     Returns:
         Dict mapping metric name to float score, or error string on failure.
+        Only enabled metrics appear as keys.
     """
+    enabled = set(enabled_metrics) if enabled_metrics is not None else set(ALL_RAGAS_METRICS)
     from ragas import evaluate                   # type: ignore
     from ragas.metrics import (                  # type: ignore
         Faithfulness,
@@ -340,22 +341,26 @@ def run_ragas_evaluation(
         AnswerRelevancy,
     )
 
-    metrics = [
-        Faithfulness(llm=evaluator_llm),
-        ContextPrecision(llm=evaluator_llm),
-        ContextRecall(llm=evaluator_llm),
-    ]
+    metrics = []
+    if "faithfulness"      in enabled: metrics.append(Faithfulness(llm=evaluator_llm))
+    if "context_precision" in enabled: metrics.append(ContextPrecision(llm=evaluator_llm))
+    if "context_recall"    in enabled: metrics.append(ContextRecall(llm=evaluator_llm))
 
     # answer_relevancy needs an embeddings model; skip gracefully if unavailable
-    if evaluator_embeddings is not None:
-        metrics.append(AnswerRelevancy(llm=evaluator_llm, embeddings=evaluator_embeddings))
-        logger.info("[%s] answer_relevancy enabled (embeddings available).", label)
-    else:
-        logger.warning(
-            "[%s] answer_relevancy SKIPPED -- no embeddings wrapper available. "
-            "Use --evaluator nvidia to enable it (nvidia/nv-embed-v1).",
-            label,
-        )
+    if "answer_relevancy" in enabled:
+        if evaluator_embeddings is not None:
+            metrics.append(AnswerRelevancy(llm=evaluator_llm, embeddings=evaluator_embeddings))
+            logger.info("[%s] answer_relevancy enabled (embeddings available).", label)
+        else:
+            logger.warning(
+                "[%s] answer_relevancy SKIPPED -- no embeddings wrapper available. "
+                "Use --evaluator nvidia to enable it (nvidia/nv-embed-v1).",
+                label,
+            )
+
+    if not metrics:
+        logger.warning("[%s] No RAGAS metrics enabled — skipping evaluation.", label)
+        return {}
 
     logger.info("[%s] Starting RAGAS evaluation (%d metrics)...", label, len(metrics))
 
@@ -367,21 +372,13 @@ def run_ragas_evaluation(
             label, exc,
         )
         error_str = f"ERROR: {exc}"
-        return {
-            "faithfulness":      error_str,
-            "context_precision": error_str,
-            "context_recall":    error_str,
-            "answer_relevancy":  error_str,
-        }
+        return {m: error_str for m in enabled}
 
     # Aggregate per-sample scores; NaN = that record's API call failed.
     df = result.to_pandas()
 
     metric_col_map = {
-        "faithfulness":      "faithfulness",
-        "context_precision": "context_precision",
-        "context_recall":    "context_recall",
-        "answer_relevancy":  "answer_relevancy",
+        m: m for m in ALL_RAGAS_METRICS if m in enabled
     }
 
     scores: Dict[str, Any] = {}
@@ -430,91 +427,86 @@ def run_ragas_evaluation(
 # ==============================================================================
 
 def compute_custom_metrics(
-    records: List[Dict], has_fallback: bool
+    records: List[Dict],
+    has_fallback: bool,
+    enabled_metrics: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """
     Compute custom metrics from logged extra fields without calling any LLM.
 
+    Only metrics listed in `enabled_metrics` are computed and returned.
+    Omitting a metric means it won't appear in the report at all.
+
     correct_refusal_rate:
         Percentage of non-answerable records (category != "answerable") where
-        fallback_triggered == True. Measures whether the RAG++ relevance-threshold
-        gate correctly fires on out-of-scope or hard questions.
+        fallback_triggered == True.
         Returns N/A for standard RAG (no fallback mechanism).
         Returns N/A when the test set contains no non-answerable records.
 
     faithfulness_check_pass_rate:
-        Percentage of records where faithfulness_check_failed == False AND the
-        faithfulness check actually ran (faithfulness_verdict is not None).
+        Percentage of records where faithfulness_check_failed == False AND
+        faithfulness_verdict is not None (check actually ran).
         Returns N/A for standard RAG (no faithfulness check).
-        Returns N/A when faithfulness_check is disabled in the pipeline config
-        (all records have faithfulness_verdict == None).
+        Returns N/A when faithfulness_check is disabled in the pipeline config.
 
     Args:
-        records:      Full list of result dicts (always the full set, not sampled).
-        has_fallback: True for RAG++, False for standard RAG.
+        records:         Full list of result dicts (always the full set, not sampled).
+        has_fallback:    True for RAG++, False for standard RAG.
+        enabled_metrics: List of metric names to include. None = all custom metrics.
     """
+    enabled = set(enabled_metrics) if enabled_metrics is not None else set(ALL_CUSTOM_METRICS)
+    result: Dict[str, Any] = {}
+
     if not has_fallback:
-        return {
-            "correct_refusal_rate":         _NA,
-            "faithfulness_check_pass_rate": _NA,
-        }
+        if "correct_refusal_rate"         in enabled: result["correct_refusal_rate"]         = _NA
+        if "faithfulness_check_pass_rate" in enabled: result["faithfulness_check_pass_rate"] = _NA
+        return result
 
     total = len(records)
     if total == 0:
-        return {
-            "correct_refusal_rate":         _NA,
-            "faithfulness_check_pass_rate": _NA,
-        }
+        if "correct_refusal_rate"         in enabled: result["correct_refusal_rate"]         = _NA
+        if "faithfulness_check_pass_rate" in enabled: result["faithfulness_check_pass_rate"] = _NA
+        return result
 
     # ── correct_refusal_rate ─────────────────────────────────────────────────
-    # Count records that are NOT plain "answerable" (covers "unanswerable",
-    # "complex_answerable", etc.) — i.e. questions where a fallback SHOULD fire.
-    non_answerable = [
-        r for r in records
-        if str(r.get("category", "")).lower() != "answerable"
-    ]
-    if not non_answerable:
-        # No non-answerable questions in this test set — metric is meaningless
-        correct_refusal_str = "N/A -- no non-answerable questions in test set"
-        log_crr = "N/A (no non-answerable questions)"
-    else:
-        triggered = sum(
-            1 for r in non_answerable
-            if r.get("fallback_triggered") is True
-        )
-        rate = round(triggered / len(non_answerable) * 100, 2)
-        correct_refusal_str = f"{rate}% ({triggered}/{len(non_answerable)})"
-        log_crr = correct_refusal_str
+    if "correct_refusal_rate" in enabled:
+        non_answerable = [
+            r for r in records
+            if str(r.get("category", "")).lower() != "answerable"
+        ]
+        if not non_answerable:
+            result["correct_refusal_rate"] = "N/A -- no non-answerable questions in test set"
+            log_crr = "N/A (no non-answerable questions)"
+        else:
+            triggered = sum(
+                1 for r in non_answerable
+                if r.get("fallback_triggered") is True
+            )
+            rate = round(triggered / len(non_answerable) * 100, 2)
+            result["correct_refusal_rate"] = f"{rate}% ({triggered}/{len(non_answerable)})"
+            log_crr = result["correct_refusal_rate"]
+        logger.info("Custom metric -- correct_refusal_rate: %s", log_crr)
 
     # ── faithfulness_check_pass_rate ─────────────────────────────────────────
-    # Read faithfulness_check_failed (written by pipeline) and invert.
-    # Exclude records where the check was disabled (faithfulness_verdict is None).
-    checked = [
-        r for r in records
-        if r.get("faithfulness_verdict") is not None
-    ]
-    if not checked:
-        # faithfulness_check is disabled — metric is meaningless
-        fc_str  = "N/A -- faithfulness_check disabled in pipeline config"
-        log_fcp = "N/A (disabled)"
-    else:
-        fc_passed = sum(
-            1 for r in checked
-            if r.get("faithfulness_check_failed") is False
-        )
-        rate = round(fc_passed / len(checked) * 100, 2)
-        fc_str  = f"{rate}% ({fc_passed}/{len(checked)} checked)"
-        log_fcp = fc_str
+    if "faithfulness_check_pass_rate" in enabled:
+        checked = [
+            r for r in records
+            if r.get("faithfulness_verdict") is not None
+        ]
+        if not checked:
+            result["faithfulness_check_pass_rate"] = "N/A -- faithfulness_check disabled in pipeline config"
+            log_fcp = "N/A (disabled)"
+        else:
+            fc_passed = sum(
+                1 for r in checked
+                if r.get("faithfulness_check_failed") is False
+            )
+            rate = round(fc_passed / len(checked) * 100, 2)
+            result["faithfulness_check_pass_rate"] = f"{rate}% ({fc_passed}/{len(checked)} checked)"
+            log_fcp = result["faithfulness_check_pass_rate"]
+        logger.info("Custom metric -- faithfulness_check_pass_rate: %s", log_fcp)
 
-    logger.info(
-        "Custom metrics -- correct_refusal_rate: %s  faithfulness_check_pass_rate: %s",
-        log_crr, log_fcp,
-    )
-
-    return {
-        "correct_refusal_rate":         correct_refusal_str,
-        "faithfulness_check_pass_rate": fc_str,
-    }
+    return result
 
 
 # ==============================================================================
@@ -710,6 +702,29 @@ def parse_args() -> argparse.Namespace:
             "Useful for testing the data pipeline without using API credits."
         ),
     )
+    parser.add_argument(
+        "--metrics",
+        nargs="+",
+        metavar="METRIC",
+        default=["all"],
+        help=(
+            "Which metrics to compute. Pass one or more names, or 'all' for everything. "
+            f"RAGAS metrics: {', '.join(ALL_RAGAS_METRICS)}. "
+            f"Custom metrics: {', '.join(ALL_CUSTOM_METRICS)}. "
+            "Example: --metrics faithfulness context_recall correct_refusal_rate"
+        ),
+    )
+    parser.add_argument(
+        "--pipeline",
+        choices=["standard_rag", "rag_plus_plus", "both"],
+        default="both",
+        help=(
+            "Which pipeline to evaluate. "
+            "'standard_rag': evaluate the baseline pipeline only. "
+            "'rag_plus_plus': evaluate the RAG++ pipeline only. "
+            "'both' (default): evaluate both and show a side-by-side comparison."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -718,42 +733,72 @@ def main() -> None:
     args = parse_args()
     random.seed(args.seed)
 
+    # ── Resolve enabled metrics ───────────────────────────────────────────────
+    if "all" in args.metrics:
+        enabled_metrics = list(ALL_METRICS)
+    else:
+        unknown = [m for m in args.metrics if m not in ALL_METRICS]
+        if unknown:
+            logger.error(
+                "Unknown metric(s): %s. Valid choices: %s",
+                unknown, ALL_METRICS,
+            )
+            sys.exit(1)
+        enabled_metrics = args.metrics
+
+    enabled_ragas  = [m for m in enabled_metrics if m in ALL_RAGAS_METRICS]
+    enabled_custom = [m for m in enabled_metrics if m in ALL_CUSTOM_METRICS]
+
+    logger.info(
+        "Enabled metrics: RAGAS=%s  Custom=%s",
+        enabled_ragas or "(none)", enabled_custom or "(none)",
+    )
+
     # ---- 1. Load logged results ---------------------------------------------
     logger.info("Loading logged pipeline results...")
 
-    try:
-        standard_records = load_results(args.standard_results)
-    except (FileNotFoundError, ValueError) as exc:
-        logger.error("%s", exc)
-        sys.exit(1)
+    run_standard = args.pipeline in ("standard_rag", "both")
+    run_rag_plus  = args.pipeline in ("rag_plus_plus", "both")
 
-    try:
-        rag_plus_records = load_results(args.rag_plus_results)
-    except (FileNotFoundError, ValueError) as exc:
-        logger.error("%s", exc)
-        sys.exit(1)
+    if run_standard:
+        try:
+            standard_records = load_results(args.standard_results)
+        except (FileNotFoundError, ValueError) as exc:
+            logger.error("%s", exc)
+            sys.exit(1)
+    else:
+        standard_records = []
+        logger.info("--pipeline=%s: skipping standard_rag.", args.pipeline)
+
+    if run_rag_plus:
+        try:
+            rag_plus_records = load_results(args.rag_plus_results)
+        except (FileNotFoundError, ValueError) as exc:
+            logger.error("%s", exc)
+            sys.exit(1)
+    else:
+        rag_plus_records = []
+        logger.info("--pipeline=%s: skipping rag_plus_plus.", args.pipeline)
 
     # ---- 2. Sample for RAGAS (custom metrics always use full set) -----------
-    standard_sample = maybe_sample(standard_records, args.sample, "standard_rag")
-    rag_plus_sample = maybe_sample(rag_plus_records, args.sample, "rag_plus_plus")
+    standard_sample = maybe_sample(standard_records, args.sample, "standard_rag") if run_standard else []
+    rag_plus_sample = maybe_sample(rag_plus_records, args.sample, "rag_plus_plus") if run_rag_plus else []
 
     # ---- 3. Build RAGAS datasets --------------------------------------------
-    standard_dataset = build_ragas_dataset(standard_sample, "standard_rag")
-    rag_plus_dataset  = build_ragas_dataset(rag_plus_sample, "rag_plus_plus")
+    standard_dataset = build_ragas_dataset(standard_sample, "standard_rag") if run_standard else None
+    rag_plus_dataset  = build_ragas_dataset(rag_plus_sample, "rag_plus_plus") if run_rag_plus else None
 
     # ---- 4. RAGAS evaluation ------------------------------------------------
-    if args.skip_ragas:
-        logger.info("--skip-ragas set: skipping RAGAS LLM evaluation.")
-        _skipped = {
-            "faithfulness":      "SKIPPED",
-            "context_precision": "SKIPPED",
-            "context_recall":    "SKIPPED",
-            "answer_relevancy":  "SKIPPED",
-        }
+    if args.skip_ragas or not enabled_ragas:
+        if args.skip_ragas:
+            logger.info("--skip-ragas set: skipping RAGAS LLM evaluation.")
+        else:
+            logger.info("No RAGAS metrics selected -- skipping LLM evaluation.")
+        _skipped = {m: "SKIPPED" for m in enabled_ragas}
         ragas_standard = dict(_skipped)
         ragas_rag_plus  = dict(_skipped)
         evaluator_name  = "skipped"
-        evaluator_desc  = "SKIPPED (--skip-ragas)"
+        evaluator_desc  = "SKIPPED (--skip-ragas)" if args.skip_ragas else "SKIPPED (no RAGAS metrics selected)"
     else:
         # Load the chosen backend module
         try:
@@ -781,22 +826,35 @@ def main() -> None:
         ragas_standard = run_ragas_evaluation(
             standard_dataset, evaluator_llm, evaluator_embeddings,
             "standard_rag", run_config=run_config,
-        )
+            enabled_metrics=enabled_ragas,
+        ) if run_standard else {}
         ragas_rag_plus = run_ragas_evaluation(
             rag_plus_dataset, evaluator_llm, evaluator_embeddings,
             "rag_plus_plus", run_config=run_config,
-        )
+            enabled_metrics=enabled_ragas,
+        ) if run_rag_plus else {}
 
     # ---- 5. Custom metrics (always on FULL dataset) -------------------------
-    logger.info("Computing custom metrics on full datasets...")
-    custom_standard = compute_custom_metrics(standard_records, has_fallback=False)
-    custom_rag_plus  = compute_custom_metrics(rag_plus_records, has_fallback=True)
+    if run_standard or run_rag_plus:
+        logger.info("Computing custom metrics on full datasets...")
+    custom_standard = compute_custom_metrics(
+        standard_records, has_fallback=False, enabled_metrics=enabled_custom,
+    ) if run_standard else {}
+    custom_rag_plus  = compute_custom_metrics(
+        rag_plus_records, has_fallback=True, enabled_metrics=enabled_custom,
+    ) if run_rag_plus else {}
 
     # ---- 6. Merge -----------------------------------------------------------
     standard_scores = {**ragas_standard, **custom_standard}
     rag_plus_scores  = {**ragas_rag_plus,  **custom_rag_plus}
 
     # ---- 7. Output ----------------------------------------------------------
+    # For single-pipeline runs collapse to a single-column table
+    if not run_standard:
+        standard_scores = {m: "--" for m in rag_plus_scores}
+    if not run_rag_plus:
+        rag_plus_scores = {m: "--" for m in standard_scores}
+
     print_comparison_table(
         standard_scores, rag_plus_scores,
         evaluator_label=evaluator_desc,

@@ -1,31 +1,23 @@
 {
-  "evaluator_used": "nvidia",
-  "evaluator_description": "NVIDIA NIM (meta/llama-3.1-70b-instruct)",
-  "sample_size": 10,
-  "note": "RAGAS metrics computed on sample of 10 records per dataset.",
+  "evaluator_used": "skipped",
+  "evaluator_description": "SKIPPED (--skip-ragas)",
+  "sample_size": null,
+  "note": "RAGAS metrics computed on full dataset.",
   "datasets": {
     "standard_rag": {
-      "total_records": 15,
-      "ragas_records_evaluated": 10,
+      "total_records": 0,
+      "ragas_records_evaluated": 0,
       "scores": {
-        "faithfulness": 0.6241,
-        "context_precision": 0.265,
-        "context_recall": 0.3333,
-        "answer_relevancy": 0.5188,
-        "correct_refusal_rate": "N/A -- no fallback mechanism",
-        "faithfulness_check_pass_rate": "N/A -- no fallback mechanism"
+        "faithfulness": "--",
+        "correct_refusal_rate": "--"
       }
     },
     "rag_plus_plus": {
       "total_records": 15,
-      "ragas_records_evaluated": 10,
+      "ragas_records_evaluated": 15,
       "scores": {
-        "faithfulness": 0.6061,
-        "context_precision": 0.5034,
-        "context_recall": 0.3148,
-        "answer_relevancy": 0.5228,
-        "correct_refusal_rate": "100.0% (2/2)",
-        "faithfulness_check_pass_rate": "N/A -- faithfulness_check disabled in pipeline config"
+        "faithfulness": "SKIPPED",
+        "correct_refusal_rate": "100.0% (2/2)"
       }
     }
   }
