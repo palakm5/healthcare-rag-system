@@ -69,6 +69,12 @@ python3.11 -m retrieval.structured.build_entity_cache
 
 ---
 
+## System Workflow / Pipeline Diagram
+
+![RAG++ System Workflow — Ingestion, Retrieval, and Generation pipeline](../Untitled-2025-09-13-1449.png)
+
+---
+
 ## Architecture Overview
 
 ```

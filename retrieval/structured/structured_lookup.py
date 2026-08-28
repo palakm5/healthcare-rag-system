@@ -30,12 +30,18 @@ import logging
 import os
 import re
 from dataclasses import dataclass
-from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import psycopg2
 from dotenv import load_dotenv
+
+try:
+    from rapidfuzz import fuzz as _rfuzz, process as _rfprocess
+    _RAPIDFUZZ_AVAILABLE = True
+except ImportError:
+    _RAPIDFUZZ_AVAILABLE = False
+    import difflib as _difflib   # fallback to original difflib
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -46,9 +52,19 @@ CACHE_PATH    = _PROJECT_ROOT / "data" / "structured_cache" / "entity_cache.json
 SCHEMA_PATH   = _PROJECT_ROOT / "data" / "structured_cache" / "schema_snapshot.json"
 
 # ── Config ────────────────────────────────────────────────────────────────────
-FUZZY_THRESHOLD   = 0.85   # minimum SequenceMatcher ratio (raised from 0.82 to reduce false positives)
-MIN_TOKEN_LENGTH  = 3      # ignore shorter tokens in entity matching
-MAX_ENTITY_TABLES = 4      # cap tables passed to LLM
+
+# Fuzzy match threshold — rapidfuzz WRatio score (0–100).
+# 85 ≈ the former difflib 0.85 ratio; lower values increase recall at the
+# cost of false positives.  Tune by reviewing logs/entity_match_log.jsonl.
+FUZZY_THRESHOLD: int = 85          # rapidfuzz WRatio (0–100)
+FUZZY_THRESHOLD_DIFFLIB: float = 0.85  # kept for fallback if rapidfuzz absent
+
+MIN_TOKEN_LENGTH: int = 3          # ignore shorter tokens in entity matching
+MAX_ENTITY_TABLES: int = 4         # cap tables passed to LLM
+
+# Set True to log every fuzzy attempt (hit or miss) to logs/entity_match_log.jsonl.
+# Useful for threshold tuning; leave False in production to avoid large logs.
+LOG_ALL_MATCH_ATTEMPTS: bool = True
 
 
 # ── Result types ──────────────────────────────────────────────────────────────
@@ -252,53 +268,157 @@ class EntityMatcher:
         return tokens
 
     def match(self, question: str) -> List[EntityMatch]:
-        """Find all entity matches in the question."""
+        """
+        Find all entity matches in the question.
+
+        Two-pass strategy per token:
+            1. Exact match:  O(1) hash lookup in the entity cache.
+            2. Fuzzy match:  rapidfuzz.process.extractOne over all cache keys
+               (WRatio scorer, score_cutoff=FUZZY_THRESHOLD).  Falls back to
+               difflib SequenceMatcher if rapidfuzz is unavailable.
+
+        Every fuzzy attempt (hit AND miss) is optionally logged to
+        logs/entity_match_log.jsonl when LOG_ALL_MATCH_ATTEMPTS=True,
+        so you can review borderline scores and tune FUZZY_THRESHOLD.
+        """
         if not self._cache.is_loaded:
             return []
 
         tokens    = self._tokenize(question)
         seen_keys: Dict[str, EntityMatch] = {}
 
-        for token in tokens:
-            # 1. Exact match
-            entries = self._cache.get_entries(token)
-            if entries:
-                tables   = list({e["table"] for e in entries})
-                original = entries[0]["original"]
-                m = EntityMatch(
-                    original_token=token, matched_value=original,
-                    matched_key=token, tables=tables,
-                    match_type="exact", score=1.0,
-                )
-                if token not in seen_keys or seen_keys[token].score < 1.0:
-                    seen_keys[token] = m
-                continue
+        # Lazy-initialise log file handle
+        _log_path = _PROJECT_ROOT / "logs" / "entity_match_log.jsonl"
+        _log_fh   = None
+        if LOG_ALL_MATCH_ATTEMPTS:
+            _log_path.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                _log_fh = open(_log_path, "a", encoding="utf-8")
+            except OSError as e:
+                logger.warning("Could not open entity match log: %s", e)
 
-            # 2. Fuzzy match
-            if self._fuzzy and len(token) >= MIN_TOKEN_LENGTH:
-                best_key, best_score = "", 0.0
-                for key in self._get_all_keys():
-                    if abs(len(key) - len(token)) > 8:
-                        continue
-                    score = SequenceMatcher(None, token, key).ratio()
-                    if score > best_score:
-                        best_score = score
-                        best_key   = key
+        import json as _json
+        import time as _time
+        _ts = _time.strftime("%Y-%m-%dT%H:%M:%S")
 
-                if best_score >= FUZZY_THRESHOLD:
-                    entries = self._cache.get_entries(best_key)
-                    if entries:
-                        tables   = list({e["table"] for e in entries})
-                        original = entries[0]["original"]
-                        m = EntityMatch(
-                            original_token=token, matched_value=original,
-                            matched_key=best_key, tables=tables,
-                            match_type="fuzzy", score=best_score,
-                        )
-                        if best_key not in seen_keys or seen_keys[best_key].score < best_score:
-                            seen_keys[best_key] = m
+        def _log(record: dict):
+            if _log_fh:
+                _log_fh.write(_json.dumps(record, ensure_ascii=False) + "\n")
+
+        all_keys = self._get_all_keys()
+
+        try:
+            for token in tokens:
+                # 1. Exact match
+                entries = self._cache.get_entries(token)
+                if entries:
+                    tables   = list({e["table"] for e in entries})
+                    original = entries[0]["original"]
+                    m = EntityMatch(
+                        original_token=token, matched_value=original,
+                        matched_key=token, tables=tables,
+                        match_type="exact", score=1.0,
+                    )
+                    if token not in seen_keys or seen_keys[token].score < 1.0:
+                        seen_keys[token] = m
+                    _log({"ts": _ts, "question": question[:80], "token": token,
+                          "match_type": "exact", "matched_key": token,
+                          "score": 100, "hit": True, "tables": tables})
+                    continue
+
+                # 2. Fuzzy match
+                if not self._fuzzy or len(token) < MIN_TOKEN_LENGTH:
+                    _log({"ts": _ts, "question": question[:80], "token": token,
+                          "match_type": "skip", "hit": False,
+                          "reason": "fuzzy disabled or token too short"})
+                    continue
+
+                if _RAPIDFUZZ_AVAILABLE:
+                    # rapidfuzz.process.extractOne returns (match, score, key_index)
+                    # WRatio handles abbreviations, partial matches, case differences.
+                    result = _rfprocess.extractOne(
+                        token, all_keys,
+                        scorer=_rfuzz.WRatio,
+                        score_cutoff=FUZZY_THRESHOLD,
+                    )
+                    if result is not None:
+                        best_key, best_score_rf, _ = result
+                        # normalise to 0–1 for EntityMatch.score field consistency
+                        best_score = best_score_rf / 100.0
+                        entries = self._cache.get_entries(best_key)
+                        if entries:
+                            tables   = list({e["table"] for e in entries})
+                            original = entries[0]["original"]
+                            m = EntityMatch(
+                                original_token=token, matched_value=original,
+                                matched_key=best_key, tables=tables,
+                                match_type="fuzzy_rapidfuzz",
+                                score=best_score,
+                            )
+                            if best_key not in seen_keys or seen_keys[best_key].score < best_score:
+                                seen_keys[best_key] = m
+                            _log({"ts": _ts, "question": question[:80], "token": token,
+                                  "match_type": "fuzzy_rapidfuzz", "matched_key": best_key,
+                                  "score": best_score_rf, "hit": True, "tables": tables})
+                        else:
+                            _log({"ts": _ts, "question": question[:80], "token": token,
+                                  "match_type": "fuzzy_rapidfuzz", "matched_key": best_key,
+                                  "score": best_score_rf, "hit": False,
+                                  "reason": "no cache entries for matched key"})
+                    else:
+                        # Log the best score we found even though it didn't pass threshold
+                        # so the user can tune FUZZY_THRESHOLD.
+                        try:
+                            top = _rfprocess.extractOne(token, all_keys, scorer=_rfuzz.WRatio)
+                            best_score_miss = top[1] if top else 0
+                            best_key_miss   = top[0] if top else ""
+                        except Exception:
+                            best_score_miss, best_key_miss = 0, ""
+                        _log({"ts": _ts, "question": question[:80], "token": token,
+                              "match_type": "fuzzy_rapidfuzz", "hit": False,
+                              "best_miss_key": best_key_miss,
+                              "best_miss_score": best_score_miss,
+                              "threshold": FUZZY_THRESHOLD})
+
+                else:
+                    # difflib fallback
+                    import difflib as _difflib_mod
+                    best_key, best_score = "", 0.0
+                    for key in all_keys:
+                        if abs(len(key) - len(token)) > 8:
+                            continue
+                        score = _difflib_mod.SequenceMatcher(None, token, key).ratio()
+                        if score > best_score:
+                            best_score = score
+                            best_key   = key
+
+                    if best_score >= FUZZY_THRESHOLD_DIFFLIB:
+                        entries = self._cache.get_entries(best_key)
+                        if entries:
+                            tables   = list({e["table"] for e in entries})
+                            original = entries[0]["original"]
+                            m = EntityMatch(
+                                original_token=token, matched_value=original,
+                                matched_key=best_key, tables=tables,
+                                match_type="fuzzy_difflib",
+                                score=best_score,
+                            )
+                            if best_key not in seen_keys or seen_keys[best_key].score < best_score:
+                                seen_keys[best_key] = m
+                        _log({"ts": _ts, "question": question[:80], "token": token,
+                              "match_type": "fuzzy_difflib", "matched_key": best_key,
+                              "score": round(best_score * 100, 1), "hit": bool(entries)})
+                    else:
+                        _log({"ts": _ts, "question": question[:80], "token": token,
+                              "match_type": "fuzzy_difflib", "hit": False,
+                              "best_score": round(best_score * 100, 1),
+                              "threshold": FUZZY_THRESHOLD_DIFFLIB * 100})
+        finally:
+            if _log_fh:
+                _log_fh.close()
 
         return sorted(seen_keys.values(), key=lambda m: m.score, reverse=True)
+
 
 
 # ── Main structured lookup class ──────────────────────────────────────────────
@@ -387,6 +507,7 @@ class StructuredLookup:
         from retrieval.structured.query_templates import (
             find_template_for_entity,
             execute_template,
+            run_all_matched_templates,
         )
 
         tmpl_result = find_template_for_entity(
@@ -394,34 +515,44 @@ class StructuredLookup:
             question_lower=question.lower(),
         )
 
-        if tmpl_result is not None:
-            template_id, template = tmpl_result
+        _COMPOUND_TABLES = {"janaushadhi", "medicinedetails"}
 
-            # Pick the entity value from a match whose tables overlap with the
-            # template's target tables -- avoids running the wrong entity
-            # (e.g. 'ayurvedic' from janaushadhi) when a better match exists
-            # for the actual template table (e.g. 'tulsi' from herb).
-            template_entity_tables = set(template.entity_tables)
-            _COMPOUND_TABLES = {"janaushadhi", "medicinedetails"}
+        def _pick_entity_value(template_entity_tables):
+            """
+            Pick the entity value string to use as the LIKE query parameter.
+
+            Priority order for the chosen value:
+              1. matched_value, if it is a single word (no compound drug name
+                 pollution) — preserves cache capitalisation.
+              2. matched_key, if the match was fuzzy (matched_key holds the
+                 correctly-spelled cache key, e.g. 'ashwagandha', whereas
+                 original_token may be misspelled, e.g. 'ashwaganda').
+              3. original_token for compound-name tables (janaushadhi /
+                 medicinedetails) — broadens LIKE beyond one specific compound.
+              4. entity_value as a last-resort fallback.
+            """
             for m in matches:
-                if set(m.tables) & template_entity_tables:
-                    # For compound-name tables the cache stores the full drug
-                    # string (e.g. "Aceclofenac 100mg and Paracetamol 325mg
-                    # Tablets") as matched_value. The LIKE template wraps the
-                    # value in % wildcards, but using the full compound name
-                    # returns only that exact drug instead of all drugs
-                    # containing the ingredient. Use the original_token
-                    # (e.g. "Paracetamol") so the LIKE search is broader.
-                    if set(m.tables) & _COMPOUND_TABLES:
-                        entity_value = m.original_token
-                    else:
-                        entity_value = m.matched_value
-                    break
+                if set(m.tables) & set(template_entity_tables):
+                    mv_words = m.matched_value.split()
+                    if len(mv_words) == 1:
+                        # Simple single-word value — use it directly
+                        return m.matched_value
+                    if m.match_type.startswith("fuzzy"):
+                        # Fuzzy hit: matched_key has correct spelling; use it
+                        return m.matched_key
+                    # Exact hit on a compound name — use original_token to broaden
+                    return m.original_token
+            return entity_value  # fallback to best-scored match
 
-            logger.info("Using template '%s' for entity '%s'.", template_id, entity_value)
+        if tmpl_result is not None:
+            # ── Single-template path (clear winner) ──────────────────────────
+            template_id, template = tmpl_result
+            ev = _pick_entity_value(template.entity_tables)
+
+            logger.info("Using template '%s' for entity '%s'.", template_id, ev)
             try:
                 conn = self._get_conn()
-                raw  = execute_template(template_id, entity_value, conn)
+                raw  = execute_template(template_id, ev, conn)
             except RuntimeError as e:
                 return StructuredResult(
                     path="template", template_id=template_id, question=question,
@@ -440,6 +571,60 @@ class StructuredLookup:
                 rows_returned=len(raw.get("rows", [])),
                 provenance_label="DB:" + ",".join(template.tables),
                 error=raw.get("error"),
+            )
+
+        else:
+            # ── Multi-table path (ambiguous — run all matched templates) ──────
+            logger.info(
+                "Ambiguous entity '%s' — running all templates for tables %s.",
+                entity_value, matched_tables,
+            )
+            try:
+                conn = self._get_conn()
+                all_raw = run_all_matched_templates(
+                    entity_tables=matched_tables,
+                    entity_value=_pick_entity_value(matched_tables),
+                    conn=conn,
+                )
+            except RuntimeError as e:
+                return StructuredResult(
+                    path="multi_template", template_id=None, question=question,
+                    entity_matches=matches, matched_tables=matched_tables,
+                    sql=None, rows=[], columns=[], rows_returned=0,
+                    provenance_label="DB:" + ",".join(matched_tables),
+                    error=str(e),
+                )
+
+            # Merge rows from all templates; label each row with its source template
+            merged_rows: List[Dict] = []
+            all_columns: List[str] = []
+            all_tables_found: List[str] = []
+            errors = []
+            for raw in all_raw:
+                if raw.get("error"):
+                    errors.append(f"{raw.get('template_id','?')}: {raw['error']}")
+                    continue
+                for row in raw.get("rows", []):
+                    labeled_row = dict(row)
+                    labeled_row["_source_template"] = raw.get("template_id", "?")
+                    labeled_row["_source_table"]    = raw.get("source_table", "?")
+                    merged_rows.append(labeled_row)
+                for col in raw.get("columns", []):
+                    if col not in all_columns:
+                        all_columns.append(col)
+                for tbl in raw.get("source_table", "").split(","):
+                    if tbl and tbl not in all_tables_found:
+                        all_tables_found.append(tbl)
+
+            return StructuredResult(
+                path="multi_template", template_id=None, question=question,
+                entity_matches=matches, matched_tables=all_tables_found or matched_tables,
+                sql=None,
+                rows=merged_rows,
+                columns=all_columns,
+                rows_returned=len(merged_rows),
+                provenance_label="DB:" + ",".join(all_tables_found or matched_tables),
+                error="; ".join(errors) if errors else None,
             )
 
         # 3. LLM SQL path

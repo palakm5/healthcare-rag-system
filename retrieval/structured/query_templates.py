@@ -232,46 +232,24 @@ def find_template_for_entity(
     question_lower: str,
 ) -> Optional[Tuple[str, Template]]:
     """
-    Find the highest-priority matching template given entity tables + question text.
+    Find the best matching template for the given entity tables and question.
 
-    Priority: definition order in TEMPLATES (first match wins).
-    Keyword hints disambiguate when multiple templates share the same entity_tables.
+    Disambiguation strategy (in priority order):
+        1. Build candidate templates from entity_tables (same as before).
+        2. Score each candidate using per-TABLE signal keywords from
+           table_descriptions.SIGNAL_KEYWORDS.  Keywords are table-level, so
+           every template that touches a high-signal table inherits its score.
+        3. If there is a clear winner (highest table-signal score > 0 AND
+           strictly greater than the second-best), return that template.
+        4. If scores tie or are all zero AND the candidates span > 1 source
+           table, return None → the caller (StructuredLookup.lookup) will run
+           all matched templates and merge results.
+        5. If only one candidate, return it directly (no ambiguity).
 
     Returns:
-        (template_id, Template) or None if no match.
+        (template_id, Template) tuple, or None to signal "run all matches".
     """
-    KEYWORD_OVERRIDES = {
-        "drug_price_lookup": [
-            "mrp", "price", "cost", "how much", "rate", "maximum retail",
-        ],
-        "drug_sideeffects_lookup": [
-            "side effect", "side-effect", "adverse", "reaction", "danger", "risk",
-        ],
-        "drug_composition_lookup": [
-            "composition", "ingredient", "contain", "made of", "active", "formula",
-        ],
-        "drug_uses_lookup": [
-            "use", "indication", "treat", "prescribed", "given for", "purpose",
-        ],
-        "herb_dosha_lookup": [
-            "dosha", "vata", "pitta", "kapha", "balance",
-        ],
-        # formulation_by_indication must win over herb_indications_lookup
-        # when the question asks for formulations for a classical indication.
-        "formulation_by_indication": [
-            "formulation", "formulat", "preparation", "indicated for",
-            "which formulation", "recommended for", "prescribe",
-        ],
-        "herb_indications_lookup": [
-            "herb indicat", "classical use of herb", "herb for which",
-        ],
-        "formulation_dose_lookup": [
-            "dose", "dosage", "how much", "precaution", "preferred use",
-        ],
-        "lab_reference_lookup": [
-            "measure", "unit", "what is", "reference range", "normal range",
-        ],
-    }
+    from retrieval.structured.table_descriptions import SIGNAL_KEYWORDS
 
     candidate_ids: List[str] = []
     for et in entity_tables:
@@ -283,21 +261,103 @@ def find_template_for_entity(
         return None
 
     if len(candidate_ids) == 1:
-        tid = candidate_ids[0]
-        return tid, TEMPLATES[tid]
+        return candidate_ids[0], TEMPLATES[candidate_ids[0]]
 
-    # Score by keyword hints; fall back to first candidate
-    best_id, best_score = candidate_ids[0], 0
+    # ── Score each candidate by table-level signal keywords ──────────────────
+    # A template's score = sum of keyword hits across ALL its entity_tables.
+    scores: Dict[str, int] = {}
     for tid in candidate_ids:
-        score = sum(
-            1 for kw in KEYWORD_OVERRIDES.get(tid, [])
-            if kw in question_lower
-        )
-        if score > best_score:
-            best_score = score
-            best_id = tid
+        tmpl = TEMPLATES[tid]
+        score = 0
+        for et in tmpl.entity_tables:
+            for kw in SIGNAL_KEYWORDS.get(et, []):
+                if kw in question_lower:
+                    score += 1
+        scores[tid] = score
 
-    return best_id, TEMPLATES[best_id]
+    sorted_candidates = sorted(candidate_ids, key=lambda t: scores[t], reverse=True)
+    best_id    = sorted_candidates[0]
+    best_score = scores[best_id]
+    second_score = scores[sorted_candidates[1]] if len(sorted_candidates) > 1 else 0
+
+    logger.debug(
+        "Template disambiguation scores: %s",
+        {tid: scores[tid] for tid in sorted_candidates},
+    )
+
+    # Clear winner: best has a nonzero score AND is strictly better than #2
+    if best_score > 0 and best_score > second_score:
+        logger.info(
+            "Template '%s' selected (score=%d > second=%d) for tables %s.",
+            best_id, best_score, second_score, entity_tables,
+        )
+        return best_id, TEMPLATES[best_id]
+
+    # Ambiguous: all scores equal (possibly all zero). Check if all candidates
+    # hit the same underlying source tables — if so, just return the first.
+    candidate_source_tables: set = set()
+    for tid in candidate_ids:
+        candidate_source_tables.update(TEMPLATES[tid].entity_tables)
+
+    if len(candidate_source_tables) == 1:
+        # All candidates touch the same table — no routing ambiguity; pick first.
+        logger.info(
+            "Template '%s' selected (single source table, no ambiguity).", best_id
+        )
+        return best_id, TEMPLATES[best_id]
+
+    # Genuine ambiguity: multiple source tables, no clear signal.
+    # Return None so caller runs all matched templates and merges.
+    logger.info(
+        "Template ambiguous — no clear signal for tables %s. "
+        "Returning None to trigger multi-table lookup.",
+        entity_tables,
+    )
+    return None
+
+
+def run_all_matched_templates(
+    entity_tables: List[str],
+    entity_value: str,
+    conn,
+) -> List[Dict]:
+    """
+    Run every template that matches the given entity_tables and return all results.
+
+    Called by StructuredLookup.lookup() when find_template_for_entity returns
+    None (ambiguous — multiple source tables, no signal keyword winner).
+
+    Each result dict has the same schema as execute_template() plus a
+    ``source_table`` key identifying which template produced it.
+
+    Args:
+        entity_tables:  Tables matched by the entity matcher.
+        entity_value:   Entity value string (used as the LIKE parameter).
+        conn:           Open read-only psycopg2 connection.
+
+    Returns:
+        List of result dicts, one per matched template (empty-rows entries
+        are included so the caller can log them; filter by rows_returned > 0
+        for actual data).
+    """
+    seen_template_ids: List[str] = []
+    for et in entity_tables:
+        for tid in _TABLE_TO_TEMPLATE_IDS.get(et, []):
+            if tid not in seen_template_ids:
+                seen_template_ids.append(tid)
+
+    results = []
+    for tid in seen_template_ids:
+        raw = execute_template(tid, entity_value, conn)
+        raw["source_table"] = ",".join(TEMPLATES[tid].tables)
+        raw["template_description"] = TEMPLATES[tid].description
+        results.append(raw)
+        logger.info(
+            "multi-table run: template='%s' entity='%s' rows=%d error=%s",
+            tid, entity_value, len(raw.get("rows", [])), raw.get("error"),
+        )
+    return results
+
 
 
 def build_template_params(template: Template, entity_value: str) -> Tuple:
